@@ -1,10 +1,10 @@
-const app = require("./app");
+import { app } from "./app";
 
 // load .env data into process.env
-require("dotenv").config();
+// require("dotenv").config();
 
-const PORT = process.env.PORT || 8081;
-const ENV = process.env.ENV;
+// const PORT = process.env.PORT || 8081;
+// const ENV = process.env.ENV;
 
 
 app.listen(8081, () => {
