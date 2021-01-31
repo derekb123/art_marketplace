@@ -1,13 +1,15 @@
-const pool = require("./db");
+import { pool } from "../library/db-pool"
+// const pool = require("../library/db-pool");
 import { getAllUsersQuery } from "../library/users-queries"
 
 //get all users
 
-const getAllUsers = function async (limit: number): Promise<any> {
+const getAllUsers = function(): Promise<any> {
+  console.log(pool);
   return pool
     .query(getAllUsersQuery)
-    .then((res) => {
-      console.log(typeof res);
+    .then((res: any) => {
+      // console.log(typeof res);
       return res.rows;
     });
 };

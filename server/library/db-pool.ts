@@ -1,17 +1,18 @@
-const { Pool } = require('pg');
+import { Pool } from 'pg';
+// const { Pool } = require('pg');
 require('dotenv').config();
 // import Pool from 'pg';
 
-interface IDbConnectObject {
-  connectionString?: string;
-  host?: string,
-  port?: string,
-  user?: string,
-  password?: string,
-  database?: string
-}
+// interface IDbConnectObject {
+//   connectionString?: string;
+//   host?: string,
+//   port?: string,
+//   user?: string,
+//   password?: string,
+//   database?: string
+// }
 
-let dbParams: IDbConnectObject = {};
+let dbParams: any = {};
 if (process.env.DATABASE_URL) {
   dbParams.connectionString = process.env.DATABASE_URL;
 } else {
@@ -25,4 +26,5 @@ if (process.env.DATABASE_URL) {
 }
 
 const pool = new Pool(dbParams);
+// console.log(pool);
 export { pool };

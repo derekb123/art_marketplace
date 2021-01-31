@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest --watchAll",
     "jestrunner.jestCommand": "npm run test --",
-    "start": "node server.js",
+    "start": "node server.ts",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.ts"
   },
@@ -28,6 +28,7 @@
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
+    "@types/pg": "^7.14.9",
     "eslint": "^7.18.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.0",
