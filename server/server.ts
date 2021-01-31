@@ -1,12 +1,9 @@
 import { app } from "./app";
+require('dotenv').config();
 
-// load .env data into process.env
-// require("dotenv").config();
-
-// const PORT = process.env.PORT || 8081;
-// const ENV = process.env.ENV;
+const PORT = process.env.SERVERPORT || 8081;
 
 
-app.listen(8081, () => {
-  console.log("Server is now running!")
+app.listen(PORT, () => {
+  console.log(`Server is now running on port ${PORT}!`)
 });

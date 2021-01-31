@@ -1,9 +1,13 @@
 // web server config
 import express from 'express';
-// import { restart } from 'nodemon';
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
+
+//load .env data into process.env
+require('dotenv').config();
+
+// import { restart } from 'nodemon';
 
 // app.use((error, req, res, next) => {
 //   restart.status(500).json({message: error.message})
