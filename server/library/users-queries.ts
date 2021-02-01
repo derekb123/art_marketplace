@@ -1,4 +1,4 @@
-const getAllUsersQuery: string = 
+const getAllUsersQuery: string =
   `SELECT *
   FROM users`;
 
