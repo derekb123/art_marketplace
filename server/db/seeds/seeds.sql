@@ -1,12 +1,4 @@
--- create table users (
--- 	id INT,
--- 	username VARCHAR(50),
--- 	email VARCHAR(50),
--- 	password VARCHAR(50),
--- 	creator VARCHAR(50),
--- 	avatar VARCHAR(50),
--- 	created_at DATE
--- );
+-- USERS
 insert into users (id, username, email, password, creator, avatar, created_at) values (1, 'Clair', 'claxon0@constantcontact.com', 'kpXh5ULGb', false, 'http://dummyimage.com/172x109.bmp/ff4444/ffffff', '8/7/2020');
 insert into users (id, username, email, password, creator, avatar, created_at) values (2, 'Farlee', 'fthurlbourne1@cornell.edu', 'FUv8FmPN', false, 'http://dummyimage.com/138x227.bmp/ff4444/ffffff', '1/2/2021');
 insert into users (id, username, email, password, creator, avatar, created_at) values (3, 'Amandie', 'ameagh2@uol.com.br', 'e3ofFXkhV', false, 'http://dummyimage.com/108x138.bmp/ff4444/ffffff', '1/19/2021');
