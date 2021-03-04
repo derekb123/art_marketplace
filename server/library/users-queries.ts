@@ -1,13 +1,11 @@
-const getAllUsersQuery: string =
+module.exports.getAllUsersQuery =
   `SELECT *
   FROM users`;
 
-export { getAllUsersQuery} ;
 
-const getUserByIdQuery: string =
+
+module.exports.getUserByIdQuery =
 
   `SELECT *
   FROM users
   WHERE id = $1`;
-
-export { getUserByIdQuery };

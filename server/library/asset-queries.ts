@@ -1,13 +1,13 @@
 
 
-exports.getAllAssetsQuery =
+module.exports.getAllAssetsQuery =
   `SELECT *
   FROM assets
   ORDER BY created_at DESC
   LIMIT $1;`;
 
 
-exports.getAllAssetsQueryByTag =
+module.exports.getAllAssetsQueryByTag =
   `SELECT *
   FROM assets
   WHERE 
@@ -15,14 +15,14 @@ exports.getAllAssetsQueryByTag =
   LIMIT $1;`;
 
 
-exports.getAssetByIdQuery =
+module.exports.getAssetByIdQuery =
 
   `SELECT *
   FROM assets
   WHERE id = $1`;
 
 
-exports.getAllAssetsQueryBySearch =
+module.exports.getAllAssetsQueryBySearch =
 
   `SELECT *
   FROM assets
