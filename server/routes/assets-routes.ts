@@ -7,7 +7,7 @@ const getAssetById = require('../controllers/assets-controller');
 
 module.exports = function (router: any, controller: any) {
 
-const getAllAssetsRoute = router.get('/assets', (req: any, res: any) => {
+const getAllAssetsRoute = router.get('/', (req: any, res: any) => {
   return controller
     .getAllAssets(10)
     .then((data: any) => {
@@ -17,7 +17,8 @@ const getAllAssetsRoute = router.get('/assets', (req: any, res: any) => {
 
 // export { getAllAssetsRoute };
 
-const getAssetByIdRoute = router.get('/assets/:id', (req: any, res: any) => {
+const getAssetByIdRoute = router.get('/:id', (req: any, res: any) => {
+  console.log(req.params)
   return controller
     .getAssetById(req.params)
     .then((data: any) => {
