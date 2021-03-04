@@ -4,7 +4,7 @@ import { getAllUsersQuery } from "../library/users-queries"
 
 //get all users
 
-const getAllUsers = function(): Promise<any> {
+module.exports.getAllUsers = function(): Promise<any> {
   return pool
     .query(getAllUsersQuery)
     .then((res: any) => {
@@ -13,4 +13,4 @@ const getAllUsers = function(): Promise<any> {
     });
 };
 
-export {getAllUsers};
+// export {getAllUsers};

@@ -12,7 +12,7 @@ CREATE TABLE users
   created_at TIMESTAMP DEFAULT current_timestamp
 );
 
-DROP TABLE IF EXISTS asset_base
+DROP TABLE IF EXISTS assets
 CASCADE;
 
 CREATE TABLE assets (
@@ -24,7 +24,8 @@ CREATE TABLE assets (
 	size VARCHAR(255),
 	likes INT,
 	views INT,
-	category VARCHAR(255)
+	category VARCHAR(255),
+  created_at TIMESTAMP DEFAULT current_timestamp
 );
 
 DROP TABLE IF EXISTS transactions
@@ -46,14 +47,14 @@ CREATE TABLE transactions
   created_at TIMESTAMP DEFAULT current_timestamp
 );
 
-DROP TABLE IF EXISTS item_tag
+DROP TABLE IF EXISTS asset_tags
 CASCADE;
 
-CREATE TABLE item_tag
+CREATE TABLE asset_tags
 (
   id SERIAL PRIMARY KEY NOT NULL,
-  asset_base_id VARCHAR(255) NOT NULL,
-  tag_id VARCHAR(255) NOT NULL
+  asset_id VARCHAR(255) NOT NULL,
+  tag_id INTEGER[]
 );
 
 DROP TABLE IF EXISTS tags
@@ -61,6 +62,7 @@ CASCADE;
 
 CREATE TABLE tags
 (
+  id SERIAL PRIMARY KEY NOT NULL,
   tag VARCHAR(255) NOT NULL
 );
 

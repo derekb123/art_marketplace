@@ -1,10 +1,12 @@
 import express from 'express';
 const router = express.Router();
 // import { Router } from 'express';
-import {getAllUsers} from '../controllers/users-controller';
+const {getAllUsers} = require('../controllers/users-controller');
+
+module.exports = function (router: any, controller: any) {
 
   // const getAllUsersRoute = router.get('/users', getAllUsers);
-  const getAllUsersRoute = router.get('/users', (req: any, res: any) => {
+  router.get('/users', (req: any, res: any) => {
     console.log(getAllUsers());
     return getAllUsers()
     .then((data: any) => {
@@ -13,4 +15,5 @@ import {getAllUsers} from '../controllers/users-controller';
     })
   });
 
-  export default getAllUsersRoute;
+  return router;
+}

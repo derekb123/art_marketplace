@@ -11,31 +11,18 @@ insert into users (id, username, email, user_password, creator, avatar, created_
 insert into users (id, username, email, user_password, creator, avatar, created_at) values (9, 'Shalna', 'sbulloch8@arstechnica.com', 'VDz55U7zlhVa', true, 'https://robohash.org/laboreadipisciiusto.png?size=50x50&set=set1', '8/29/2020');
 insert into users (id, username, email, user_password, creator, avatar, created_at) values (10, 'Markus', 'mrainger9@shinystat.com', 'JDSQzV', true, 'https://robohash.org/doloremqueassumendaqui.bmp?size=50x50&set=set1', '2/1/2020');
 
--- asset_base
+-- assets
 
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (1, 'Anthropoides paradisea', 'Curabitur convallis.', 'http://dummyimage.com/144x143.png/5fa2dd/ffffff', 9, 'Jyoti', 8, 85);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (2, 'Funambulus pennati', 'Morbi a ipsum. Integer a nibh.', 'http://dummyimage.com/199x205.jpg/ff4444/ffffff', 1, 'Ewan', 6, 50);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (3, 'Cabassous sp.', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.', 'http://dummyimage.com/146x211.bmp/dddddd/000000', 4, 'Friedrich', 2, 40);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (4, 'Erethizon dorsatum', '', 'http://dummyimage.com/167x197.png/5fa2dd/ffffff', 4, 'Thor', 8, 15);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (5, 'Martes americana', '', 'http://dummyimage.com/127x206.png/ff4444/ffffff', 6, 'Noelle', 9, 54);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (6, 'Naja sp.', 'Donec vitae nisi.', 'http://dummyimage.com/204x145.jpg/ff4444/ffffff', 9, 'Morlee', 8, 59);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (7, 'Phaethon aethereus', 'Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.', 'http://dummyimage.com/224x176.png/5fa2dd/ffffff', 3, 'Giovanni', 5, 91);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (8, 'Sarcorhamphus papa', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.', 'http://dummyimage.com/176x163.jpg/5fa2dd/ffffff', 9, 'Kalvin', 9, 22);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (9, 'Chionis alba', 'Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 'http://dummyimage.com/178x206.png/5fa2dd/ffffff', 2, 'Selestina', 6, 94);
-insert into asset_base (id, asset_name, asset_description, asset_image, creator_id, creator_name, edition_size, royalty_rate) values (10, 'Eurocephalus anguitimens', 'Ut at dolor quis odio consequat varius. Integer ac leo.', 'http://dummyimage.com/185x206.jpg/dddddd/000000', 9, 'Ivan', 1, 12);
-
---asset_item
-
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (1, 9, 6, 2, true, '201.40', '10/9/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (2, 1, 9, 2, true, '628.28', '6/5/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (3, 7, 3, 4, true, '666.17', '3/21/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (4, 2, 6, 4, false, '965.22', '10/5/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (5, 9, 9, 3, false, '818.37', '9/18/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (6, 4, 7, 2, true, '284.86', '8/8/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (7, 1, 6, 3, false, '476.85', '11/19/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (8, 6, 10, 4, true, '199.29', '9/8/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (9, 8, 9, 2, true, '494.92', '11/6/2020');
-insert into asset_item (id, owner_id, asset_base_id, edition_number, for_sale, sale_price, created_at) values (10, 5, 4, 2, false, '680.03', '2/8/2021');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (1, 'Jane', 'In sagittis dui vel nisl.', 'http://dummyimage.com/186x204.jpg/dddddd/000000', 4, '28" x 00"', 37, 97, 'Indigo', '9/25/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (2, 'Lyell', 'Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla.', 'http://dummyimage.com/116x125.jpg/5fa2dd/ffffff', 1, '09" x 07"', 14, 73, 'Teal', '8/13/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (3, 'Teriann', '', 'http://dummyimage.com/140x124.jpg/cc0000/ffffff', 4, '72" x 02"', 84, 88, 'Puce', '4/23/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (4, 'Alayne', '', 'http://dummyimage.com/212x211.png/ff4444/ffffff', 3, '35" x 82"', 71, 33, 'Green', '5/1/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (5, 'Corine', '', 'http://dummyimage.com/100x219.png/ff4444/ffffff', 2, '19" x 48"', 31, 59, 'Turquoise', '4/11/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (6, 'Jackquelin', '', 'http://dummyimage.com/198x213.bmp/cc0000/ffffff', 8, '09" x 35"', 42, 62, 'Blue', '10/10/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (7, 'Shane', 'Morbi a ipsum.', 'http://dummyimage.com/183x228.png/dddddd/000000', 4, '34" x 69"', 13, 88, 'Puce', '1/27/2021');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (8, 'Evangelin', 'Donec posuere metus vitae ipsum. Aliquam non mauris.', 'http://dummyimage.com/161x139.png/ff4444/ffffff', 4, '36" x 38"', 40, 43, 'Purple', '2/28/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (9, 'Lodovico', 'Nullam molestie nibh in lectus.', 'http://dummyimage.com/111x186.bmp/5fa2dd/ffffff', 4, '26" x 44"', 24, 45, 'Goldenrod', '5/14/2020');
+insert into assets (id, title, asset_description, asset_image, creator_id, size, likes, views, category, created_at) values (10, 'Lanie', 'Morbi vel lectus in quam fringilla rhoncus.', 'http://dummyimage.com/217x212.bmp/dddddd/000000', 2, '04" x 58"', 92, 43, 'Goldenrod', '7/18/2020');
 
 --transactions
 
@@ -50,3 +37,38 @@ insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, pa
 insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (9, 2, 2, 1, 'vulputate', 'mastercard', '800.16', '6.21', '3.59', '3.32', '1.74', '7/13/2020');
 insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (10, 4, 1, 9, 'luctus', 'visa-electron', '176.43', '6.60', '8.86', '5.57', '5.37', '8/11/2020');
 
+--tags
+
+insert into tags (id, tag) values (1, 'Action|Thriller|War');
+insert into tags (id, tag) values (2, 'Documentary');
+insert into tags (id, tag) values (3, 'Comedy');
+insert into tags (id, tag) values (4, 'Documentary');
+insert into tags (id, tag) values (5, 'Drama');
+insert into tags (id, tag) values (6, 'Comedy|Musical');
+insert into tags (id, tag) values (7, 'Musical|Western');
+insert into tags (id, tag) values (8, 'Children|Comedy');
+insert into tags (id, tag) values (9, 'Crime|Drama');
+insert into tags (id, tag) values (10, 'Documentary');
+insert into tags (id, tag) values (11, 'Action|Crime');
+insert into tags (id, tag) values (12, 'Crime|Drama|Thriller');
+insert into tags (id, tag) values (13, 'Action|Crime|Thriller');
+insert into tags (id, tag) values (14, 'Drama|Romance');
+insert into tags (id, tag) values (15, 'Fantasy|Romance');
+insert into tags (id, tag) values (16, 'Children|Drama');
+insert into tags (id, tag) values (17, 'Comedy|Musical|Western');
+insert into tags (id, tag) values (18, 'Crime|Drama');
+insert into tags (id, tag) values (19, 'Action|Drama|War');
+insert into tags (id, tag) values (20, 'Crime|Drama');
+
+--asset_tags
+
+insert into asset_tags (id, asset_id, tag_id) values (1, 1, '{6,4,16}');
+insert into asset_tags (id, asset_id, tag_id) values (2, 1, '{19,9,9}');
+insert into asset_tags (id, asset_id, tag_id) values (3, 3, '{19,4}');
+insert into asset_tags (id, asset_id, tag_id) values (4, 7, '{13,20}');
+insert into asset_tags (id, asset_id, tag_id) values (5, 1, '{5,5}');
+insert into asset_tags (id, asset_id, tag_id) values (6, 7, '{1,10}');
+insert into asset_tags (id, asset_id, tag_id) values (7, 8, '{13,13,11}');
+insert into asset_tags (id, asset_id, tag_id) values (8, 8, '{9,18,7}');
+insert into asset_tags (id, asset_id, tag_id) values (9, 8, '{18,5,15}');
+insert into asset_tags (id, asset_id, tag_id) values (10, 7, '{15,5,8}');

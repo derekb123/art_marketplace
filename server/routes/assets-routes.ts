@@ -1,16 +1,27 @@
-import express from 'express';
+// import { Router } from "express";
+
+const express = require('express');
 const router = express.Router();
-// import { Router } from 'express';
-import {getAllAssetsBase} from '../controllers/assets-controller';
+const getAllAssets = require('../controllers/assets-controller');
+const getAssetById = require('../controllers/assets-controller');
 
-  // const getAllAssetsBaseRoute = router.get('/assets', getAllAssetsBase);
-  const getAllAssetsBaseRoute = router.get('/assets', (req: any, res: any) => {
-    console.log(getAllAssetsBase(10));
-    return getAllAssetsBase(10)
-    .then((data: any) => {
-      console.log(typeof data)
-      res.json(data);
-    })
-  });
+module.exports = function (router: any, controller: any) {
 
-  export default getAllAssetsBaseRoute;
+const getAllAssetsRoute = router.get('/assets', (req: any, res: any) => {
+  return getAllAssets(10)
+  .then((data: any) => {
+    res.json(data);
+  })
+});
+
+// export { getAllAssetsRoute };
+
+const getAssetByIdRoute = router.get('/assets/:id', (req: any, res: any) => {
+  return getAssetById(req.params)
+  .then((data: any) => {
+    res.json(data);
+  })
+});
+
+return router;
+}
