@@ -8,19 +8,21 @@ const getAssetById = require('../controllers/assets-controller');
 module.exports = function (router: any, controller: any) {
 
 const getAllAssetsRoute = router.get('/assets', (req: any, res: any) => {
-  return getAllAssets(10)
-  .then((data: any) => {
-    res.json(data);
-  })
+  return controller
+    .getAllAssets(10)
+    .then((data: any) => {
+      res.json(data);
+    })
 });
 
 // export { getAllAssetsRoute };
 
 const getAssetByIdRoute = router.get('/assets/:id', (req: any, res: any) => {
-  return getAssetById(req.params)
-  .then((data: any) => {
-    res.json(data);
-  })
+  return controller
+    .getAssetById(req.params)
+    .then((data: any) => {
+      res.json(data);
+    });
 });
 
 return router;

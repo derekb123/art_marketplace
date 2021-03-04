@@ -1,5 +1,5 @@
 // web server config
-import { resourceLimits } from 'worker_threads';
+// const resourceLimits = require('worker_threads');
 const express= require('express');
 const app = express();
 const morgan = require('morgan');
@@ -33,9 +33,10 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
+// users endpoints
 const usersRouter = express.Router();
 usersRoutes(usersRouter, usersController);
-app.use('/users', usersRoutes);
+app.use('/users', usersRouter);
 
 // assets endpoints
 const assetsRouter = express.Router();

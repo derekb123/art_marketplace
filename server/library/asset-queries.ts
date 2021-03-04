@@ -1,36 +1,31 @@
 
 
-const getAllAssetsQuery: string =
+exports.getAllAssetsQuery =
   `SELECT *
   FROM assets
   ORDER BY created_at DESC
   LIMIT $1;`;
 
-export { getAllAssetsQuery };
 
-const getAllAssetsQueryByTag: string =
+exports.getAllAssetsQueryByTag =
   `SELECT *
   FROM assets
   WHERE 
   ORDER BY created_at DESC
   LIMIT $1;`;
 
-export { getAllAssetsQueryByTag };
 
-const getAssetByIdQuery: string =
+exports.getAssetByIdQuery =
 
   `SELECT *
   FROM assets
   WHERE id = $1`;
 
-export { getAssetByIdQuery };
 
-const getAllAssetsQueryBySearch: string =
+exports.getAllAssetsQueryBySearch =
 
   `SELECT *
   FROM assets
   WHERE
   ORDER BY created_at DESC
   LIMIT $1;`;
-
-export { getAllAssetsQueryBySearch };

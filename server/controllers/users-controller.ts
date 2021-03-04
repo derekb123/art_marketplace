@@ -1,11 +1,11 @@
-import { pool } from "../library/db-pool"
-// const pool = require("../library/db-pool");
-import { getAllUsersQuery } from "../library/users-queries"
+// import { pool } from "../library/db-pool"
+const usersPool = require("../library/db-pool");
+const { getAllUsersQuery } = require("../library/users-queries");
 
 //get all users
 
 module.exports.getAllUsers = function(): Promise<any> {
-  return pool
+  return usersPool
     .query(getAllUsersQuery)
     .then((res: any) => {
       console.log(res.rows);
