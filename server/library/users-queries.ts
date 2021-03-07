@@ -1,11 +1,16 @@
-module.exports.getAllUsersQuery =
+const usersQueries = {
+
+getAllUsersQuery: 
+
   `SELECT *
-  FROM users`;
+  FROM users`,
 
-
-
-module.exports.getUserByIdQuery =
+getUserByIdQuery:
 
   `SELECT *
   FROM users
-  WHERE id = $1`;
+  WHERE id = $1`
+
+}
+
+export default usersQueries;

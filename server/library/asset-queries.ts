@@ -1,30 +1,35 @@
-export const getAllAssetsQuery =
+const assetsQueries = {
+
+getAllAssetsQuery:
 
   `SELECT *
   FROM assets
   ORDER BY created_at DESC
-  LIMIT $1;`;
+  LIMIT $1;`,
 
-export const getAssetByIdQuery =
+getAssetByIdQuery:
 
   `SELECT *
   FROM assets
-  WHERE id = $1`;
+  WHERE id = $1`,
 
-export const getAllAssetsQueryByTag =
+getAllAssetsQueryByTag:
 
   `SELECT *
   FROM assets
   JOIN asset_tags ON assets.id = asset_id
   WHERE tag_id = $1
   ORDER BY created_at DESC
-  LIMIT $2;`;
+  LIMIT $2;`,
 
-export const getAllAssetsQueryBySearch =
+getAllAssetsQueryBySearch:
 
   `SELECT *
   FROM assets
   WHERE
   ORDER BY created_at DESC
-  LIMIT $1;`;
+  LIMIT $1;`
 
+}
+
+export default assetsQueries;

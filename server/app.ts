@@ -2,11 +2,12 @@
 // const resourceLimits = require('worker_threads');
 import express from 'express';
 const app = express();
+const router = express.Router();
+
 import morgan from 'morgan';
 import bodyParser from "body-parser";
-const router = express.Router();
-const usersController = require("./controllers/users-controller");
-const usersRoutes = require('./routes/users-routes');
+import usersController from './controllers/users-controller';
+import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
 import assetsController from "./controllers/assets-controller";
 

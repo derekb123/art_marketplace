@@ -1,5 +1,5 @@
 import {pool} from "../library/db-pool";
-const { getAllAssetsQuery, getAssetByIdQuery } = require("../library/asset-queries");
+import assetsQueries from "../library/asset-queries";
 
 
 const assetsController = {
@@ -8,7 +8,7 @@ getAllAssets : function(limit:number): Promise<any> {
   const queryParams:number[] = [limit];
 
   return pool
-    .query(getAllAssetsQuery, queryParams)
+    .query(assetsQueries.getAllAssetsQuery, queryParams)
     .then((res: any) => {
       return res.rows;
     })
@@ -22,7 +22,7 @@ getAssetById : function(assetId:number[]): Promise<any> {
   const queryParams:number[] = assetId;
 
   return pool
-    .query(getAssetByIdQuery, queryParams)
+    .query(assetsQueries.getAssetByIdQuery, queryParams)
     .then((res: any) => {
       return res.rows;
     })

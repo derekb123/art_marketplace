@@ -1,6 +1,5 @@
-const { Pool } = require('pg');
+import { Pool } from 'pg';
 require('dotenv').config();
-// import Pool from 'pg';
 
 // interface IDbConnectObject {
 //   connectionString?: string;

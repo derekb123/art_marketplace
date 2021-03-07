@@ -1,7 +1,5 @@
 import express from 'express';
 const router = express.Router();
-// import { getAllAssets } from '../controllers/assets-controller';
-// const getAssetById = require('../controllers/assets-controller');
 
 const assetsRoutes = function(router: any, controller: any) {
 
