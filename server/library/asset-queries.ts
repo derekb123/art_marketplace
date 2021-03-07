@@ -1,17 +1,17 @@
-module.exports.getAllAssetsQuery =
+export const getAllAssetsQuery =
 
   `SELECT *
   FROM assets
   ORDER BY created_at DESC
   LIMIT $1;`;
 
-module.exports.getAssetByIdQuery =
+export const getAssetByIdQuery =
 
   `SELECT *
   FROM assets
   WHERE id = $1`;
 
-module.exports.getAllAssetsQueryByTag =
+export const getAllAssetsQueryByTag =
 
   `SELECT *
   FROM assets
@@ -20,7 +20,7 @@ module.exports.getAllAssetsQueryByTag =
   ORDER BY created_at DESC
   LIMIT $2;`;
 
-module.exports.getAllAssetsQueryBySearch =
+export const getAllAssetsQueryBySearch =
 
   `SELECT *
   FROM assets

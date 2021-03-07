@@ -4,7 +4,7 @@ const { getAllUsersQuery } = require("../library/users-queries");
 
 //get all users
 
-module.exports.getAllUsers = function(): Promise<any> {
+export const getAllUsers = function(): Promise<any> {
   return usersPool
     .query(getAllUsersQuery)
     .then((res: any) => {

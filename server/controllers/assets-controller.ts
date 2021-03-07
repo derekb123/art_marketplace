@@ -1,8 +1,10 @@
 import {pool} from "../library/db-pool";
 const { getAllAssetsQuery, getAssetByIdQuery } = require("../library/asset-queries");
 
+
+const assetsController = {
 // GET all  assets with limit, order by most recent
-exports.getAllAssets = function(limit:number): Promise<any> {
+getAllAssets : function(limit:number): Promise<any> {
   const queryParams:number[] = [limit];
 
   return pool
@@ -13,12 +15,10 @@ exports.getAllAssets = function(limit:number): Promise<any> {
     .catch((err: Error) => {
       console.log(err);
     });
-};
-
-// exports.getAllAssets = getAllAssets
+},
 
 // GET single asset by Id
-exports.getAssetById = function(assetId:number[]): Promise<any> {
+getAssetById : function(assetId:number[]): Promise<any> {
   const queryParams:number[] = assetId;
 
   return pool
@@ -29,5 +29,8 @@ exports.getAssetById = function(assetId:number[]): Promise<any> {
     .catch((err: Error) => {
       console.log(err);
     });
-};
+}
 
+}
+
+export default assetsController;

@@ -1,14 +1,14 @@
 // web server config
 // const resourceLimits = require('worker_threads');
-const express= require('express');
+import express from 'express';
 const app = express();
-const morgan = require('morgan');
-const bodyParser = require("body-parser");
+import morgan from 'morgan';
+import bodyParser from "body-parser";
 const router = express.Router();
 const usersController = require("./controllers/users-controller");
 const usersRoutes = require('./routes/users-routes');
-const assetsRoutes = require('./routes/assets-routes');
-const assetsController = require("./controllers/assets-controller");
+import assetsRoutes from './routes/assets-routes';
+import assetsController from "./controllers/assets-controller";
 
 
 app.use(function (req: any, res: any, next: any) {
