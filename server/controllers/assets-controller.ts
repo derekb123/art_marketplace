@@ -17,7 +17,7 @@ exports.getAllAssets = function(limit:number): Promise<any> {
 
 // exports.getAllAssets = getAllAssets
 
-// GET one asset by Id
+// GET single asset by Id
 exports.getAssetById = function(assetId:number[]): Promise<any> {
   const queryParams:number[] = assetId;
 
@@ -30,3 +30,4 @@ exports.getAssetById = function(assetId:number[]): Promise<any> {
       console.log(err);
     });
 };
+
