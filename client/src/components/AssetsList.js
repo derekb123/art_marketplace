@@ -6,13 +6,20 @@ const AssetsList = () => {
   const { getAssets, marketAssets, loading } = marketContext;
 
   useEffect (() => {
-    getAssets();
-  }, [])
+    async function runGetAssets(){
+      await getAssets();
+    }
+    runGetAssets();
+  }, []);
 
   console.log(marketAssets);
   return (
     <div>
-      Market Assets
+      {marketAssets.map((asset) => {
+        return (
+          
+        )
+      })}
     </div>
   )
 }

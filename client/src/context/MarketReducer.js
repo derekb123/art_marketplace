@@ -15,7 +15,8 @@ const MarketReducer = (state, action) => {
         ...state,
         loading:false
       }
-    default: ;
+    default: 
+      return state;
   }
 };
 

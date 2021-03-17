@@ -11,24 +11,24 @@ import AssetsList from './components/AssetsList';
 
 
 function App() {
-  const [state, setState] = useState({
-    assets: []
-  });
+  // const [state, setState] = useState({
+  //   assets: []
+  // });
 
-  useEffect(() => {
-    axios.get('/assets')
-      .then (
-        ({ data: assets }) => {
-          setState((prev) => ({
-            ...prev,
-            assets
-              }));
-          }
-        )
-      .catch((err) => console.log(err));
-    }, []);
+  // useEffect(() => {
+  //   axios.get('/assets')
+  //     .then (
+  //       ({ data: assets }) => {
+  //         setState((prev) => ({
+  //           ...prev,
+  //           assets
+  //             }));
+  //         }
+  //       )
+  //     .catch((err) => console.log(err));
+  //   }, []);
 
-console.log(state);
+// console.log(state);
 
   return (
     <MarketProvider>
@@ -36,7 +36,7 @@ console.log(state);
       <div>
         <BrowserRouter>
           <NavBar/>
-          {/* <AssetsList/> */}
+          <AssetsList/>
           <Switch>
             <Route path='/' exact component={ Home }/>
             <Route path='*'component={ NotFound }/>
