@@ -1,28 +1,22 @@
-const MarketReducer = (state, action) => {
+import Constants from './Constants';
 
-  console.log(state);
-  
-  switch(action.type) {
-    case 'SET_ASSETS':
-      return {
-        ...state,
-        marketAssets: action.payload
-      };
-    case 'SENDING_REQUEST':
-      return {
-        ...state,
-        loading: true
-      };
-    case 'REQUEST_FINISHED':
-      return (
-        {
-          ...state,
-          loading: false
-        },
-        console.log(state, 'INSIDE REQUEST FINISHED!!!!')
-      );
+
+const MarketReducer = (state, action) => {
+  switch (action.type) {
+    case Constants.SETASSETS: {
+      console.log("SET ASSETS")
+      return { ...state, marketAssets: action.payload };
+    }
+    case Constants.LOADING: {
+      console.log("LOADING")
+      return { ...state, status: 'loading' };
+    }
+    case Constants.FINISHED_LOADING: {
+      console.log("FINISHED_LOADING")
+      return { ...state, status: 'finished' };
+    }
     default:
-      throw new Error(); 
+      throw new Error();
   }
 };
 

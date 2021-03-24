@@ -13,19 +13,19 @@ const HomeAssetsList = () => {
     runGetAssets();
   }, []);
 
-  console.log(marketAssets);
-  console.log(marketAssets.data);
-  console.log(marketAssets.loading);
+  // console.log(marketAssets);
+  // console.log(marketAssets.data);
+  // console.log(marketAssets.loading);
 
   return (
     <div className='home-assets'>
       <div className='assets-container'>
         <h2>Assets</h2>
           {
-            !loading ? (
+            loading === 'finished' ? (
               <div className='assets-grid-container'>
                 {
-                  marketAssets.data.map((asset, i) => {
+                  marketAssets.map((asset, i) => {
                     return (
                       <AssetItem
                         key={i}
