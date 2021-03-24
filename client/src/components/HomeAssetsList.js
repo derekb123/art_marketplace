@@ -22,7 +22,7 @@ const HomeAssetsList = () => {
       <div className='assets-container'>
         <h2>Assets</h2>
           {
-            loading === 'finished' ? (
+            !loading ? (
               <div className='assets-grid-container'>
                 {
                   marketAssets.map((asset, i) => {

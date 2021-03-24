@@ -9,11 +9,11 @@ const MarketReducer = (state, action) => {
     }
     case Constants.LOADING: {
       console.log("LOADING")
-      return { ...state, status: 'loading' };
+      return { ...state, loading: true };
     }
     case Constants.FINISHED_LOADING: {
       console.log("FINISHED_LOADING")
-      return { ...state, status: 'finished' };
+      return { ...state, loading: false };
     }
     default:
       throw new Error();

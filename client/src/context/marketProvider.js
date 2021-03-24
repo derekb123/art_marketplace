@@ -9,7 +9,7 @@ const MarketProvider = props => {
   const initialState={
     marketAssets: [],
     currentMarketAsset: null,
-    status: 'idle'
+    loading: true
   }
 
   const [state, dispatch] = useReducer(MarketReducer, initialState);
