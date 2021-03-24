@@ -1,25 +1,18 @@
 const MarketReducer = (state, action) => {
 
   console.log(state);
-
+  
   switch(action.type) {
     case 'SET_ASSETS':
       return {
-        state: {
+        ...state,
+        marketAssets: action.payload
+      };
+    case 'SENDING_REQUEST':
+      return {
         ...state,
         loading: true
-      }
-    };
-    case 'SENDING_REQUEST':
-      return (
-        {
-          state: {
-          ...state,
-          loading: true
-        }
-      },
-      console.log(state)
-      );
+      };
     case 'REQUEST_FINISHED':
       return (
         {
