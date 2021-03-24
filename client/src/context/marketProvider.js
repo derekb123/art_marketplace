@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, init } from 'react';
 import MarketContext from './MarketContext';
 import MarketReducer from './MarketReducer';
 import { fetch } from 'whatwg-fetch';
@@ -15,14 +15,15 @@ const MarketProvider = props => {
 
   const getAssets = async () => {
     try {
-      console.log('inside getAssets')
+      // console.log('inside getAssets')
       dispatch({type: 'SENDING_REQUEST'})
-      console.log('After SENDING REQUEST')
+      // console.log('After SENDING REQUEST')
       const res = await axios.get('/assets');
       console.log(res);
       // const data = await res.json();
-      dispatch({type: 'REQEUST_FINISHED'});
+      dispatch({type: 'REQUEST_FINISHED'});
       console.log('After REQUEST_FINISHED')
+      console.log(state)
       dispatch({type: 'SET_ASSETS', payload: res})
     } catch (error) {
       console.log(error)

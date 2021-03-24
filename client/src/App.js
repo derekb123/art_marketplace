@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import './App.css';
+import './styles/App.scss';
 import { Link, Route, BrowserRouter, Switch } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,7 +8,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound'
 import NavBar from './components/NavBar';
 import MarketProvider from './context/marketProvider';
-import AssetsList from './components/AssetsList';
+import HomeAssetsList from './components/HomeAssetsList';
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
       <div>
         <BrowserRouter>
           <NavBar/>
-          <AssetsList/>
+          <HomeAssetsList />
           <Switch>
             <Route path='/' exact component={ Home }/>
             <Route path='*'component={ NotFound }/>
