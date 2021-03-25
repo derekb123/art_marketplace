@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 .assets-grid-container{
-  padding: 120px;
+  padding-left: 10vw;
+  padding-right: 10vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 40px;
+  grid-gap: 3.5vw;
   justify-content: center;
 }
