@@ -1,16 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 .asset-item {
-  width: '100%';
-  height: '200px';
-  padding: 16px 0;
   border-radius: 5px;
-  border: 1px solid rgb(109, 109, 109);
+  border: 1px solid rgb(231, 231, 231);
+}
+
+.asset-image {
+  position: relative;
+  width: 100%;
+}
+
+.asset-image:before {
+  float: left;
+  padding-top: 100%;
+}
+
+div img {
+  float: left;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
 }
 
 .asset-title {
-  font-size: $mid-font-size;
+  font-size: $small-font-size;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   text-align: left;
+  padding-left: 12px;
 }

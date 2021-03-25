@@ -1,13 +1,15 @@
 import React from 'react'
 
 const AssetItem = (props) => {
-  console.log(props);
   return (
-    <div className='asset-item'>
-      <div className='asset-title'>
-        <h6>{props.title}</h6>
+    <section className='asset-item'>
+      <div className='asset-image'>
+        <img  src={props.image} alt='badass art'/>
       </div>
-    </div>
+      <div className='asset-title'>
+        <p>{props.title}</p>
+      </div>
+    </section>
   )
 }
 
