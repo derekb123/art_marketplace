@@ -8,7 +8,7 @@ import Constants from './Constants';
 const MarketProvider = props => {
   const initialState={
     marketAssets: [],
-    currentMarketAsset: null,
+    currentAsset: null,
     loading: true
   }
 
@@ -27,11 +27,13 @@ const MarketProvider = props => {
 
   const getAssetById = async (id) => {
     try {
+      console.log('inside getAssetById')
       dispatch({ type: Constants.LOADING })
       console.log(id);
       const res = await axios.get(`/assets/${id}`);
+      console.log(res, res.data);
       dispatch({ type: Constants.FINISHED_LOADING });
-      dispatch({ type: Constants.SET_ASSET, payload: res.data.id})
+      dispatch({ type: Constants.SET_ASSET, payload: res.data})
     } catch (error) {
       console.log(error)
     }

@@ -7,12 +7,15 @@ const MarketReducer = (state, action) => {
       return { ...state, marketAssets: action.payload };
     }
     case Constants.SET_ASSET: {
+      console.log('SET_ASSET')
       return { ...state, currentAsset: action.payload };
     }
     case Constants.LOADING: {
+      console.log('inside loading')
       return { ...state, loading: true };
     }
     case Constants.FINISHED_LOADING: {
+      console.log('inside finished loading')
       return { ...state, loading: false };
     }
     default:

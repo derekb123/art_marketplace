@@ -5,9 +5,14 @@
 @import './components/HomeAssetsList';
 @import './components/AssetDetail';
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+
 .App{
   margin-left: 0;
   margin-right: 0;
   padding-left: 0;
   padding-right: 0;
+  font-family: 'Roboto', sans-serif;
 }

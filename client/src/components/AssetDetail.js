@@ -16,8 +16,7 @@ const AssetDetail = (props) => {
     runGetAsset();
   }, []);
 
-  // console.log('currentAsset in AssetDetail', currentAsset);
-  // console.log('currentAsset title in AssetDetail', currentAsset.assetId.title);
+  console.log('currentAsset in AssetDetail', currentAsset);
 
   return (
     <section className='asset-detail'>
