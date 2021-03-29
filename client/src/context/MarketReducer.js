@@ -6,6 +6,9 @@ const MarketReducer = (state, action) => {
     case Constants.SET_ASSETS: {
       return { ...state, marketAssets: action.payload };
     }
+    case Constants.SET_ASSET: {
+      return { ...state, currentAsset: action.payload };
+    }
     case Constants.LOADING: {
       return { ...state, loading: true };
     }

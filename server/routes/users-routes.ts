@@ -4,7 +4,7 @@ const router = express.Router();
 const usersRoutes = function (router: any, controller: any) {
 
   // const getAllUsersRoute = router.get('/users', getAllUsers);
-  router.get('/', (req: any, res: any) => {
+  router.get('/users', (req: any, res: any) => {
 
     return controller
       .getAllUsers()
@@ -14,7 +14,7 @@ const usersRoutes = function (router: any, controller: any) {
       });
   });
 
-  router.get('/:user_id', (req: any, res: any) => {
+  router.get('uers/:user_id', (req: any, res: any) => {
 
     return controller
       .getUserById([req.params.user_id])

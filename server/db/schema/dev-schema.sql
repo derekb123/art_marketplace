@@ -21,11 +21,15 @@ CREATE TABLE assets (
 	asset_description TEXT,
 	asset_image TEXT NOT NULL,
 	creator_id INTEGER,
+	owner_id INTEGER,
 	size VARCHAR(255),
 	likes INT,
 	views INT,
 	category VARCHAR(255),
-  created_at TIMESTAMP DEFAULT current_timestamp
+  created_at TIMESTAMP DEFAULT current_timestamp,
+  list_price NUMERIC(16, 2) DEFAULT 0.00,
+  high_bid NUMERIC(16, 2) DEFAULT 0.00,
+  offers_made INT DEFAULT 0
 );
 
 DROP TABLE IF EXISTS transactions

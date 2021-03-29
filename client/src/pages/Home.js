@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import MarketContext from '../context/MarketContext';
+import HomeAssetsList from '../components/HomeAssetsList'
+import SearchContainer from '../components/SearchContainer'
 
 function Home() {
   // const marketAssets = useContext(MarketContext.marketAssets);
@@ -8,7 +10,8 @@ function Home() {
   return (
     <div className="Home">
       <div>
-        This is the home page.
+        <SearchContainer />
+        <HomeAssetsList />
       </div>
     </div>
   );

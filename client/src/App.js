@@ -8,43 +8,25 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound'
 import NavBar from './components/NavBar';
 import MarketProvider from './context/marketProvider';
-import HomeAssetsList from './components/HomeAssetsList';
+import AssetDetail from './components/AssetDetail';
 
 
 function App() {
-  // const [state, setState] = useState({
-  //   assets: []
-  // });
-
-  // useEffect(() => {
-  //   axios.get('/assets')
-  //     .then (
-  //       ({ data: assets }) => {
-  //         setState((prev) => ({
-  //           ...prev,
-  //           assets
-  //             }));
-  //         }
-  //       )
-  //     .catch((err) => console.log(err));
-  //   }, []);
-
-// console.log(state);
 
   return (
     <MarketProvider>
       <div className="App">
-      <div>
-        <BrowserRouter>
-          <NavBar/>
-          <HomeAssetsList />
-          <Switch>
-            <Route path='/' exact component={ Home }/>
-            <Route path='*'component={ NotFound }/>
-          </Switch>
-        </BrowserRouter>
+        <div>
+          <BrowserRouter>
+            <NavBar/>
+            <Switch>
+              <Route path='/' exact component={ Home }/>
+              <Route path='/assets/:asset_id' exact component={ AssetDetail }/>
+              <Route path='*'component={ NotFound }/>
+            </Switch>
+          </BrowserRouter>
+        </div>
       </div>
-    </div>
     </MarketProvider>
   );
 }

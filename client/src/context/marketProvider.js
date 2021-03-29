@@ -14,7 +14,7 @@ const MarketProvider = props => {
 
   const [state, dispatch] = useReducer(MarketReducer, initialState);
 
-  const getAssets = async () => {
+  const getAllAssetsNewest = async () => {
     try {
       dispatch({ type: Constants.LOADING })
       const res = await axios.get('/assets');
@@ -25,13 +25,26 @@ const MarketProvider = props => {
     }
   }
 
+  const getAssetById = async (id) => {
+    try {
+      dispatch({ type: Constants.LOADING })
+      console.log(id);
+      const res = await axios.get(`/assets/${id}`);
+      dispatch({ type: Constants.FINISHED_LOADING });
+      dispatch({ type: Constants.SET_ASSET, payload: res.data.id})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <MarketContext.Provider 
+    <MarketContext.Provider
       value={{
         marketAssets: state.marketAssets,
         currentAsset: state.currentAsset,
         loading: state.loading,
-        getAssets: getAssets
+        getAllAssetsNewest: getAllAssetsNewest,
+        getAssetById: getAssetById
     }}>
       {props.children}
     </MarketContext.Provider>

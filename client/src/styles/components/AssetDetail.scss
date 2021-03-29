@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import '../variables';
+
+.asset-detail {
+  display: flex;
+  flex-direction: row;
+}
+
+.asset-detail-left {
+  width: 75%;
+}
+
+.asset-detail-right {
+  width: 25%;
+}
+
+.asset-detail-image {
+  position: relative;
+  width: 100%;
+}

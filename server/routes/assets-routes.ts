@@ -3,7 +3,7 @@ const router = express.Router();
 
 const assetsRoutes = function(router: any, controller: any) {
 
-  router.get('/:asset_id', (req: any, res: any) => {
+  router.get('/assets/:asset_id', (req: any, res: any) => {
     console.log(req.params.asset_id)
     return controller
       .getAssetById([req.params.asset_id])
