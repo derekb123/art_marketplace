@@ -18,8 +18,8 @@ getAllAssets : function(limit:number): Promise<any> {
 },
 
 // GET single asset by Id
-getAssetById : function(assetId:any): Promise<any> {
-  const queryParams:any = assetId;
+getAssetById : function(assetId:number[]): Promise<any> {
+  const queryParams:number[] = assetId;
   console.log(queryParams);
 
   return pool
