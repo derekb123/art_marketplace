@@ -20,7 +20,7 @@ const AssetDetail = (props) => {
 
   return (
     <section className='asset-detail'>
-      { 
+      {
       currentAsset ? (
         <>
           <div className='asset-detail-left'>

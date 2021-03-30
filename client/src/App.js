@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import './styles/App.scss';
-import { Link, Route, BrowserRouter, Switch } from 'react-router-dom';
-import axios from 'axios';
+import {  Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
 import NotFound from './pages/NotFound'

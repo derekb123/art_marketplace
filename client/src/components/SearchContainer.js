@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import MarketContext from '../context/MarketContext';
+import React from 'react';
+// import MarketContext from '../context/MarketContext';
 
-const HomeAssetsList = () => {
-  const marketContext = useContext(MarketContext);
-  const { getAllAssetsNewest, marketAssets, loading } = marketContext;
+const SearchContainer = () => {
+  // const marketContext = useContext(MarketContext);
+  // const { getAllAssetsNewest, marketAssets, loading } = marketContext;
 
   return (
     <div>
@@ -12,4 +12,4 @@ const HomeAssetsList = () => {
   )
 };
 
-export default HomeAssetsList;
+export default SearchContainer;

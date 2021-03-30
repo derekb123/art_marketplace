@@ -1,7 +1,7 @@
 import React, { useReducer, init } from 'react';
 import MarketContext from './MarketContext';
 import MarketReducer from './MarketReducer';
-import { fetch } from 'whatwg-fetch';
+// import { fetch } from 'whatwg-fetch';
 import axios from 'axios';
 import Constants from './Constants';
 
