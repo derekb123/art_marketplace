@@ -11,9 +11,9 @@
 // }
 
 .button--buy {
-  color: $black;
+  color: $white;
   border-color: $black;
-  background-color: transparent;
+  background-color: rgb(36, 36, 36);
   border-radius: 4rem;
   font-size: 1.5rem;
   height: 2.5rem;
@@ -22,12 +22,16 @@
   border-width: 2px;
   border-style: solid;
   margin-top: 1vw;
+  margin-bottom: 0;
 }
 
 .button--buy:hover {
-  color: $white;
-  border: none;
-  background-color: black;
+  color: $black;
+  border-radius: 4rem;
+  border:rgb(36, 36, 36);
+  border-width: 2px;
+  border-style: solid;
+  background-color: transparent;
 }
 
 // .button:hover {
@@ -76,6 +80,10 @@
 }
 
 .adet-buy-button-container {
+  width: 100%;
+}
+
+.adet-buy-button {
   box-sizing: border-box;
   width: 100%;
 }

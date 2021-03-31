@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
-@import '../variables';
-@import url('https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import "../variables";
+@import url("https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 .asset-detail {
   display: flex;
@@ -11,6 +11,10 @@
   padding-left: 10vw;
   padding-right: 10vw;
   margin-top: 5vw;
+}
+
+article {
+  width: 100%;
 }
 
 .asset-detail-left {
@@ -29,34 +33,75 @@
   align-items: flex-start;
 }
 
-// .asset-detail-title {
-//   position: relative;
-// }
+.asset-detail-title {
+  // margin-bottom: 1rem;
+}
 
-.asset-detail-title p{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin: 0%;
-  padding: 0%;
+.asset-detail-title p {
   font-size: $big-font-size;
-  font-family: 'Castoro', serif;
+  font-family: "Castoro", serif;
   font-weight: 800;
   text-align: left;
-  vertical-align: top;
   margin-block-start: 0px;
   margin-block-end: 0px;
-  line-height: 3.9rem;
-  height: 4.5rem;
+  line-height: 5rem;
 }
 
-.asset-list-price {
+.detail-list-price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.detail-list-price {
   font-size: $mid-font-size;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   font-weight: 300;
-  line-height: $small-font-size;
+  padding-top: 0px;
+  margin: 1rem 0 0 0;
+  display: block;
+  // line-height: $small-font-size/2;
 }
 
+.detail-high-offer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.detail-high-offer {
+  font-size: $mid-font-size;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 300;
+  padding-top: 0px;
+  margin: 2rem 0 0 0;
+  display: block;
+  // line-height: $small-font-size/2;
+}
+
+.detail-sub-words {
+  margin: 0;
+  color: gray;
+}
+
+.detail-creator-owner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  // line-height: $small-font-size/2;
+}
+
+.detail-creator-owner {
+  font-size: $submid-font-size;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 300;
+  padding-top: 0px;
+  margin: 2rem 0 0 0;
+  display: block;
+  // line-height: $small-font-size/2;
+}
 
 // .asset-detail-image-container {
 // }
