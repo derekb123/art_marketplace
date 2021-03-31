@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import MarketContext from '../context/MarketContext';
 import {useParams} from 'react-router-dom';
+import Button from './Button';
 
 const AssetDetail = (props) => {
 
@@ -24,24 +25,27 @@ const AssetDetail = (props) => {
       currentAsset ? (
         <>
           <div className='asset-detail-left'>
-            <div className='asset-title'>
-              <p>{currentAsset.title}</p>
-            </div>
-            <div className='asset-detail-image'>
-              <img  src={currentAsset.image} alt='badass art'/>
+            <div className='asset-detail-image-container'>
+              <img className='asset-detail-image' src={currentAsset.asset_image} alt='badass art'/>
             </div>
           </div>
           <div className='asset-detail-right'>
-            <div className='asset-title'>
+            <div className='asset-detail-title'>
               <p>{currentAsset.title}</p>
             </div>
             <div className='asset-list-price'>
-              <p>{currentAsset.sale_price}
-              </p>
+              <p>{`$ ${currentAsset.list_price}`}</p>
+            </div>
+            <div className='adet-buy-button-container'>
+              <Button className='adet-buy-button' name='Buy Now' buy></Button>
+            </div>
+            <div className='adet-buy-button-container'>
+              <Button className='adet-buy-button' name='Make Offer' buy></Button>
+              <p>Highest Current Offer: 1000</p>
             </div>
           </div>
         </>
-      ) : (<div></div>)}
+      ) : (<div>Loading...</div>)}
     </section>
   )
 }

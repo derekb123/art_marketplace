@@ -1,10 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap');
 @import '../variables';
 
 .asset-item {
   border-radius: 1vw;
   border: 1px solid rgb(231, 231, 231);
-  box-shadow: -4px 4px 15px 3px rgba(128, 128, 128, 0.2);
+  background-color: white;
+  // box-shadow: -4px 4px 15px 3px rgba(128, 128, 128, 0.2);
+  // clip-path: 
+  //   polygon(
+  //     0% 10px,                 /* top left */
+  //     10px 0%,                 /* top left */
+  //     calc(100% - 10px) 0%,    /* top right */
+  //     100% 10px,               /* top right */
+  //     100% calc(100% - 10px),  /* bottom right */
+  //     calc(100% - 10px) 100%,  /* bottom right */
+  //     10px 100%,               /* bottom left */
+  //     0 calc(100% - 10px)      /* bottom left */
+  //   );
+}
+
+.asset-item:hover {
+  border-radius: 1vw;
+  border: 1px solid rgb(231, 231, 231);
+  box-shadow: -4px 4px 15px 3px rgba(167, 167, 167, 0.2);
   // clip-path: 
   //   polygon(
   //     0% 10px,                 /* top left */
@@ -28,7 +47,7 @@
   padding-top: 100%;
 }
 
-div img {
+.asset-image-image {
   object-fit: cover;
   border-top-left-radius: 1vw;
   border-top-right-radius: 1vw;
@@ -43,7 +62,7 @@ div img {
 
 .asset-title {
   font-size: $small-font-size;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Castoro', serif;
   font-weight: 800;
   text-align: left;
   padding-left: 1vw;

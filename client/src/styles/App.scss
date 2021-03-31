@@ -4,6 +4,7 @@
 @import './components/AssetItem';
 @import './components/HomeAssetsList';
 @import './components/AssetDetail';
+@import './components/Button';
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
@@ -15,4 +16,8 @@
   padding-left: 0;
   padding-right: 0;
   font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
 }

@@ -33,7 +33,7 @@ const MarketProvider = props => {
       const res = await axios.get(`/assets/${id}`);
       console.log(res, res.data);
       dispatch({ type: Constants.FINISHED_LOADING });
-      dispatch({ type: Constants.SET_ASSET, payload: res.data})
+      dispatch({ type: Constants.SET_ASSET, payload: res.data[0]})
     } catch (error) {
       console.log(error)
     }

@@ -7,7 +7,7 @@ const AssetItem = (props) => {
     <section className='asset-item'>
       <div className='asset-image'>
         <div className='asset-image-inner'>
-          <img  src={props.image} alt='badass art'/>
+          <img className='asset-image-image' src={props.image} alt='badass art'/>
         </div>
       </div>
       <div className='asset-info'>
