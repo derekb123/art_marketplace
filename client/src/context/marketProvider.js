@@ -39,6 +39,19 @@ const MarketProvider = props => {
     }
   }
 
+  const login = async (email) => {
+    try{
+      dispatch({ type: Constants.LOADING })
+      const res = await axios.post(`users/login`, { email: email });
+      if(res.status='logged_in') {
+        
+      }
+      dispatch({ type: Constants.FINISHED_LOADING });
+    } catch (error) {
+    console.log(error)
+  }
+}
+
   return (
     <MarketContext.Provider
       value={{

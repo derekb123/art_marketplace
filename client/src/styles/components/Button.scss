@@ -34,6 +34,42 @@
   background-color: transparent;
 }
 
+.button--login {
+  color: $white;
+  border-color: $black;
+  background-color: rgb(36, 36, 36);
+  border-radius: 4rem;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  width: 10vw;
+  line-height: 1.2rem;
+  border-width: 2px;
+  border-style: solid;
+  margin-top: 1vw;
+  margin-bottom: 0;
+}
+
+.button--login:hover {
+  color: $black;
+  border-radius: 4rem;
+  border:rgb(36, 36, 36);
+  border-width: 2px;
+  border-style: solid;
+  background-color: transparent;
+}
+
+.button--login:active {
+  color: $black;
+  border-radius: 4rem;
+  border:rgb(36, 36, 36);
+  border-width: 2px;
+  border-style: solid;
+  background-color: transparent;
+  box-shadow: inset 0px 0px 5px 0px #2a2a2a;
+}
+
+
+
 // .button:hover {
 //   color: $black;
 //   background-color: $white;
@@ -87,20 +123,6 @@
   box-sizing: border-box;
   width: 100%;
 }
-
-// .adet-buy-button .button {
-//   border-radius: 1rem;
-//   border: 0;
-//   font-size: 1.5rem;
-//   // height: 2.5rem;
-//   line-height: 1.2rem;
-//   margin-right: 1rem;
-//   border-width: 2px;
-//   border-style: solid;
-//   border-color: $white;
-//   color: $white;
-//   background-color: transparent;
-// }
 
 .adet-buy-button .button {
    border-radius: 1rem;

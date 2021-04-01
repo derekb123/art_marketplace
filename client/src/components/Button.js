@@ -4,6 +4,7 @@ import classnames from 'classnames';
 const Button = (props) => {
   const buttonClass = classnames("button", {
     "button--buy": props.buy,
+    "button--login": props.login,
     "button--offer": props.offer,
     "button--confirm": props.confirm,
     "button--danger": props.danger

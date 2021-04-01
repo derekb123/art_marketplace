@@ -1,8 +1,10 @@
 // web server config
 // const resourceLimits = require('worker_threads');
 import express from 'express';
+require('dotenv').config();
 const app = express();
 const router = express.Router();
+
 
 import morgan from 'morgan';
 import bodyParser from "body-parser";
@@ -10,6 +12,10 @@ import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
 import assetsController from "./controllers/assets-controller";
+import cookieSession from 'cookie-session';
+// import bcrypt from 'bcrypt';
+// import methodOverride from 'method-override';
+
 
 
 app.use(function (req: any, res: any, next: any) {
@@ -31,8 +37,14 @@ require('dotenv').config();
 
 //middleware
 app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(cookieSession({
+  name: null,
+  keys: [process.env.COOKIE_SECRET_01, process.env.COOKIE_SECRET_02]
+}))
 
 // users endpoints
 const usersRouter = express.Router();

@@ -1,6 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap');
 
-.body {
-  font-family: 'Castoro', serif;
+h2 {
+  font-size: $big-font-size;
+  font-family: "Castoro", serif;
+  font-weight: 800;
 }
+
+p,
+a {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: $default-font-size;
+  color: $black;
+}
+
+a,
+a:link,
+a:hover,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+a:hover {
+  transition: all 0.3s ease-in-out;
+}
+
+// .section-title {
+//   margin: 0px;
+//   margin-bottom: 4.5rem;
+//   font-size: $big-font-size;
+//   font-weight: bold;
+//   text-transform: uppercase;
+// }
+
+.text-color-main {
+  color: $black;
+  }

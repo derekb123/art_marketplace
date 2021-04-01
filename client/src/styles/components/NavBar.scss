@@ -12,6 +12,9 @@
 }
 .logo{
   display: relative;
+  font-family: 'Castoro', serif;
+  font-weight: 800;
+  font-size: 2rem;
 }
 .nav-items{
   display: flex;
@@ -19,6 +22,11 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
+
+.nav-items:hover {
+  font-weight: 400;
+}
+
 .nav-item{
   margin-left: 3vw;
 }
