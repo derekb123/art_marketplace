@@ -5,16 +5,16 @@ import AssetItem from './AssetItemSmall';
 
 const HomeAssetsList = (props) => {
   const marketContext = useContext(MarketContext);
-  const { getAllAssetsNewest, marketAssets, loading } = marketContext;
-
-
+  const { marketAssets, loading, getAllAssetsNewest } = marketContext;
 
   useEffect (() => {
-    async function runGetAssets(){
-      await getAllAssetsNewest();
+    if(marketAssets.length === 0) {
+      getAllAssetsNewest();
+
     }
-    runGetAssets();
-  }, []);
+
+    
+  }, [getAllAssetsNewest, marketAssets]);
 
   // console.log(marketAssets);
   // console.log(marketAssets.data);

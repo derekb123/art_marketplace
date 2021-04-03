@@ -1,4 +1,4 @@
-import React, { useReducer, init } from 'react';
+import React, { useReducer, useState, init } from 'react';
 import MarketContext from './MarketContext';
 import MarketReducer from './MarketReducer';
 // import { fetch } from 'whatwg-fetch';
@@ -12,14 +12,18 @@ const MarketProvider = props => {
     loading: true
   }
 
+  const [userState, setUserState] = useState({
+    loggedIn: false,
+    user: null
+  })
+
   const [state, dispatch] = useReducer(MarketReducer, initialState);
 
   const getAllAssetsNewest = async () => {
     try {
-      dispatch({ type: Constants.LOADING })
+      dispatch({ type: Constants.LOADING });
       const res = await axios.get('/assets');
-      dispatch({ type: Constants.FINISHED_LOADING });
-      dispatch({ type: Constants.SET_ASSETS, payload: res.data})
+      dispatch({ type: Constants.SET_ASSETS, payload: res.data});
     } catch (error) {
       console.log(error)
     }
@@ -32,7 +36,6 @@ const MarketProvider = props => {
       console.log(id);
       const res = await axios.get(`/assets/${id}`);
       console.log(res, res.data);
-      dispatch({ type: Constants.FINISHED_LOADING });
       dispatch({ type: Constants.SET_ASSET, payload: res.data[0]})
     } catch (error) {
       console.log(error)
@@ -43,8 +46,12 @@ const MarketProvider = props => {
     try{
       dispatch({ type: Constants.LOADING })
       const res = await axios.post(`users/login`, { email: email });
-      if(res.status='logged_in') {
-        
+      if(res.data.loggedIn === true) {
+        setUserState((prev) => ({
+          ...prev,
+          loggedIn: true,
+          user: res.data.user
+        }))
       }
       dispatch({ type: Constants.FINISHED_LOADING });
     } catch (error) {
@@ -52,14 +59,13 @@ const MarketProvider = props => {
   }
 }
 
+
   return (
     <MarketContext.Provider
       value={{
-        marketAssets: state.marketAssets,
-        currentAsset: state.currentAsset,
-        loading: state.loading,
-        getAllAssetsNewest: getAllAssetsNewest,
-        getAssetById: getAssetById
+        ...state,
+        getAssetById,
+        getAllAssetsNewest
     }}>
       {props.children}
     </MarketContext.Provider>
