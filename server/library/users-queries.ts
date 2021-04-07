@@ -1,16 +1,24 @@
 const usersQueries = {
 
-getAllUsersQuery: 
+  getAllUsersQuery:
 
-  `SELECT *
-  FROM users`,
+    `SELECT *
+    FROM users`,
 
-getUserByIdQuery:
+  getUserByIdQuery:
 
-  `SELECT *
-  FROM users
-  WHERE id = $1`
+    `SELECT *
+    FROM users
+    WHERE id = $1`,
+
+  getUserByEmailQuery:
+
+    `SELECT *
+    FROM users
+    WHERE email = $1`
 
 }
+
+
 
 export default usersQueries;

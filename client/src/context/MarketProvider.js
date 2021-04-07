@@ -42,22 +42,22 @@ const MarketProvider = props => {
     }
   }
 
-  const login = async (email) => {
-    try{
-      dispatch({ type: Constants.LOADING })
-      const res = await axios.post(`users/login`, { email: email });
-      if(res.data.loggedIn === true) {
-        setUserState((prev) => ({
-          ...prev,
-          loggedIn: true,
-          user: res.data.user
-        }))
-      }
-      dispatch({ type: Constants.FINISHED_LOADING });
-    } catch (error) {
-    console.log(error)
-  }
-}
+//   const login = async (email) => {
+//     try{
+//       dispatch({ type: Constants.LOADING })
+//       const res = await axios.post(`users/login`, { email: email });
+//       if(res.data.loggedIn === true) {
+//         setUserState((prev) => ({
+//           ...prev,
+//           loggedIn: true,
+//           user: res.data.user
+//         }))
+//       }
+//       dispatch({ type: Constants.FINISHED_LOADING });
+//     } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 
   return (

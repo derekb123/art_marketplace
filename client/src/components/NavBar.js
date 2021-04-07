@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
@@ -8,9 +9,12 @@ function NavBar() {
       </section>
 
       <section className='nav-items'>
-        <div className='nav-item nav-market'>
-          Market
-        </div>
+        <Link>
+          <div className='nav-item nav-market'>
+            Market
+          </div>
+        </Link>
+        
         <div className='nav-item nav-discover'>
           Discover
         </div>

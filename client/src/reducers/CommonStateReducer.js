@@ -1,13 +1,10 @@
 import Constants from './Constants';
 
 
-const MarketReducer = (state, action) => {
+const CommonStateReducer = (state, action) => {
   // console.log(action);
   switch (action.type) {
-    case Constants.SET_ASSETS: {
-      return { ...state, marketAssets: action.payload, loading: false };
-    }
-    case Constants.SET_ASSET: {
+    case Constants.LOGGING_IN: {
       // console.log('inside SET_ASSET')
       return { ...state, currentAsset: action.payload };
     }
@@ -20,4 +17,4 @@ const MarketReducer = (state, action) => {
   }
 };
 
-export default MarketReducer;
+export default CommonStateReducer;

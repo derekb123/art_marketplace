@@ -22,6 +22,18 @@ getUserById : function(userId: number[]): Promise<any> {
       console.log(res.rows);
       return res.rows;
     });
+},
+
+getUserByEmail : function(userEmail: any): Promise<any> {
+  const queryParams.email:any = userEmail;
+
+  return pool
+    .query(usersQueries.getUserByEmailQuery, queryParams)
+    .then((res: any) => {
+      if (user.password === )
+      console.log(res.rows);
+      return res.rows;
+    });
 }
 
 }

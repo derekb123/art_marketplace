@@ -1,9 +1,28 @@
-import React from 'react';
+import React, {useReducer, useState} from 'react';
 import Button from '../components/Button'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Constants from '../context/Constants';
+import MarketReducer from './MarketReducer';
 
 
 function Login(props) {
+
+  const [state, dispatch] = useReducer(MarketReducer, initialUserState);
+
+  try {
+    async function handleLogin (email, password) {
+      dispatch({ type: Constants.LOADING });
+      const res = await axios.post('/users/login', {email: email, password: password});
+    }
+      dispatch({type: Constants.LOGGING_IN });
+  } catch (error) {
+    console.log(error)
+}
+
+
+      
+
 
   return (
     <div className="Login">
