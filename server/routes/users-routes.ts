@@ -27,7 +27,7 @@ const usersRoutes = function (router: any, controller: any) {
 
    // USER_LOGIN
   router.post('/login', (req: any, res: any) => {
-    console.log(req.body);
+    console.log('login req.body: ',req.body);
     const email = req.body.email;
     const password = req.body.password;
 
@@ -35,11 +35,16 @@ const usersRoutes = function (router: any, controller: any) {
       return res.status(400).json( { message: 'Email and password required'})
     } else {
         return controller
-        .getUserByEmail(email)
+        .getUserByEmail(email, password)
         .then((data) => {
-          if (data.email === email) {
+          console.log(data);
+          if (data.email === email && data.password === password) {
             req.session.user_id = data.user_id;
             req.session.isLoggedIn = true;
+            res.json({
+              userMin: data,
+              loggedIn: true
+            });
           }
         })
     }

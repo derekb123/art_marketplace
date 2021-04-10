@@ -1,8 +1,8 @@
 -- users
 
 insert into users (id, username, email, user_password, creator, avatar, created_at) values (1, 'Chandal', 'ccasoni0@admin.ch', 'eRsNdZIUTV', true, 'https://robohash.org/sapientefacereillo.bmp?size=50x50&set=set1', '7/4/2020');
-insert into users (id, username, email, user_password, creator, avatar, created_at) values (2, 'Felecia', 'flind1@vkontakte.ru', 'VyiQooAA1P3', true, 'https://robohash.org/esttemporalibero.bmp?size=50x50&set=set1', '5/8/2020');
-insert into users (id, username, email, user_password, creator, avatar, created_at) values (3, 'Hiram', 'hgasparro2@archive.org', 'bDdQwuMBJ', false, 'https://robohash.org/autemrationequi.jpg?size=50x50&set=set1', '8/14/2020');
+insert into users (id, username, email, user_password, creator, avatar, created_at) values (2, 'Felecia', 'a@a', 'a', true, 'https://robohash.org/esttemporalibero.bmp?size=50x50&set=set1', '5/8/2020');
+insert into users (id, username, email, user_password, creator, avatar, created_at) values (3, 'Hiram', 'b@b', 'b', false, 'https://robohash.org/autemrationequi.jpg?size=50x50&set=set1', '8/14/2020');
 insert into users (id, username, email, user_password, creator, avatar, created_at) values (4, 'Clywd', 'cleuty3@archive.org', 'Sayh59m', true, 'https://robohash.org/utnisiadipisci.png?size=50x50&set=set1', '3/15/2020');
 insert into users (id, username, email, user_password, creator, avatar, created_at) values (5, 'Clarabelle', 'cpietrowski4@miitbeian.gov.cn', 'Wt3uJG', true, 'https://robohash.org/solutaperferendistotam.jpg?size=50x50&set=set1', '7/19/2020');
 insert into users (id, username, email, user_password, creator, avatar, created_at) values (6, 'Teddie', 'tattenborough5@gov.uk', 'Gti7GlvkMth', true, 'https://robohash.org/amethicrerum.png?size=50x50&set=set1', '12/5/2020');

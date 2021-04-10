@@ -15,7 +15,8 @@ const usersQueries = {
 
     `SELECT *
     FROM users
-    WHERE email = $1`
+    WHERE email = $1
+    AND user_password =$2`
 
 }
 

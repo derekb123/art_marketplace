@@ -1,20 +1,54 @@
-import React, { useEffect, useContext } from 'react';
-import MarketContext from '../context/MarketContext';
-import {useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Button from './Button';
+import Constants from '../reducers/Constants';
+import axios from 'axios';
+
 
 const AssetDetail = (props) => {
 
+  // console.log('props for asset detail',props);
+  // console.log('props for asset Cdispatch',props.commonDispatch);
+  // console.log('props for asset Cstate',props.commonState);
 
-  const marketContext = useContext(MarketContext);
-  const { getAssetById, loading, currentAsset } = marketContext;
+  const [currentAsset, setCurrentAsset] = useState({
+    id : null,
+    title: '',
+    asset_description: '',
+    asset_image: '',
+    creator_id: null,
+    owner_id: null,
+    size: '',
+    likes: null,
+    views: null,
+    category: '',
+    created_at: null,
+    list_price: 0.00,
+    high_bid: 0.00,
+    offers_made: 0
+    });
+
+  // const marketContext = useContext(MarketContext);
+  // const { getAssetById, loading, currentAsset } = marketContext;
   let assetId = useParams().asset_id;
+  // console.log(assetId);
+
+  const getAssetById = async (id) => {
+    try {
+      // console.log('inside getAssetById')
+      props.commonDispatch({ type: Constants.LOADING })
+      // console.log(id);
+      const res = await axios.get(`/assets/${id}`);
+      const gottenAsset = res.data[0];
+      setCurrentAsset(gottenAsset);
+      props.commonDispatch({ type: Constants.FINISHED_LOADING })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect (() => {
-    async function runGetAsset(){
-      await getAssetById(assetId);
-    }
-    runGetAsset();
+      getAssetById(assetId);
   }, []);
 
   console.log('currentAsset in AssetDetail', currentAsset);

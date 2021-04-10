@@ -4,7 +4,8 @@ const Constants =
       LOADING: 'LOADING',
       FINISHED_LOADING: 'FINISHED_LOADING',
       SET_ASSET: 'SET_ASSET',
-      LOGGING_IN: 'LOGGING_IN',
+      LOG_IN: 'LOG_IN',
+      LOG_OUT: 'LOG_OUT',
     }
 
 export default Constants;

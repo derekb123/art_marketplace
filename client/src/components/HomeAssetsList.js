@@ -1,24 +1,35 @@
-import React, { useContext, useEffect } from 'react';
-import MarketContext from '../context/MarketContext';
+import React, {  useEffect, useState } from 'react';
 import AssetItem from './AssetItemSmall';
+import axios from 'axios';
+import Constants from '../reducers/Constants'
+// import CustomHooks from '../hooks/CustomHooks';
 
 
 const HomeAssetsList = (props) => {
-  const marketContext = useContext(MarketContext);
-  const { marketAssets, loading, getAllAssetsNewest } = marketContext;
+
+  const [marketAssets, setMarketAssets] = useState([]);
 
   useEffect (() => {
-    if(marketAssets.length === 0) {
-      getAllAssetsNewest();
 
+    const GetAllAssetsNewest = async () => {
+      try {
+        props.commonDispatch({ type: Constants.LOADING })
+        const res = await axios.get('/assets');
+        // console.log(res.data);
+        setMarketAssets(res.data);
+        // console.log(marketAssets);
+        props.commonDispatch({ type: Constants.FINISHED_LOADING })
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-    
-  }, [getAllAssetsNewest, marketAssets]);
+    if(marketAssets.length === 0) {
+      GetAllAssetsNewest();
+    }
+  }, [props, marketAssets]);
 
   // console.log(marketAssets);
-  // console.log(marketAssets.data);
-  // console.log(marketAssets.loading);
 
   return (
     <div className='home-assets'>
@@ -26,12 +37,12 @@ const HomeAssetsList = (props) => {
         <h2>Assets</h2>
 
           {
-            !loading ? (
+            !props.loading ? (
               <div className='assets-grid-container'>
                 {
                   marketAssets.map((asset, i) => {
                     return (
-      
+
                         <AssetItem
                           key={i}
                           title={asset.title}

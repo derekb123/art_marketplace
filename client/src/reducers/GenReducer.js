@@ -1,7 +1,6 @@
 import Constants from './Constants';
 
-
-const MarketReducer = (state, action) => {
+const GenReducer = (state, action) => {
   // console.log(action);
   switch (action.type) {
     case Constants.SET_ASSETS: {
@@ -9,11 +8,11 @@ const MarketReducer = (state, action) => {
     }
     case Constants.SET_ASSET: {
       // console.log('inside SET_ASSET')
-      return { ...state, currentAsset: action.payload };
+      return { ...state, currentAsset: action.payload, loading: false };
     }
-    case Constants.LOGGING_IN: {
-      // console.log('inside SET_ASSET')
-      return { ...state, currentAsset: action.payload };
+    case Constants.LOG_IN: {
+      // console.log('inside LOG_IN')
+      return { ...state, currentAsset: action.payload, loading: false };
     }
     case Constants.LOADING: {
       // console.log('inside loading')
@@ -24,4 +23,4 @@ const MarketReducer = (state, action) => {
   }
 };
 
-export default MarketReducer;
+export default GenReducer;

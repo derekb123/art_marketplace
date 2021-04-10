@@ -24,13 +24,13 @@ getUserById : function(userId: number[]): Promise<any> {
     });
 },
 
-getUserByEmail : function(userEmail: any): Promise<any> {
-  const queryParams.email:any = userEmail;
+getUserByEmail : function(userEmail: any, userPassword: any): Promise<any> {
+  const queryParams:any = [userEmail, userPassword];
 
   return pool
     .query(usersQueries.getUserByEmailQuery, queryParams)
     .then((res: any) => {
-      if (user.password === )
+      if (res.password === userPassword)
       console.log(res.rows);
       return res.rows;
     });

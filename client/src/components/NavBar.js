@@ -1,26 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+function NavBar(props) {
   return (
     <div className='navbar'>
-      <section className='logo'>
-        Logo
-      </section>
+       <Link to={'/'}>
+        <section className='logo'>
+          Logo
+        </section>
+      </Link>
 
       <section className='nav-items'>
-        <Link>
+        <Link to={'/'}>
           <div className='nav-item nav-market'>
             Market
           </div>
         </Link>
-        
         <div className='nav-item nav-discover'>
           Discover
         </div>
-        <div className='nav-item nav-profile'>
+        {props.commonState.loggedIn ? (
+          <div className='nav-item nav-profile'>
           Profile
-        </div>
+          </div>
+        ): (
+          <Link to={'/login'}>
+            <div className='nav-item nav-profile'>
+            Login/Register
+            </div>
+          </Link>
+        )}
+
       </section>
     </div>
   );

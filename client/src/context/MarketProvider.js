@@ -1,9 +1,9 @@
-import React, { useReducer, useState, init } from 'react';
+import React, { useReducer, useState } from 'react';
 import MarketContext from './MarketContext';
-import MarketReducer from './MarketReducer';
+import GenReducer from '../reducers/GenReducer';
 // import { fetch } from 'whatwg-fetch';
 import axios from 'axios';
-import Constants from './Constants';
+import Constants from '../reducers/Constants';
 
 const MarketProvider = props => {
   const initialState={
@@ -12,12 +12,12 @@ const MarketProvider = props => {
     loading: true
   }
 
-  const [userState, setUserState] = useState({
-    loggedIn: false,
-    user: null
-  })
+  // const [userState, setUserState] = useState({
+  //   loggedIn: false,
+  //   user: null
+  // })
 
-  const [state, dispatch] = useReducer(MarketReducer, initialState);
+  const [state, dispatch] = useReducer(GenReducer, initialState);
 
   const getAllAssetsNewest = async () => {
     try {
