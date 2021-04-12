@@ -11,12 +11,24 @@ const usersQueries = {
     FROM users
     WHERE id = $1`,
 
-  getUserByEmailQuery:
+  getUserByEmailAndPasswordQuery:
 
     `SELECT *
     FROM users
     WHERE email = $1
-    AND user_password =$2`
+    AND user_password =$2`,
+
+  getUserByEmailQuery:
+
+    `SELECT *
+    FROM users
+    WHERE email = $1`,
+
+  createNewUserQuery:
+
+    `INSERT INTO users (email, user_password, username)
+    VALUES ($1, $2, $3)
+    RETURNING *`
 
 }
 

@@ -13,20 +13,13 @@ const GenReducer = (state, action) => {
     }
     case Constants.LOG_IN: {
       console.log('inside LOG_IN')
+      console.log(action.payload)
       const loginResponse = action.payload;
-      if(loginResponse.loggedIn){
         return {
           ...state,
-          userMin: loginResponse.userMin,
+          userMin: loginResponse,
           loggedIn: true,
           loading: false };
-        } else {
-          return {
-            ...state,
-            userMin: null,
-            loggedIn: false,
-            loading: false };
-        }
     }
     case Constants.FINISHED_LOADING: {
       // console.log('inside FINISHED_LOADING')

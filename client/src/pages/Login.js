@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import Button from '../components/Button'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import HandleLogin from '../hooks/CustomHooks';
-import Constants from '../reducers/Constants'
+// import HandleLogin from '../hooks/CustomHooks';
+import Constants from '../reducers/Constants';
 
 
 const Login = (props) => {
@@ -11,18 +11,23 @@ const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const history = useHistory();
+
   const login = (email, password) => {
-    console.log('inside login');
+    props.commonDispatch({ type: Constants.LOADING });
     return axios
       .post('users/login', {email: email, password: password})
       .then((data) => {
         console.log('data recieved from login: ',data)
+        console.log('data.data: ',data.data)
+        const userObj = data.data.token;
+        if (userObj) {
+          props.commonDispatch({type: Constants.LOG_IN, payload: userObj})
+        }
+        console.log('commonstate', props.commonState);
+      })
       .catch((error)=> {
         console.log('login error: ',error)
-      })
-        // if (data.loggedIn) {
-        //   props.commonDispatch({type: Constants.LOG_IN, payload: data.loggedIn})
-        // }
       })
   }
 
@@ -32,6 +37,7 @@ const Login = (props) => {
       <form onSubmit={(e) => {
         console.log('LOGIN SUBMITTED');
         login( email, password );
+        // history.push("/");
         e.preventDefault();
         }}
         >
@@ -61,11 +67,6 @@ const Login = (props) => {
           className='button--login'
           type='submit'
           name='Login'
-          // onClick={(e) => {
-          // console.log('LOGIN SUBMITTED');
-          // HandleLogin( email, password );
-          // e.preventDefault();
-          // }}
           login
         >
         </Button>

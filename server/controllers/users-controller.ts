@@ -24,17 +24,37 @@ getUserById : function(userId: number[]): Promise<any> {
     });
 },
 
-getUserByEmail : function(userEmail: any, userPassword: any): Promise<any> {
+getUserByEmailAndPassword : function(userEmail: any, userPassword: any): Promise<any> {
   const queryParams:any = [userEmail, userPassword];
 
   return pool
-    .query(usersQueries.getUserByEmailQuery, queryParams)
+    .query(usersQueries.getUserByEmailAndPasswordQuery, queryParams)
     .then((res: any) => {
       if (res.password === userPassword)
       console.log(res.rows);
       return res.rows;
     });
-}
+},
+
+getUserByEmail : function(userEmail: any): Promise<any> {
+  const queryParams:any = [userEmail];
+
+  return pool
+    .query(usersQueries.getUserByEmailQuery, queryParams)
+    .then((res: any) => {
+      console.log(res.rows);
+      return res.rows;
+    });
+},
+
+createNewUser : function(userEmail: any, hashedPassword: any, userName: any): Promise<any> {
+  const queryParams:any = [userEmail, hashedPassword, userName];
+
+  return pool
+    .query(usersQueries.createNewUserQuery, queryParams)
+},
+
+
 
 }
 
