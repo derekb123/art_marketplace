@@ -42,56 +42,6 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const authenticateToken = (req, res, next) => {
-
-  try {
-    const jwtToken = req.header('token')
-
-    if(!jwtToken){
-      return res.status(403).json("Not Authorized.")
-    }
-
-    const payload = jwt.verify(jwtToken, process.env.JWT_SECRET);
-
-    req.user = payload.user;
-
-    next();
-  } catch (err) {
-    console.error(err.message);
-    return res.status(403).json("Not Authorized.")
-  }
-  // const authHeader = req.headers['authorization'];
-  // const token = authHeader && authHeader.split(' ')[1];
-  // if (token === null) return res.sendStatus(401);
-
-  // jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
-  //   if (err) return res.sendStatus(403)
-  //   req.user = user
-  //   next()
-  // })
-}
-
-
-// app.use(cookieSession({
-//   name: null,
-//   keys: [process.env.COOKIE_SECRET_01, process.env.COOKIE_SECRET_02]
-// }))
-
-// app.use(session({
-//   secret: process.env.SESSION_SECRET_01,
-//   saveUninitialized: true,
-//   resave: false,
-//   cookie: {
-//     httpOnly: true,
-//     maxAge: parseInt(process.env.SESSION_MAX_AGE)
-//   }
-// }));
-
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   next();
-// });
-
 // users endpoints
 const usersRouter = express.Router();
 usersRoutes(usersRouter, usersController);

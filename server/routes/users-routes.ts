@@ -5,31 +5,14 @@ import { pool } from '../library/db-pool';
 import bcrypt from 'bcrypt';
 import jwtGenerator from '../utils/jwtGenerator'
 import { body, validationResult } from 'express-validator';
+import authenticateToken from '../middleware/authorization';
 require('dotenv').config();
 
 const usersRoutes = function (router: any, controller: any) {
 
-  // GET_ALL_USERS
-  router.get('/', (req: any, res: any) => {
 
-    return controller
-      .getAllUsers()
-      .then((data: any) => {
-        console.log(typeof data)
-        res.json(data);
-      });
-  });
 
-  // GET_USER_BY_ID
-  router.get('/:user_id', (req: any, res: any) => {
 
-    return controller
-      .getUserById([req.params.user_id])
-      .then((data: any) => {
-        console.log(typeof data)
-        res.json(data);
-      });
-  });
 
    // USER_LOGIN
   router.post(
@@ -125,7 +108,42 @@ const usersRoutes = function (router: any, controller: any) {
       }
     });
 
+    //Verify JWT Token
+  router.get('/verify', authenticateToken, async (req, res)=> {
+    try {
+      console.log(req);
+      res.json(req);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  });
+
+  // GET_USER_BY_ID
+  router.get('/:user_id', (req: any, res: any) => {
+
+    return controller
+      .getUserById([req.params.user_id])
+      .then((data: any) => {
+        console.log(typeof data)
+        res.json(data);
+      });
+  });
+
+  // GET_ALL_USERS
+  router.get('/', (req: any, res: any) => {
+
+    return controller
+      .getAllUsers()
+      .then((data: any) => {
+        console.log(typeof data)
+        res.json(data);
+      });
+  });
+
   return router;
 }
+
+
 
 export default  usersRoutes;

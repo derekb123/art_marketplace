@@ -23,6 +23,12 @@ const usersQueries = {
     `SELECT *
     FROM users
     WHERE email = $1`,
+  
+  getMinUserByEmailQuery:
+
+    `SELECT username, creator, avatar
+    FROM users
+    WHERE email = $1`,
 
   createNewUserQuery:
 

@@ -13,16 +13,19 @@ const Login = (props) => {
 
   const history = useHistory();
 
+  console.log(props.setAuth)
+
   const login = (email, password) => {
     props.commonDispatch({ type: Constants.LOADING });
     return axios
-      .post('users/login', {email: email, password: password})
+      .post('users/login', {email: email, password: password}, {'headers':{'Content-Type': 'application/json'}})
       .then((data) => {
         console.log('data recieved from login: ',data)
         console.log('data.data: ',data.data)
         const userObj = data.data.token;
         if (userObj) {
-          props.commonDispatch({type: Constants.LOG_IN, payload: userObj})
+          // localStorage.setItem('token', userObj);
+          // props.commonDispatch({type: Constants.LOG_IN, payload: userObj})
         }
         console.log('commonstate', props.commonState);
       })
@@ -37,6 +40,7 @@ const Login = (props) => {
       <form onSubmit={(e) => {
         console.log('LOGIN SUBMITTED');
         login( email, password );
+        props.setIsAuthenticated(true);
         // history.push("/");
         e.preventDefault();
         }}
@@ -69,6 +73,13 @@ const Login = (props) => {
           name='Login'
           login
         >
+        </Button>
+        <Button
+          onClick={() => props.setIsAuthenticated(true)}
+          name='Authenticate'
+          login
+        >
+        Authenticate
         </Button>
       </form>
         <p>Don't have an account?</p>

@@ -12,17 +12,21 @@ function Register(props) {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerUsername, setRegisterUsername] = useState('');
+  console.log(props.setAuth)
 
   const history = useHistory();
 
   const registerSubmit = (email, password, username) => {
     props.commonDispatch({ type: Constants.LOADING });
     return axios
-      .post('users/register', {email: email, password: password, username:username})
+      .post('users/register', {email: email, password: password, username:username}, {'headers':{'Content-Type': 'application/json'}})
       .then((data) => {
         console.log('data recieved from registerSubmit: ',data)
-        console.log('')
         console.log('commonstate', props.commonState);
+        const parseRes = data.data.token;
+        console.log(parseRes);
+        localStorage.setItem('token', parseRes);
+        // props.setAuth(true);
         props.commonDispatch({ type: Constants.FINISHED_LOADING });
         // history.push('/login');
       })
@@ -44,7 +48,7 @@ function Register(props) {
         >
         <div className='email'>
           <input name='email'
-          type='text'
+          type='email'
           placeholder="Enter your email"
           onChange= {(e) => {
             // console.log(e.target.value);
@@ -66,7 +70,7 @@ function Register(props) {
         </div>
         <div className='username'>
           <input name='username'
-          type='username'
+          type='text'
           placeholder="Enter your username"
           onChange= {(e) => {
             // console.log(e.target.value);

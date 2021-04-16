@@ -47,6 +47,17 @@ getUserByEmail : function(userEmail: any): Promise<any> {
     });
 },
 
+getUserMinByEmail : function(userEmail: any): Promise<any> {
+  const queryParams:any = [userEmail];
+
+  return pool
+    .query(usersQueries.getMinUserByEmailQuery, queryParams)
+    .then((res: any) => {
+      console.log(res.rows);
+      return res.rows;
+    });
+},
+
 createNewUser : function(userEmail: any, hashedPassword: any, userName: any): Promise<any> {
   const queryParams:any = [userEmail, hashedPassword, userName];
 
