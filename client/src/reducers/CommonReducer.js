@@ -1,23 +1,24 @@
 import Constants from './Constants';
 
 const GenReducer = (state, action) => {
-  // console.log(action);
   switch (action.type) {
     case Constants.LOG_OUT: {
-      // console.log('inside LOG_OUT')
+      console.log('Inside LOG_OUT')
+      localStorage.removeItem('token');
+      console.log(localStorage.token);
       return {
         ...state,
-        userMin: null,
+        currentUser: null,
         loggedIn: false,
         loading: false };
     }
     case Constants.LOG_IN: {
       console.log('inside LOG_IN')
       console.log(action.payload)
-      const loginResponse = action.payload;
+      const currentUser = action.payload;
         return {
           ...state,
-          userMin: loginResponse,
+          currentUser: currentUser,
           loggedIn: true,
           loading: false };
     }
@@ -30,6 +31,7 @@ const GenReducer = (state, action) => {
       return { ...state, loading: true };
     }
     default:
+      console.log('error in Reducer')
       throw new Error();
   }
 };

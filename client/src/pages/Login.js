@@ -3,45 +3,62 @@ import Button from '../components/Button'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import HandleLogin from '../hooks/CustomHooks';
-import Constants from '../reducers/Constants';
-
+import Constants  from '../reducers/Constants';
 
 const Login = (props) => {
+
+  console.log('common dispatch in login componenet', props.commonDispatch)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const history = useHistory();
 
-  console.log(props.setAuth)
+  // const UseHandleLogin = (email, password) => {
+  //   props.commonDispatch({ type: Constants.LOADING });
+  //   return axios
+  //     .post('users/login', {email: email, password: password}, {'headers':{'Content-Type': 'application/json'}})
+  //     .then((data) => {
+  //       console.log('data recieved from login: ',data)
+  //       const userToken = data.data.token;
+  //       const userName = data.data.username;
+  //       localStorage.setItem('token', userToken);
+  //       props.commonDispatch({type: Constants.LOG_IN, payload: userName});
+  //     })
+  //     .catch((error)=> {
+  //       console.log('login error: ',error)
+  //     })
+  // }
 
-  const login = (email, password) => {
-    props.commonDispatch({ type: Constants.LOADING });
-    return axios
-      .post('users/login', {email: email, password: password}, {'headers':{'Content-Type': 'application/json'}})
-      .then((data) => {
-        console.log('data recieved from login: ',data)
-        console.log('data.data: ',data.data)
-        const userObj = data.data.token;
-        if (userObj) {
-          // localStorage.setItem('token', userObj);
-          // props.commonDispatch({type: Constants.LOG_IN, payload: userObj})
-        }
-        console.log('commonstate', props.commonState);
-      })
-      .catch((error)=> {
-        console.log('login error: ',error)
-      })
+  const UseHandleLogin = async (email, password) => {
+
+    try {
+      props.commonDispatch({ type: Constants.LOADING });
+      const res = await axios.post(
+        'users/login', 
+        {email: email, password: password}, 
+        {'headers':{'Content-Type': 'application/json'}}
+        )
+      console.log('res recieved from login: ',res)
+      const userToken = res.data.token;
+      const userName = res.data.username;
+      console.log('token and username recieved from login',userToken, userName)
+      localStorage.setItem('token', userToken);
+      props.commonDispatch({type: Constants.LOG_IN, payload: userName});
+    } catch (error) {
+      console.log(`login error: ${error}`);
+    }
   }
+
+  console.log(props.commonState);
 
   return (
     <div className="Login">
       <h2>Login</h2>
       <form onSubmit={(e) => {
         console.log('LOGIN SUBMITTED');
-        login( email, password );
-        props.setIsAuthenticated(true);
-        // history.push("/");
+        UseHandleLogin( email, password );
+        history.push("/");
         e.preventDefault();
         }}
         >
@@ -51,7 +68,6 @@ const Login = (props) => {
             type='text'
             placeholder="Enter your email"
             onChange= {(e) => {
-              // console.log(e.target.value);
               setEmail( e.target.value)
             }}
             >
@@ -74,17 +90,10 @@ const Login = (props) => {
           login
         >
         </Button>
-        <Button
-          onClick={() => props.setIsAuthenticated(true)}
-          name='Authenticate'
-          login
-        >
-        Authenticate
-        </Button>
       </form>
         <p>Don't have an account?</p>
       <Link  to={'/register'}>
-        <p>Register</p>
+        <p className='wordlink'>Register</p>
       </Link>
     </div>
   );

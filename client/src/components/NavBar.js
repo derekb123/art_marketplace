@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment, Redirect } from 'react';
 import { Link } from 'react-router-dom';
+import Constants from '../reducers/Constants';
 
 function NavBar(props) {
+
   return (
     <div className='navbar'>
        <Link to={'/'}>
@@ -20,9 +22,18 @@ function NavBar(props) {
           Discover
         </div>
         {props.commonState.loggedIn ? (
-          <div className='nav-item nav-profile'>
-          Profile
-          </div>
+          <Fragment>
+            <Link to='/account'>
+              <div className='nav-item nav-profile'>
+              Profile
+              </div>
+            </Link>
+            <Link onClick={()=> props.commonDispatch({type: Constants.LOG_OUT})} to='Login'>
+              <div className='nav-item nav-logout'>
+              Logout
+              </div>
+            </Link>
+          </Fragment>
         ): (
           <Link to={'/login'}>
             <div className='nav-item nav-profile'>

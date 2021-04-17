@@ -11,7 +11,7 @@ const CustomHooks = (props) => {
     currentAsset: null,
     loading: false,
     loggedIn: false,
-    userMin: null,
+    currentUser: null,
     userFull: null
   }
 

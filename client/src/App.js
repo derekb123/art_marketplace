@@ -1,4 +1,4 @@
-import React, { useReducer, useState, Redirect } from 'react';
+import React, { useReducer, useState, Redirect, useEffect } from 'react';
 import './App.css';
 import './styles/App.scss';
 import {  Route, BrowserRouter, Switch } from 'react-router-dom';
@@ -16,13 +16,9 @@ import CommonReducer from './reducers/CommonReducer';
 function App() {
 
   // const [commonState, setCommonState] = useState ({loggedIn: false, loading: false, user: null})
-let initialCommonState = {loggedIn: false, loading: false, userMin: null};
+let initialCommonState = {loggedIn: false, loading: false, currentUser: null};
 const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
-const [isAthenticated, setIsAuthenticated] = useState(false);
 
-const setAuth = (boolean) => {
-  setIsAuthenticated(boolean);
-}
 
   return (
 
@@ -37,10 +33,9 @@ const setAuth = (boolean) => {
               <Route 
               path= '/account'
               render = {(props) => 
-                isAthenticated ? (
+                commonState.loggedIn ? (
                   <Account
                   {...props}
-                  // setAuth={setAuth}
                   commonState={commonState}
                   commonDispatch={dispatch}
                   ></Account>
@@ -49,13 +44,12 @@ const setAuth = (boolean) => {
                 )
               }
               />
-              <Route 
+              <Route
                 path='/login'
                 render = {props => 
-                  !isAthenticated ? (
+                  !commonState.loggedIn ? (
                     <Login
                       {...props}
-                      setIsAuthenticated={setIsAuthenticated}
                       commonState={commonState}
                       commonDispatch={dispatch}
                     />
@@ -65,10 +59,9 @@ const setAuth = (boolean) => {
                 }
               />
               <Route path='/register' render={props => 
-                !isAthenticated ? (
+                !commonState.loggedIn ? (
                 <Register
                   {...props}
-                  // setAuth={setAuth}
                   commonState={commonState}
                   commonDispatch={dispatch}
                 />) : (

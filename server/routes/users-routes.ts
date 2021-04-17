@@ -41,15 +41,18 @@ const usersRoutes = function (router: any, controller: any) {
       //Check if incoming password is the same as the database password
 
       const validPassword = await bcrypt.compare(password, user[0].user_password)
-      console.log('bcrypt compare validePassword', validPassword);
+      console.log('bcrypt compare validPassword', validPassword);
       if(!validPassword){
         return res.status(401).json('Password or Email is incorrect.');
       }
 
       //Provide jwt token
+      console.log('user', user);
       const token = jwtGenerator(user[0].id);
+      const username = user[0].username
+      console.log('username', username);
 
-      res.json({ token });
+      res.json({ token, username });
     } catch (err) {
       console.error(err.message)
     }
