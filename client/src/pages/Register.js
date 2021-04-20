@@ -4,45 +4,43 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
 
-// import HomeAssetsList from '../components/HomeAssetsList'
-// import SearchContainer from '../components/SearchContainer'
-
 function Register(props) {
 
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerUsername, setRegisterUsername] = useState('');
-  console.log(props.setAuth)
 
   const history = useHistory();
 
-  const registerSubmit = (email, password, username) => {
-    props.commonDispatch({ type: Constants.LOADING });
-    return axios
-      .post('users/register', {email: email, password: password, username:username}, {'headers':{'Content-Type': 'application/json'}})
-      .then((data) => {
-        console.log('data recieved from registerSubmit: ',data)
-        console.log('commonstate', props.commonState);
-        const parseRes = data.data.token;
-        console.log(parseRes);
-        localStorage.setItem('token', parseRes);
-        // props.setAuth(true);
-        props.commonDispatch({ type: Constants.FINISHED_LOADING });
-        // history.push('/login');
-      })
-      .catch((error)=> {
-        console.log('registerSubmit error: ',error)
-      })
-  }
+  const [registerSuccessState, setRegisterSuccessState] = useState(false);
 
+  const registerSubmit = async (email, password, username) => {
+    try {
+      props.commonDispatch({ type: Constants.LOADING });
+      setRegisterSuccessState(false);
+      const res = await axios
+        .post('users/register',
+        {email: email, password: password, username:username}, 
+        {'headers':{'Content-Type': 'application/json'}});
+      console.log('res recieved from registerSubmit: ',res);
+      const success = res.data;
+      console.log('success in Register', success)
+      setRegisterSuccessState(success);
+      props.commonDispatch({ type: Constants.FINISHED_LOADING });
+      if (registerSuccessState === true){
+        history.push("/login");}
+    } catch (error) {
+      console.log('register error: ', error)
+    }
+  }
 
   return (
     <div className="Register">
       <h2>Register</h2>
-      <form onSubmit={(e) => {
+      <form onSubmit={async (e) => {
         console.log('REGISTER SUBMITTED');
         registerSubmit( registerEmail, registerPassword, registerUsername);
-        history.push("/login");
+        console.log('register successstate in onsubmit',registerSuccessState)
         e.preventDefault();
         }}
         >
@@ -51,7 +49,6 @@ function Register(props) {
           type='email'
           placeholder="Enter your email"
           onChange= {(e) => {
-            // console.log(e.target.value);
             setRegisterEmail( e.target.value )
           }}>
           </input>
@@ -62,7 +59,6 @@ function Register(props) {
           type='password'
           placeholder="Enter your password"
           onChange= {(e) => {
-            // console.log(e.target.value);
             setRegisterPassword( e.target.value )
           }}>
 
@@ -73,7 +69,6 @@ function Register(props) {
           type='text'
           placeholder="Enter your username"
           onChange= {(e) => {
-            // console.log(e.target.value);
             setRegisterUsername( e.target.value )
           }}>
           </input>

@@ -6,6 +6,7 @@ const Constants =
       SET_ASSET: 'SET_ASSET',
       LOG_IN: 'LOG_IN',
       LOG_OUT: 'LOG_OUT',
+      AUTHORIZE: 'AUTHORIZE'
     }
 
 export default Constants;

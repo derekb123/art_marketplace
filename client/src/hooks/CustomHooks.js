@@ -1,5 +1,5 @@
 import React, {useReducer, useEffect} from 'react';
-import GenReducer, {} from '../reducers/GenReducer';
+import CommonReducer, {} from '../reducers/CommonReducer';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
 import { useHistory } from 'react-router-dom';
@@ -15,7 +15,7 @@ const CustomHooks = (props) => {
     userFull: null
   }
 
-  const [state, dispatch] = useReducer(GenReducer, initialState);
+  const [state, dispatch] = useReducer(CommonReducer, initialState);
 
     // const [userState, setUserState] = useState({
   //   loggedIn: false,

@@ -47,7 +47,7 @@ getUserByEmail : function(userEmail: any): Promise<any> {
     });
 },
 
-getUserMinByEmail : function(userEmail: any): Promise<any> {
+getMinUserByEmail : function(userEmail: any): Promise<any> {
   const queryParams:any = [userEmail];
 
   return pool

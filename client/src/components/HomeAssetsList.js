@@ -15,9 +15,9 @@ const HomeAssetsList = (props) => {
       try {
         props.commonDispatch({ type: Constants.LOADING })
         const res = await axios.get('/assets');
-        // console.log(res.data);
+        // console.log('market assets res', res.data);
         setMarketAssets(res.data);
-        // console.log(marketAssets);
+        // console.log('marketAssets after set', marketAssets);
         props.commonDispatch({ type: Constants.FINISHED_LOADING })
       } catch (error) {
         console.log(error)
@@ -29,7 +29,7 @@ const HomeAssetsList = (props) => {
     }
   }, [props, marketAssets]);
 
-  // console.log(marketAssets);
+  // console.log('marketAssets after getallAssetsNewest', marketAssets);
 
   return (
     <div className='home-assets'>

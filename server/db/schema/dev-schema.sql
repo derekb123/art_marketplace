@@ -7,7 +7,7 @@ CREATE TABLE users
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
-  creator BOOLEAN,
+  creator BOOLEAN DEFAULT false,
   avatar TEXT,
   created_at TIMESTAMP DEFAULT current_timestamp
 );

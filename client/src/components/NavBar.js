@@ -25,7 +25,7 @@ function NavBar(props) {
           <Fragment>
             <Link to='/account'>
               <div className='nav-item nav-profile'>
-              Profile
+              {/* {props.commonState.avatar} */}ACCOUNT
               </div>
             </Link>
             <Link onClick={()=> props.commonDispatch({type: Constants.LOG_OUT})} to='Login'>
@@ -35,11 +35,18 @@ function NavBar(props) {
             </Link>
           </Fragment>
         ): (
-          <Link to={'/login'}>
-            <div className='nav-item nav-profile'>
-            Login/Register
-            </div>
-          </Link>
+          <Fragment>
+            <Link onClick={()=> props.commonDispatch({type: Constants.LOG_OUT})} to='Login'>
+                <div className='nav-item nav-logout'>
+                Logout
+                </div>
+              </Link>
+            <Link to={'/register'}>
+              <div className='nav-item nav-profile'>
+              Register/Login
+              </div>
+            </Link>
+          </Fragment>
         )}
 
       </section>

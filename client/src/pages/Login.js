@@ -7,58 +7,42 @@ import Constants  from '../reducers/Constants';
 
 const Login = (props) => {
 
-  console.log('common dispatch in login componenet', props.commonDispatch)
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const history = useHistory();
-
-  // const UseHandleLogin = (email, password) => {
-  //   props.commonDispatch({ type: Constants.LOADING });
-  //   return axios
-  //     .post('users/login', {email: email, password: password}, {'headers':{'Content-Type': 'application/json'}})
-  //     .then((data) => {
-  //       console.log('data recieved from login: ',data)
-  //       const userToken = data.data.token;
-  //       const userName = data.data.username;
-  //       localStorage.setItem('token', userToken);
-  //       props.commonDispatch({type: Constants.LOG_IN, payload: userName});
-  //     })
-  //     .catch((error)=> {
-  //       console.log('login error: ',error)
-  //     })
-  // }
 
   const UseHandleLogin = async (email, password) => {
 
     try {
       props.commonDispatch({ type: Constants.LOADING });
       const res = await axios.post(
-        'users/login', 
-        {email: email, password: password}, 
-        {'headers':{'Content-Type': 'application/json'}}
+        'users/login',
+        {},
+        {'headers':{'Content-Type': 'application/json', email, password}}
         )
       console.log('res recieved from login: ',res)
+      const loginSuccessRes = res.data.loginSuccess;
       const userToken = res.data.token;
-      const userName = res.data.username;
-      console.log('token and username recieved from login',userToken, userName)
+      console.log(loginSuccessRes)
+      if (loginSuccessRes === true) {
       localStorage.setItem('token', userToken);
-      props.commonDispatch({type: Constants.LOG_IN, payload: userName});
+      props.commonDispatch({type: Constants.LOG_IN, payload: res.data});
+      history.push("/");
+      }
     } catch (error) {
       console.log(`login error: ${error}`);
     }
   }
 
-  console.log(props.commonState);
-
   return (
     <div className="Login">
       <h2>Login</h2>
+      {}
+      <div></div>
       <form onSubmit={(e) => {
         console.log('LOGIN SUBMITTED');
         UseHandleLogin( email, password );
-        history.push("/");
         e.preventDefault();
         }}
         >
