@@ -9,7 +9,8 @@ CREATE TABLE users
   user_password VARCHAR(255) NOT NULL,
   creator BOOLEAN DEFAULT false,
   avatar TEXT,
-  created_at TIMESTAMP DEFAULT current_timestamp
+  created_at TIMESTAMP DEFAULT current_timestamp,
+  token_version INT DEFAULT 0
 );
 
 DROP TABLE IF EXISTS assets

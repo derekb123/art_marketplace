@@ -36,11 +36,6 @@ function NavBar(props) {
           </Fragment>
         ): (
           <Fragment>
-            <Link onClick={()=> props.commonDispatch({type: Constants.LOG_OUT})} to='Login'>
-                <div className='nav-item nav-logout'>
-                Logout
-                </div>
-              </Link>
             <Link to={'/register'}>
               <div className='nav-item nav-profile'>
               Register/Login

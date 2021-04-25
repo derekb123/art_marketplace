@@ -18,19 +18,20 @@ const Login = (props) => {
       props.commonDispatch({ type: Constants.LOADING });
       const res = await axios.post(
         'users/login',
-        {},
+        {withCredentials: true, credentials: 'include'},
         {'headers':{'Content-Type': 'application/json', email, password}}
         )
       console.log('res recieved from login: ',res)
-      const loginSuccessRes = res.data.loginSuccess;
-      const userToken = res.data.token;
-      console.log(loginSuccessRes)
-      if (loginSuccessRes === true) {
-      localStorage.setItem('token', userToken);
+      const userToken = res.data.accessToken;
+      const refreshToken = res.data.refreshToken;
+      console.log(refreshToken);
+      const loginSuccess = res.data.loginSuccess;
       props.commonDispatch({type: Constants.LOG_IN, payload: res.data});
-      history.push("/");
+      if (loginSuccess) {
+        history.push("/");
       }
     } catch (error) {
+      localStorage.removeItem('token');
       console.log(`login error: ${error}`);
     }
   }

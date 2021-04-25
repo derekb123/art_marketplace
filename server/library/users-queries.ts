@@ -34,7 +34,13 @@ const usersQueries = {
 
     `INSERT INTO users (email, user_password, username)
     VALUES ($1, $2, $3)
-    RETURNING *`
+    RETURNING *`,
+
+  incrementRefreshTokenVersionQuery:
+
+  `UPDATE users
+    SET token_version = token_version + 1
+    WHERE id = $1`
 
 }
 

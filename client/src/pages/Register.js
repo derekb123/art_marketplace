@@ -12,12 +12,9 @@ function Register(props) {
 
   const history = useHistory();
 
-  const [registerSuccessState, setRegisterSuccessState] = useState(false);
-
   const registerSubmit = async (email, password, username) => {
     try {
       props.commonDispatch({ type: Constants.LOADING });
-      setRegisterSuccessState(false);
       const res = await axios
         .post('users/register',
         {email: email, password: password, username:username}, 
@@ -25,9 +22,8 @@ function Register(props) {
       console.log('res recieved from registerSubmit: ',res);
       const success = res.data;
       console.log('success in Register', success)
-      setRegisterSuccessState(success);
-      props.commonDispatch({ type: Constants.FINISHED_LOADING });
-      if (registerSuccessState === true){
+      await props.commonDispatch({ type: Constants.FINISHED_LOADING });
+      if (success === true){
         history.push("/login");}
     } catch (error) {
       console.log('register error: ', error)
@@ -40,7 +36,6 @@ function Register(props) {
       <form onSubmit={async (e) => {
         console.log('REGISTER SUBMITTED');
         registerSubmit( registerEmail, registerPassword, registerUsername);
-        console.log('register successstate in onsubmit',registerSuccessState)
         e.preventDefault();
         }}
         >

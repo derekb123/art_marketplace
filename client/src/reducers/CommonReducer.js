@@ -13,16 +13,19 @@ const CommonReducer = (state, action) => {
         loading: false };
     }
     case Constants.LOG_IN: {
-      console.log('inside LOG_IN')
-      console.log(action.payload)
+      console.log('inside LOG_IN');
       const userInfo = action.payload;
+      console.log(userInfo);
+      localStorage.setItem('token', userInfo.trefreshToken);
+      console.log('local storage token loaded?',localStorage.token);
         return {
           ...state,
           currentUser: userInfo.username,
-          avatar: userInfo.avatar,
-          isCreator: userInfo.isCreator,
           loggedIn: true,
-          loading: false }
+          loading: false,
+          isCreator: userInfo.isCreator,
+          avatar: userInfo.avatar
+           }
     }
     case Constants.AUTHORIZE: {
       console.log('inside AUTHORIZE')

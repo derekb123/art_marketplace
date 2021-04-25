@@ -24,18 +24,26 @@ const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
 const isAuth = async () => {
   try {
     dispatch({type: Constants.LOADING})
-    const res = await axios.get('users/verify', { headers : {token: localStorage.token}});
-    console.log('res inside isAuth', res)
-    dispatch({type: Constants.AUTHORIZE, payload: res.data})
+    const refreshRes = await axios.post('users/refresh');
+    console.log('isAuth refreshRes',refreshRes);
+    const accessToken = refreshRes.data.accessToken;
+    console.log('isAuth accessToken',accessToken)
+    const refreshSuccess = refreshRes.data.refresh;
+    console.log('isAuth refreshSuccess',refreshSuccess);
+    if (refreshSuccess) {
+      const verifyAccess = await axios.get('users/verify', { headers : {token: accessToken}});
+      console.log(verifyAccess.data);
+      dispatch({type: Constants.AUTHORIZE, payload: verifyAccess.data})
+    }
   } catch (error) {
-    console.error(error.message);
+    console.error('error from isAuth: ',error.message);
   }
 }
 
-// useEffect(()=> {
-//   console.log('app use effect isAuth')
-//   isAuth()
-// }, [])
+useEffect(()=> {
+  console.log('app use effect isAuth')
+  isAuth()
+}, [])
 
   return (
 
@@ -63,16 +71,12 @@ const isAuth = async () => {
               />
               <Route
                 path='/login'
-                render = {props => 
-                  !commonState.loggedIn ? (
+                render = {(props) => 
                     <Login
                       {...props}
                       commonState={commonState}
                       commonDispatch={dispatch}
                     />
-                  ) : (
-                  <Redirect to='/' />
-                )
                 }
               />
               <Route path='/register' render={props => 

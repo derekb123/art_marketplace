@@ -13,6 +13,7 @@ import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
 import assetsController from "./controllers/assets-controller";
+import cookieParser from 'cookie-parser';
 // import session from 'express-session';
 // import bcrypt from 'bcrypt';
 // import methodOverride from 'method-override';
@@ -41,6 +42,7 @@ app.use(morgan("dev"));
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 // users endpoints
 const usersRouter = express.Router();

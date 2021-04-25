@@ -3,7 +3,7 @@ import usersQueries from "../library/users-queries";
 
 const assetsController = {
 
-//get all users
+
 getAllUsers : function(): Promise<any> {
   return pool
     .query(usersQueries.getAllUsersQuery)
@@ -13,8 +13,8 @@ getAllUsers : function(): Promise<any> {
     });
 },
 
-getUserById : function(userId: number[]): Promise<any> {
-  const queryParams:number[] = userId;
+getUserById : function(userId: number): Promise<any> {
+  const queryParams:number[] = [userId];
 
   return pool
     .query(usersQueries.getUserByIdQuery, queryParams)
@@ -65,7 +65,11 @@ createNewUser : function(userEmail: any, hashedPassword: any, userName: any): Pr
     .query(usersQueries.createNewUserQuery, queryParams)
 },
 
-
+incrementRefreshTokenVersion : function(userId: any): Promise<any> {
+  const queryParams:any = [userId];
+  return pool
+    .query(usersQueries.incrementRefreshTokenVersionQuery, queryParams)
+},
 
 }
 
