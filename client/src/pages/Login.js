@@ -22,7 +22,8 @@ const Login = (props) => {
         {'headers':{'Content-Type': 'application/json', email, password}}
         )
       console.log('res recieved from login: ',res)
-      const userToken = res.data.accessToken;
+      const loginAccessToken = res.data.accessToken;
+      console.log(loginAccessToken);
       const refreshToken = res.data.refreshToken;
       console.log(refreshToken);
       const loginSuccess = res.data.loginSuccess;

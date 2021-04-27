@@ -1,15 +1,13 @@
 import express from 'express';
 const router = express.Router();
 import jwt from 'jsonwebtoken';
-import { pool } from '../library/db-pool';
 import bcrypt from 'bcrypt';
 import {jwtAccessTokenGenerator, jwtRefreshTokenGenerator} from '../utils/jwtGenerator'
 import { body, header, validationResult } from 'express-validator';
+import {sendRefreshToken} from '../utils/sendRefreshToken';
 import authenticateToken from '../middleware/authorization';
-import fetch from 'node-fetch';
 require('dotenv').config();
-import cookieParser from 'cookie-parser';
-import {sendRefreshToken} from '../utils/sendRefreshToken'
+
 
 
 const usersRoutes = function (router: any, controller: any) {
@@ -23,7 +21,9 @@ const usersRoutes = function (router: any, controller: any) {
           }
           let payload = null;
           try {
-            payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
+            console.log('inside refresh try/catch')
+            payload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
+            console.log('payload inside refresh try/catch', payload)
           } catch (error) {
             console.log(error)
             return res.send({refresh: false, accessToken:''})
@@ -31,25 +31,37 @@ const usersRoutes = function (router: any, controller: any) {
 
           //refreshToken is valid and can send back an access token
           const userId = payload.user;
+          console.log('payload.user after jwt.verify', userId);
           const user = await controller.getUserById(userId);
-          console.log(user);
+          console.log('user after refreshToken is valid', user);
 
           if(!user) {
+            console.log('!user')
             return res.send({refresh: false, accessToken:''});
           }
 
           const tokenVersion = payload.tokenVersion;
-          if(user.tokenVersion !== tokenVersion){
-            // sendRefreshToken(res, jwtRefreshTokenGenerator(user));
-            return res.send({refresh: true, accessToken: jwtAccessTokenGenerator(user)});
-          }
-        })
+          console.log('tokenVersion, user.tokenVersion', tokenVersion, user[0].token_version)
+          if(user[0].token_version !== tokenVersion){
+            console.log('user.tokenVersion !== tokenVersion');
+            return res.send({refresh: false, accessToken:''});
+          };
+
+          return res.send({
+            refresh: true, 
+            accessToken: jwtAccessTokenGenerator(user), 
+            username: user[0].username, 
+            avatar: user[0].avatar, 
+            isCreator: user[0].creator
+          })
+        });
 
         //REVOKE REFRESH TOKENS FOR USER
         router.post('/revoke', async (req, res) => {
-          
-        }
-        )
+          const {userId} = req.headers;
+          await controller.incrementRefreshTokenVersion(userId);
+          return true;
+        });
 
    // USER_LOGIN
   router.post(
@@ -84,21 +96,22 @@ const usersRoutes = function (router: any, controller: any) {
       }
 
       //Provide jwt token
-      console.log('user', userFull);
+      // console.log('userFull', userFull);
       const userId = userFull[0].id;
       const accessToken = jwtAccessTokenGenerator(userId);
-      const refreshToken = jwtRefreshTokenGenerator(userId);
+      const refreshToken = jwtRefreshTokenGenerator(userFull[0]);
       const username = userFull[0].username;
       const avatar = userFull[0].avatar;
       const isCreator = userFull[0].creator;
-      console.log('username', username);
+      // console.log('username', username);
       const loginSuccess = userId ? true : false;
-      
+
       if(loginSuccess) {
         // res.cookie('rToken', refreshToken, {
         //   httpOnly: true,
         //   path: '/login'
         // });
+        res.clearCookie('rToken');
         sendRefreshToken(res, refreshToken);
         res.json({ accessToken, username, avatar, isCreator, loginSuccess })
       }
@@ -107,6 +120,15 @@ const usersRoutes = function (router: any, controller: any) {
     }
 
     });
+
+    //USER LOG OUT
+
+    router.post('/logout', async (req: any, res: any) => {
+
+      res.clearCookie('rToken');
+      return res.send({ accessToken:''});
+    });
+
 
     //USER REGISTRATION
     router.post(
@@ -129,7 +151,7 @@ const usersRoutes = function (router: any, controller: any) {
         //Check if user exists (ifuser exists, throw error)
 
         const existingUser = await controller.getUserByEmail(email);
-        console.log(existingUser);
+        // console.log('existingUser', existingUser);
         if (existingUser.length !==0 ) {
           res.status(401).send('A user with that email already exists.')
         }
@@ -140,7 +162,7 @@ const usersRoutes = function (router: any, controller: any) {
         const salt = await bcrypt.genSalt(saltRound);
 
         const bcryptPassword = await bcrypt.hash(password, salt);
-        console.log(bcryptPassword)
+        // console.log(bcryptPassword)
 
         //Create Default Avatar
         // try {
@@ -183,9 +205,9 @@ const usersRoutes = function (router: any, controller: any) {
     }
     try {
       const verifiedUser = jwt.verify(jwtToken, process.env.JWT_SECRET);
-      console.log('verify after authorization', verifiedUser);
+      console.log('verified User after authorization', verifiedUser);
       const verifiedUserId = verifiedUser.user[0].id
-      console.log(verifiedUserId);
+      console.log('verifiedUserId',verifiedUserId);
       if (verifiedUserId) {
         res.json(true);
       }

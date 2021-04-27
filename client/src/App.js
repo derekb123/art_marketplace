@@ -15,34 +15,47 @@ import axios from 'axios';
 import Constants from './reducers/Constants';
 
 
-function App() {
+function App(props) {
 
   // const [commonState, setCommonState] = useState ({loggedIn: false, loading: false, user: null})
 let initialCommonState = {loggedIn: false, loading: false, currentUser: null, isCreator: false, avatar: null};
 const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
 
-const isAuth = async () => {
+const isAuth = async (props) => {
+  console.log('isAuth initial props',props);
+  console.log('isAuth initial commonState',commonState);
   try {
     dispatch({type: Constants.LOADING})
     const refreshRes = await axios.post('users/refresh');
     console.log('isAuth refreshRes',refreshRes);
-    const accessToken = refreshRes.data.accessToken;
-    console.log('isAuth accessToken',accessToken)
-    const refreshSuccess = refreshRes.data.refresh;
-    console.log('isAuth refreshSuccess',refreshSuccess);
-    if (refreshSuccess) {
-      const verifyAccess = await axios.get('users/verify', { headers : {token: accessToken}});
-      console.log(verifyAccess.data);
-      dispatch({type: Constants.AUTHORIZE, payload: verifyAccess.data})
-    }
+    const authObj = refreshRes.data;
+    console.log('isAuth authObj',authObj);
+    // const {username, avatar, isCreator, accessToken} = refreshRes.data;
+    // console.log('username, avatar, isCreator, accessToken',username, avatar, isCreator, accessToken )
+    // const accessToken = refreshRes.accessToken;
+    // const avatar = refreshRes.data.avatar;
+    // const isCreator = refreshRes.data.isCretor;
+    // dispatch({type: Constants.REFRESH, payload: {username, avatar, isCreator}});
+    // console.log('isAuth accessToken', accessToken);
+    // const refreshSuccess = refreshRes.refresh;
+    // console.log('isAuth refreshSuccess',refreshSuccess);
+    if (authObj.refresh) {
+      const verifyAccessObj = await axios.get('users/verify', { headers : {token: authObj.accessToken}});
+      const verifyAccess = verifyAccessObj.data;
+      authObj.verifyAccess = verifyAccess;
+      console.log('authObj after adding verifyAccess', authObj)
+      dispatch({
+        type: Constants.AUTHORIZE, 
+        payload: authObj})
+    };
   } catch (error) {
     console.error('error from isAuth: ',error.message);
   }
 }
 
-useEffect(()=> {
-  console.log('app use effect isAuth')
-  isAuth()
+useEffect((props)=> {
+  console.log('app use effect isAuth');
+  isAuth(props);
 }, [])
 
   return (

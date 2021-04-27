@@ -4,11 +4,11 @@ const CommonReducer = (state, action) => {
   switch (action.type) {
     case Constants.LOG_OUT: {
       console.log('Inside LOG_OUT')
-      localStorage.removeItem('token');
-      console.log(localStorage.token);
       return {
         ...state,
         currentUser: null,
+        avatar: null,
+        isCreator: false,
         loggedIn: false,
         loading: false };
     }
@@ -16,7 +16,19 @@ const CommonReducer = (state, action) => {
       console.log('inside LOG_IN');
       const userInfo = action.payload;
       console.log(userInfo);
-      localStorage.setItem('token', userInfo.trefreshToken);
+        return {
+          ...state,
+          currentUser: userInfo.username,
+          loggedIn: true,
+          loading: false,
+          isCreator: userInfo.isCreator,
+          avatar: userInfo.avatar
+           }
+    }
+    case Constants.REFRESH: {
+      console.log('inside LOG_IN');
+      const userInfo = action.payload;
+      console.log(userInfo);
       console.log('local storage token loaded?',localStorage.token);
         return {
           ...state,
@@ -29,14 +41,22 @@ const CommonReducer = (state, action) => {
     }
     case Constants.AUTHORIZE: {
       console.log('inside AUTHORIZE')
-      const authBoolean = action.payload
-      if (authBoolean === true) {
+      const payload = action.payload
+      // const authObj = payload.authObj;
+      console.log(payload);
+      if (payload.verifyAccess === true) {
         console.log('Authorized from Reducer')
-        return {...state, loggedIn: true, loading: false}
+        return {
+          ...state,
+          loggedIn: true, 
+          loading: false,
+          isCreator: payload.isCreator,
+          avatar: payload.avatar,
+          currentUser: payload.username,
+        }
       }
       else {
         console.log('NOT Authorized from Reducer')
-        localStorage.removeItem('token');
         console.log('local storage after not authorized', localStorage)
         return {
           ...state,

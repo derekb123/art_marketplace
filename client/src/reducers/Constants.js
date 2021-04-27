@@ -1,4 +1,4 @@
-const Constants = 
+const Constants =
     {
       SET_ASSETS: 'SET_ASSETS',
       LOADING: 'LOADING',
@@ -6,7 +6,8 @@ const Constants =
       SET_ASSET: 'SET_ASSET',
       LOG_IN: 'LOG_IN',
       LOG_OUT: 'LOG_OUT',
-      AUTHORIZE: 'AUTHORIZE'
+      AUTHORIZE: 'AUTHORIZE',
+      REFRESH: 'REFRESH'
     }
 
 export default Constants;
