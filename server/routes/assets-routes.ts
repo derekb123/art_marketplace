@@ -3,6 +3,10 @@ const router = express.Router();
 
 const assetsRoutes = function(router: any, controller: any) {
 
+  router.get('/images',(req: any, res: any) => {
+
+
+  })
 
   router.get('/:asset_id', (req: any, res: any) => {
     console.log(req);

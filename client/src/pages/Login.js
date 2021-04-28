@@ -32,7 +32,6 @@ const Login = (props) => {
         history.push("/");
       }
     } catch (error) {
-      localStorage.removeItem('token');
       console.log(`login error: ${error}`);
     }
   }
