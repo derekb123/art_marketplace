@@ -41,9 +41,11 @@ function NavBar(props) {
             Market
           </div>
         </Link>
-        <div className='nav-item nav-discover'>
-          Discover
-        </div>
+        <Link to={'/assets/create'}>
+          <div className='nav-item nav-market'>
+            Create
+          </div>
+        </Link>
         {props.commonState.loggedIn ? (
           <Fragment>
             <Link to='/account'>

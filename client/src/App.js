@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Account from './pages/Account';
+import Create from './pages/Create';
 import NotFound from './pages/NotFound'
 import NavBar from './components/NavBar';
 import AssetDetail from './components/AssetDetail';
@@ -68,9 +69,9 @@ useEffect((props)=> {
               commonDispatch={dispatch}
             />
             <Switch>
-              <Route 
+              <Route
               path= '/account'
-              render = {(props) => 
+              render = {(props) =>
                 commonState.loggedIn ? (
                   <Account
                   {...props}
@@ -102,6 +103,12 @@ useEffect((props)=> {
                 <Redirect to='/login' />
                )
               }>
+              </Route>
+              <Route path='/assets/create'>
+                <Create
+                  commonState={commonState}
+                  commonDispatch={dispatch}
+                />
               </Route>
               <Route path='/assets/:asset_id'>
                 <AssetDetail

@@ -3,7 +3,7 @@ import Constants from './Constants';
 const CommonReducer = (state, action) => {
   switch (action.type) {
     case Constants.LOG_OUT: {
-      console.log('Inside LOG_OUT')
+      // console.log('Inside LOG_OUT')
       return {
         ...state,
         currentUser: null,
@@ -13,7 +13,7 @@ const CommonReducer = (state, action) => {
         loading: false };
     }
     case Constants.LOG_IN: {
-      console.log('inside LOG_IN');
+      // console.log('inside LOG_IN');
       const userInfo = action.payload;
       console.log(userInfo);
         return {
@@ -26,7 +26,7 @@ const CommonReducer = (state, action) => {
            }
     }
     case Constants.REFRESH: {
-      console.log('inside LOG_IN');
+      // console.log('inside REFRESH');
       const userInfo = action.payload;
       console.log(userInfo);
       console.log('local storage token loaded?',localStorage.token);
@@ -40,7 +40,7 @@ const CommonReducer = (state, action) => {
            }
     }
     case Constants.AUTHORIZE: {
-      console.log('inside AUTHORIZE')
+      // console.log('inside AUTHORIZE');
       const payload = action.payload
       // const authObj = payload.authObj;
       console.log(payload);
@@ -68,15 +68,15 @@ const CommonReducer = (state, action) => {
       }
     }
     case Constants.FINISHED_LOADING: {
-      console.log('inside FINISHED_LOADING')
+      // console.log('inside FINISHED_LOADING')
       return { ...state, loading: false };
     }
     case Constants.LOADING: {
-      console.log('inside LOADING')
+      // console.log('inside LOADING')
       return { ...state, loading: true };
     }
     default:
-      console.log('error in Reducer')
+      // console.log('error in Reducer')
       throw new Error();
   }
 };
