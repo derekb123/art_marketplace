@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Button from '../components/Button'
 import ImageUpload from '../components/ImageUpload';
+import ImageUpload2 from '../components/ImageUpload2';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import HandleCreate from '../hooks/CustomHooks';
@@ -10,14 +11,44 @@ import Constants  from '../reducers/Constants';
 const Create = (props) => {
 
   console.log('props at Create top', props);
+  const imageUploadIcon = 'client/public/upload_image.png'
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   // const [size, setSize] = useState('');
   const [price, setPrice] = useState(0);
-  const [uploadedImageState, setUploadedImageState] = useState({image: null});
+  const [uploadedImageState, setUploadedImageState] = useState();
   const creatorId = props.commonState.currentUser;
+
+    const [preview, setPreview] = useState('');
+  const fileInputRef = useRef();
+
+  useEffect(() => {
+    if(uploadedImageState) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreview(reader.result);
+        };
+        reader.readAsDataURL(uploadedImageState);
+    } else {
+      setPreview(null);
+    }
+  }, [uploadedImageState])
+
+ const OnImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file && file.type.substr(0,5) === 'image') {
+    setUploadedImageState(file);
+  } else {
+    setUploadedImageState(null);
+  }
+ }
+
+ const handleOnClick = (e) => {
+   e.preventDefault();
+   fileInputRef.current.click();
+ }
 
 
   const history = useHistory();
@@ -46,12 +77,49 @@ const Create = (props) => {
       <h2>Create</h2>
       <article className='create-sections'>
         <section className='create-left'>
-            <ImageUpload
-            commonState={props.commonState}
-            commonDispatch={props.commonDispatch}
-            uploadedImageState={uploadedImageState}
-            setUploadedImageState={setUploadedImageState}
-            />
+          {/* <div>
+            <div className='create-image-container'>
+              {preview ? (
+                <img
+                src={preview} 
+                alt='your upload'
+                >
+                </img>
+              ) : (
+                <img
+                src={'../../../client/public/upload_image.png'} 
+                alt='upload image'
+                >
+                </img>
+              )}
+              <input
+                className='create-image-input'
+                ref={fileInputRef}
+                type='file'
+                name='myImage'
+                accept='image/*'
+                style={{display: 'none'}}
+                onChange={OnImageChange}
+                />
+              </div>
+              <div>{uploadedImageState && (
+                <button 
+                  className='button--confirm'
+                  onClick={handleOnClick}
+                >
+                  Change Image
+                </button>
+              )}
+              </div>
+          </div> */}
+          <ImageUpload2
+          uploadedImageState={uploadedImageState}
+          setUploadedImageState={setUploadedImageState}
+          OnImageChange={OnImageChange}
+          handleOnClick={handleOnClick}
+          >
+            
+          </ImageUpload2>
         </section>
 
         <section className='asset-detail-right'>

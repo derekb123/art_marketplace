@@ -23,8 +23,8 @@ let initialCommonState = {loggedIn: false, loading: false, currentUser: null, is
 const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
 
 const isAuth = async (props) => {
-  console.log('isAuth initial props',props);
-  console.log('isAuth initial commonState',commonState);
+  // console.log('isAuth initial props',props);
+  // console.log('isAuth initial commonState',commonState);
   try {
     dispatch({type: Constants.LOADING})
     const refreshRes = await axios.post('users/refresh');
@@ -55,7 +55,7 @@ const isAuth = async (props) => {
 }
 
 useEffect((props)=> {
-  console.log('app use effect isAuth');
+  // console.log('app use effect isAuth');
   isAuth(props);
 }, [])
 

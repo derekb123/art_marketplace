@@ -10,6 +10,7 @@ const ImageUpload = (props) => {
   }
 
     return (
+      <div>
           <div className='create-image-container'>
             {!props.uploadedImageState ? (
               <input
@@ -23,15 +24,17 @@ const ImageUpload = (props) => {
               src={props.uploadedImageState[0] && props.uploadedImageState[0].image} 
               alt='your upload'
               >
-                {console.log(props.uploadedImageState)}
+                {console.log('uploadedImageState inside of img tag',props.uploadedImageState)}
               </img>
             )}
-          {props.uploadedImageState && (
-              <button>
+            </div>
+            <div>{props.uploadedImageState && (
+              <button className='button--confirm'>
                 Change Image
               </button>
             )}
             </div>
+        </div>
     );
 }
 

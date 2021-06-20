@@ -5,7 +5,6 @@ import Button from '../components/Button'
 import axios from 'axios';
 
 function NavBar(props) {
-  console.log(props)
   const username = props.commonState.currentUser;
   const history = useHistory();
 
