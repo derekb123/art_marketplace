@@ -5,14 +5,25 @@ require('dotenv').config();
 const app = express();
 const router = express.Router();
 import jwt from 'jsonwebtoken';
-
-
+import AWS from 'aws-sdk';
+import multer from 'multer';
 import morgan from 'morgan';
 import bodyParser from "body-parser";
+
+
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
+const s3 = new AWS.S3();
+
 import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
 import assetsController from "./controllers/assets-controller";
+import mediaRoutes from './routes/media-routes';
+import mediaController from "./controllers/media-controller";
 import cookieParser from 'cookie-parser';
 // import session from 'express-session';
 // import bcrypt from 'bcrypt';
@@ -44,6 +55,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
+// s3 abstracts function to upload a file returning a promise
+const uploadFile = (buffer, name, type) => {
+  const params = {
+    ACL: 'public-read',
+    Body: buffer,
+    Bucket: process.env.S3_BUCKET,
+    ContentType: type.mime,
+    Key: `${name}.${type.ext}`,
+  };
+  return s3.upload(params).promise();
+};
+
 // users endpoints
 const usersRouter = express.Router();
 usersRoutes(usersRouter, usersController);
@@ -53,6 +76,13 @@ app.use('/users', usersRouter);
 const assetsRouter = express.Router();
 assetsRoutes(assetsRouter, assetsController);
 app.use('/assets', assetsRouter);
+
+// s3 endpoints
+
+const mediaRouter = express.Router();
+mediaRoutes(mediaRouter);
+app.use('/media', mediaRouter);
+
 
 app.get('/', (req: any, res: any) => {
   res.json('Hello world!');

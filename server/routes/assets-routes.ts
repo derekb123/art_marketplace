@@ -4,7 +4,7 @@ const router = express.Router();
 const assetsRoutes = function(router: any, controller: any) {
 
   router.get('/images',(req: any, res: any) => {
-
+    return controller
 
   })
 
@@ -26,6 +26,10 @@ const assetsRoutes = function(router: any, controller: any) {
       .catch((err) => {
         res.json({ error: err.message });
       });
+  });
+  
+  router.post('/', (req: any, res: any) => {
+    console.log('Create Asset Route Post to / req.body',req.body);
   });
 
   return router;

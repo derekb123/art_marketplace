@@ -1,7 +1,7 @@
 import { pool }  from "../library/db-pool";
 import usersQueries from "../library/users-queries";
 
-const assetsController = {
+const usersController = {
 
 
 getAllUsers : function(): Promise<any> {
@@ -73,4 +73,4 @@ incrementRefreshTokenVersion : function(userId: any): Promise<any> {
 
 }
 
-export default assetsController;
+export default usersController;

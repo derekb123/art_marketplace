@@ -14,6 +14,7 @@
   "keywords": [],
   "description": "",
   "dependencies": {
+    "aws-sdk": "^2.935.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.0",
@@ -25,6 +26,8 @@
     "json": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
     "pg-native": "^3.0.0"

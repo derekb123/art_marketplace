@@ -1,41 +1,84 @@
-import React, {useState, Fragment} from 'react';
+import React, { useRef, useState, useEffect, Fragment} from 'react';
+import imageUploadIcon from './upload_ image.png';
+
+
 
 const ImageUpload = (props) => {
 
-  const OnImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      props.setUploadedImageState([{image: URL.createObjectURL(img)}])
-    }
-  }
+  //REFACTOR PLEASE
+  console.log('props in imageupload', props);
+  console.log('uploadedImageState', props.uploadedImageState);
 
-    return (
-      <div>
-          <div className='create-image-container'>
-            {!props.uploadedImageState ? (
-              <input
-              className='create-image-input'
-              type='file'
-              name='myImage'
-              onChange={OnImageChange}
-              />
-            ) : (
-              <img
-              src={props.uploadedImageState[0] && props.uploadedImageState[0].image} 
-              alt='your upload'
-              >
-                {console.log('uploadedImageState inside of img tag',props.uploadedImageState)}
-              </img>
-            )}
-            </div>
-            <div>{props.uploadedImageState && (
-              <button className='button--confirm'>
-                Change Image
-              </button>
-            )}
-            </div>
+  const [preview, setPreview] = useState('');
+  const fileInputRef = useRef();
+
+  useEffect(() => {
+    if(props.uploadedImageState) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreview(reader.result);
+        };
+        reader.readAsDataURL(props.uploadedImageState);
+    } else {
+      setPreview(null);
+    }
+  }, [props.uploadedImageState])
+
+ const OnImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file && file.type.substr(0,5) === 'image') {
+    props.setUploadedImageState(file);
+  } else {
+    props.setUploadedImageState(null);
+  }
+ }
+
+ const handleOnClick = (e) => {
+   e.preventDefault();
+   fileInputRef.current.click();
+ }
+
+  return (
+  <div>
+    <div className='create-image-container'>
+      {preview ? (
+         <img
+        src={preview} 
+        alt='your upload'
+        >
+        </img>
+      ) : (
+        <div>
+          <img
+            className='upload-icon'
+            src={imageUploadIcon} 
+            alt='upload image'
+          >
+          </img>
+          <p>
+            CLICK BROWSE OR DROP YOUR IMAGE HERE
+          </p>
         </div>
-    );
-}
+       
+      )}
+      <input
+        // className='create-image-input'
+        ref={fileInputRef}
+        type='file'
+        name='myImage'
+        accept='image/*'
+        style={{display: 'none'}}
+        onChange={OnImageChange}
+        />
+      </div>
+    <button 
+          className='button--confirm'
+          onClick={handleOnClick}
+        >
+          Browse Image
+        </button>
+    </div>
+)
+};
 
 export default ImageUpload;

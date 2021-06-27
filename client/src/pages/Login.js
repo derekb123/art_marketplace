@@ -49,12 +49,10 @@ const Login = (props) => {
         >
         <div className='email'>
           <input
-            name='email'
+            name='Title'
             type='text'
-            placeholder="Enter your email"
-            onChange= {(e) => {
-              setEmail( e.target.value)
-            }}
+            placeholder="Enter the NFT Title"
+            onChange= {(e) => {setEmail( e.target.value)}}
             >
           </input>
         </div>
