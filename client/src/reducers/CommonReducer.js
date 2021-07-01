@@ -39,6 +39,20 @@ const CommonReducer = (state, action) => {
           avatar: userInfo.avatar
            }
     }
+    case Constants.UPLOAD_ASSETS: {
+      console.log('inside UPLOAD_ASSETS');
+      const userInfo = action.payload;
+      console.log(userInfo);
+      console.log('local storage token loaded?',localStorage.token);
+        return {
+          ...state,
+          currentUser: userInfo.username,
+          loggedIn: true,
+          loading: false,
+          isCreator: userInfo.isCreator,
+          avatar: userInfo.avatar
+           }
+    }
     case Constants.AUTHORIZE: {
       // console.log('inside AUTHORIZE');
       const payload = action.payload

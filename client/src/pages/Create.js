@@ -22,15 +22,16 @@ const Create = (props) => {
 
   const history = useHistory();
 
-  const UseHandleCreate = async (title, description, price, image) => {
+  const UseHandleCreate = async (title, description, creatorId, price, image) => {
 
     try {
       props.commonDispatch({ type: Constants.LOADING });
       const res = await axios.post(
         '/assets',
+        { title, description, creatorId, price, image },
         {withCredentials: true, credentials: 'include'},
         {'headers':{'Content-Type':
-        'application/json', title, description, creatorId, price }}
+        'application/json'}}
         )
       const CreateSuccess = res.data.CreateSuccess;
       if (CreateSuccess) {
