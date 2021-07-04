@@ -3,13 +3,14 @@ import Button from '../components/Button'
 import ImageUpload from '../components/ImageUpload';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import multer from 'multer';
 // import HandleCreate from '../hooks/CustomHooks';
 import Constants  from '../reducers/Constants';
 
 
 const Create = (props) => {
 
-  console.log('props at Create top', props);
+  // console.log('props at Create top', props);
   const imageUploadIcon = 'client/public/upload_image.png'
 
   const [title, setTitle] = useState('');
@@ -17,26 +18,38 @@ const Create = (props) => {
   const [image, setImage] = useState('');
   // const [size, setSize] = useState('');
   const [price, setPrice] = useState(0);
-  const [uploadedImageState, setUploadedImageState] = useState();
+  const [uploadedImageState, setUploadedImageState] = useState(null);
   const creatorId = props.commonState.currentUser;
+  const upload = multer();
 
   const history = useHistory();
 
   const UseHandleCreate = async (title, description, creatorId, price, image) => {
+    
 
     try {
       props.commonDispatch({ type: Constants.LOADING });
-      const res = await axios.post(
-        '/assets',
-        { title, description, creatorId, price, image },
-        {withCredentials: true, credentials: 'include'},
-        {'headers':{'Content-Type':
-        'application/json'}}
+      console.log('image in usehandlecreate', image);
+      let data = new FormData();
+      data.append('image', image, image.name)
+      // const res = await axios.post(
+      //   '/assets',
+      //   { title, description, creatorId, price },
+      //   {withCredentials: true, credentials: 'include'},
+      //   {'headers':{'Content-Type':
+      //   'application/json'}}
+      //   )
+      const imageRes = await axios.post(
+        '/assets', data
+        // upload.single('upload'), (req, res) => {
+        // res.send(image)}
         )
-      const CreateSuccess = res.data.CreateSuccess;
-      if (CreateSuccess) {
-        history.push("/account");
-      }
+      // const CreateSuccess = res.data.CreateSuccess;
+      // if (CreateSuccess) {
+      //   history.push("/account");
+      // }
+
+      console.log('imageRes after post',imageRes);
     } catch (error) {
       console.log(`Create error: ${error}`);
     }
@@ -48,6 +61,7 @@ const Create = (props) => {
       <article className='create-sections'>
         <section className='create-left'>
           <ImageUpload
+          updateImage={uploadedImageState => setUploadedImageState(uploadedImageState)}
           uploadedImageState={uploadedImageState}
           setUploadedImageState={setUploadedImageState}
           >
@@ -60,6 +74,7 @@ const Create = (props) => {
           </header>
           <form onSubmit={(e) => {
         console.log('LOGIN SUBMITTED');
+        console.log('uploadedimagestate in onSubmit', uploadedImageState);
         UseHandleCreate( title, description, creatorId, price , uploadedImageState );
         e.preventDefault();
         }}>

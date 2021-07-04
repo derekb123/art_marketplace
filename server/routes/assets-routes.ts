@@ -1,5 +1,7 @@
 import express from 'express';
 const router = express.Router();
+// import axios from 'axios';
+const fs = require('fs')
 
 const assetsRoutes = function(router: any, controller: any) {
 
@@ -30,6 +32,10 @@ const assetsRoutes = function(router: any, controller: any) {
   
   router.post('/', (req: any, res: any) => {
     console.log('Create Asset Route Post to / req.body',req.body);
+    return controller
+      .createNewAsset(req, res, req.body)
+    // res.sendStatus(200)
+
   });
 
   return router;

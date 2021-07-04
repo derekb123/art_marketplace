@@ -10,14 +10,6 @@ import multer from 'multer';
 import morgan from 'morgan';
 import bodyParser from "body-parser";
 
-
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
-
-const s3 = new AWS.S3();
-
 import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
@@ -56,16 +48,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // s3 abstracts function to upload a file returning a promise
-const uploadFile = (buffer, name, type) => {
-  const params = {
-    ACL: 'public-read',
-    Body: buffer,
-    Bucket: process.env.S3_BUCKET,
-    ContentType: type.mime,
-    Key: `${name}.${type.ext}`,
-  };
-  return s3.upload(params).promise();
-};
+// const uploadFile = (buffer, name, type) => {
+//   const params = {
+//     ACL: 'public-read',
+//     Body: buffer,
+//     Bucket: process.env.S3_BUCKET,
+//     ContentType: type.mime,
+//     Key: `${name}.${type.ext}`,
+//   };
+//   return S3.upload(params).promise();
+// };
 
 // users endpoints
 const usersRouter = express.Router();
@@ -78,7 +70,6 @@ assetsRoutes(assetsRouter, assetsController);
 app.use('/assets', assetsRouter);
 
 // s3 endpoints
-
 const mediaRouter = express.Router();
 mediaRoutes(mediaRouter);
 app.use('/media', mediaRouter);

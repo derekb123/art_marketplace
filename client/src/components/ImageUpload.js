@@ -6,8 +6,8 @@ import imageUploadIcon from './upload_ image.png';
 const ImageUpload = (props) => {
 
   //REFACTOR PLEASE
-  console.log('props in imageupload', props);
-  console.log('uploadedImageState', props.uploadedImageState);
+  // console.log('props in imageupload', props);
+  // console.log('uploadedImageState', props.uploadedImageState);
 
   const [preview, setPreview] = useState('');
   const fileInputRef = useRef();
@@ -22,14 +22,14 @@ const ImageUpload = (props) => {
     } else {
       setPreview(null);
     }
-  }, [props.uploadedImageState])
+  }, [props.uploadedImageState]);
 
  const OnImageChange = (e) => {
   const file = e.target.files[0];
-  if (file && file.type.substr(0,5) === 'image') {
-    props.setUploadedImageState(file);
+  if (file) {
+    props.updateImage(file);
   } else {
-    props.setUploadedImageState(null);
+    props.updateImage(null);
   }
  }
 
@@ -82,3 +82,5 @@ const ImageUpload = (props) => {
 };
 
 export default ImageUpload;
+
+//&& file.type.substr(0,5) === 'image'
