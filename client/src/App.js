@@ -28,9 +28,9 @@ const isAuth = async (props) => {
   try {
     dispatch({type: Constants.LOADING})
     const refreshRes = await axios.post('users/refresh');
-    console.log('isAuth refreshRes',refreshRes);
+    // console.log('isAuth refreshRes',refreshRes);
     const authObj = refreshRes.data;
-    console.log('isAuth authObj',authObj);
+    // console.log('isAuth authObj',authObj);
     // const {username, avatar, isCreator, accessToken} = refreshRes.data;
     // console.log('username, avatar, isCreator, accessToken',username, avatar, isCreator, accessToken )
     // const accessToken = refreshRes.accessToken;

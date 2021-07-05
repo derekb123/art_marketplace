@@ -39,7 +39,9 @@ getAssetById : function(assetId:number[]): Promise<any> {
 },
 
 // POST new assset with image
-createNewAsset : function(image, req, res) {
+createNewAsset : function(req, res) {
+
+  console.log('req.body inside createNewAsset controller', req.file);
 
   aws.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -73,7 +75,7 @@ createNewAsset : function(image, req, res) {
           return resolve(downloadURL);
         })
       })
-    }
+    };
 
     return uploadToS3(req,res)
       .then(downloadURL => {

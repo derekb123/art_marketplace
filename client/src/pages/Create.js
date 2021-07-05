@@ -31,14 +31,14 @@ const Create = (props) => {
       props.commonDispatch({ type: Constants.LOADING });
       console.log('image in usehandlecreate', image);
       let data = new FormData();
-      data.append('image', image, image.name)
-      // const res = await axios.post(
-      //   '/assets',
-      //   { title, description, creatorId, price },
-      //   {withCredentials: true, credentials: 'include'},
-      //   {'headers':{'Content-Type':
-      //   'application/json'}}
-      //   )
+      console.log('image.name', image.name)
+      data.append('name', image.name)
+      data.append('file', image)
+
+      axios.post('https://httpbin.org/anything', data)
+      .then(res => console.log('response from httpbin imageFile post',res))
+      .catch(err => console.log(err));
+
       const imageRes = await axios.post(
         '/assets', data
         // upload.single('upload'), (req, res) => {
@@ -121,3 +121,12 @@ const Create = (props) => {
 }
 
 export default Create;
+
+
+// const res = await axios.post(
+      //   '/assets',
+      //   { title, description, creatorId, price },
+      //   {withCredentials: true, credentials: 'include'},
+      //   {'headers':{'Content-Type':
+      //   'application/json'}}
+      //   )
