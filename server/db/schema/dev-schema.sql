@@ -20,17 +20,24 @@ CREATE TABLE assets (
 	id SERIAL PRIMARY KEY NOT NULL,
 	title VARCHAR(255) NOT NULL,
 	asset_description TEXT,
-	asset_image TEXT NOT NULL,
+	asset_media TEXT NOT NULL,
 	creator_id INTEGER,
 	owner_id INTEGER,
-	size VARCHAR(255),
-	likes INT,
-	views INT,
-	category VARCHAR(255),
+  list_price NUMERIC(16, 2),
+	likes INT DEFAULT 0,
+	views INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT current_timestamp,
-  list_price NUMERIC(16, 2) DEFAULT 0.00,
-  high_bid NUMERIC(16, 2) DEFAULT 0.00,
-  offers_made INT DEFAULT 0
+  accepting_offers BOOLEAN DEFAULT false
+);
+
+DROP TABLE IF EXISTS bids
+CASCADE;
+
+CREATE TABLE bids (
+  id SERIAL PRIMARY KEY NOT NULL,
+  asset_id VARCHAR(255) NOT NULL,
+  bidder_id VARCHAR(255) NOT NULL,
+  bid_price NUMERIC(16, 2) DEFAULT 0.00
 );
 
 DROP TABLE IF EXISTS transactions

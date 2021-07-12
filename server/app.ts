@@ -14,7 +14,7 @@ import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
 import assetsController from "./controllers/assets-controller";
-import mediaRoutes from './routes/media-routes';
+// import mediaRoutes from './routes/media-routes';
 import mediaController from "./controllers/media-controller";
 import cookieParser from 'cookie-parser';
 // import session from 'express-session';
@@ -70,9 +70,9 @@ assetsRoutes(assetsRouter, assetsController);
 app.use('/assets', assetsRouter);
 
 // s3 endpoints
-const mediaRouter = express.Router();
-mediaRoutes(mediaRouter);
-app.use('/media', mediaRouter);
+// const mediaRouter = express.Router();
+// mediaRoutes(mediaRouter);
+// app.use('/media', mediaRouter);
 
 
 app.get('/', (req: any, res: any) => {

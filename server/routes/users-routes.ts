@@ -113,7 +113,7 @@ const usersRoutes = function (router: any, controller: any) {
         // });
         res.clearCookie('rToken');
         sendRefreshToken(res, refreshToken);
-        res.json({ accessToken, username, avatar, isCreator, loginSuccess })
+        res.json({ accessToken, username, avatar, isCreator, loginSuccess, userId })
       }
     } catch (err) {
       console.error('error in login route', err.message)
@@ -207,7 +207,7 @@ const usersRoutes = function (router: any, controller: any) {
       const verifiedUser = jwt.verify(jwtToken, process.env.JWT_SECRET);
       console.log('verified User after authorization', verifiedUser);
       const verifiedUserId = verifiedUser.user[0].id
-      console.log('verifiedUserId',verifiedUserId);
+      // console.log('verifiedUserId',verifiedUserId);
       if (verifiedUserId) {
         res.json(true);
       }

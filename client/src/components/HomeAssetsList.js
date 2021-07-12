@@ -15,8 +15,12 @@ const HomeAssetsList = (props) => {
       try {
         props.commonDispatch({ type: Constants.LOADING })
         const res = await axios.get('/assets');
-        // console.log('market assets res', res.data);
-        setMarketAssets(res.data);
+        let assetsArray = res.data
+        if (assetsArray.length === 0) {
+          assetsArray = [{}]
+        }
+        // console.log('assetsArray in getAllAssetsNewest', assetsArray);
+        setMarketAssets(assetsArray);
         // console.log('marketAssets after set', marketAssets);
         props.commonDispatch({ type: Constants.FINISHED_LOADING })
       } catch (error) {
@@ -47,17 +51,13 @@ const HomeAssetsList = (props) => {
                           key={i}
                           title={asset.title}
                           description={asset.asset_description}
-                          image={asset.asset_image}
+                          image={asset.asset_media}
                           creator_id={asset.creator_id}
-                          size={asset.size}
                           likes={asset.likes}
                           views={asset.views}
-                          category={asset.category}
                           created_at={asset.created_at}
                           id={asset.id}
                           list_price={asset.list_price}
-                          high_bid={asset.high_bid}
-                          offers_made={asset.offers_made}
                           owner_id={asset.owner_id}
                           />
                     )

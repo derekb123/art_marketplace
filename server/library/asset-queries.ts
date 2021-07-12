@@ -28,8 +28,21 @@ getAllAssetsQueryBySearch:
   FROM assets
   WHERE
   ORDER BY created_at DESC
-  LIMIT $1;`
+  LIMIT $1;`,
 
+createNewAssetQuery:
+
+  `INSERT INTO
+  assets (
+    title,
+    asset_description,
+    asset_media,
+    creator_id,
+    owner_id,
+    list_price
+    )
+    values ($1, $2, $3, $4, $5, $6)
+ `
 }
 
 export default assetsQueries;

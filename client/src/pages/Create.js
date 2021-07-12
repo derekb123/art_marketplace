@@ -3,7 +3,6 @@ import Button from '../components/Button'
 import ImageUpload from '../components/ImageUpload';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import multer from 'multer';
 // import HandleCreate from '../hooks/CustomHooks';
 import Constants  from '../reducers/Constants';
 
@@ -16,40 +15,30 @@ const Create = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-  // const [size, setSize] = useState('');
   const [price, setPrice] = useState(0);
   const [uploadedImageState, setUploadedImageState] = useState(null);
-  const creatorId = props.commonState.currentUser;
-  const upload = multer();
+  const creatorId = props.commonState.currentUserId;
+  console.log('creatorID', creatorId);
 
   const history = useHistory();
 
-  const UseHandleCreate = async (title, description, creatorId, price, image) => {
-    
+  const UseHandleCreate = async (title, description, creatorId, price, file) => {
 
     try {
       props.commonDispatch({ type: Constants.LOADING });
-      console.log('image in usehandlecreate', image);
+      // console.log('file in usehandlecreate', file);
       let data = new FormData();
-      console.log('image.name', image.name)
-      data.append('name', image.name)
-      data.append('file', image)
+      data.append('title', title)
+      data.append('description', description)
+      data.append('creatorId', creatorId)
+      data.append('price', price)
+      data.append('file', file)
 
-      axios.post('https://httpbin.org/anything', data)
-      .then(res => console.log('response from httpbin imageFile post',res))
-      .catch(err => console.log(err));
-
-      const imageRes = await axios.post(
-        '/assets', data
-        // upload.single('upload'), (req, res) => {
-        // res.send(image)}
-        )
-      // const CreateSuccess = res.data.CreateSuccess;
-      // if (CreateSuccess) {
-      //   history.push("/account");
-      // }
-
-      console.log('imageRes after post',imageRes);
+      axios.post('/assets',
+      data
+      )
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     } catch (error) {
       console.log(`Create error: ${error}`);
     }
@@ -74,8 +63,8 @@ const Create = (props) => {
           </header>
           <form onSubmit={(e) => {
         console.log('LOGIN SUBMITTED');
-        console.log('uploadedimagestate in onSubmit', uploadedImageState);
-        UseHandleCreate( title, description, creatorId, price , uploadedImageState );
+        // console.log('uploadedimagestate in onSubmit', uploadedImageState);
+        UseHandleCreate( title, description, creatorId, price, uploadedImageState );
         e.preventDefault();
         }}>
             <div>

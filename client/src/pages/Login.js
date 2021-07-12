@@ -21,11 +21,11 @@ const Login = (props) => {
         {withCredentials: true, credentials: 'include'},
         {'headers':{'Content-Type': 'application/json', email, password}}
         )
-      console.log('res recieved from login: ',res)
+      // console.log('res recieved from login: ',res)
       const loginAccessToken = res.data.accessToken;
-      console.log(loginAccessToken);
+      // console.log(loginAccessToken);
       const refreshToken = res.data.refreshToken;
-      console.log(refreshToken);
+      // console.log(refreshToken);
       const loginSuccess = res.data.loginSuccess;
       props.commonDispatch({type: Constants.LOG_IN, payload: res.data});
       if (loginSuccess) {

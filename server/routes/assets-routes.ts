@@ -1,4 +1,3 @@
-import { AlexaForBusiness } from 'aws-sdk';
 import express from 'express';
 const router = express.Router();
 import axios from 'axios';
@@ -32,18 +31,38 @@ const assetsRoutes = function(router: any, controller: any) {
       });
   });
 
+  //POST NEW ASSET
   const upload = multer();
-  router.post('/', upload.single('file'), (req: any, res: any, next) => {
-    const recievedImageFile = req.file
-    const recievedImageFilename = req.body.name
-    // axios.post('https://httpbin.org/anything', recievedImageFile)
-    //   .then(res => console.log('response from httpbin imageFile post',res))
-    //   .catch(err => console.log(err))
+  router.post('/', upload.single('file'), async (req: any, res: any, next) => {
+    const recievedFile = req.file;
+    // console.log('recievedFile', recievedFile)
+    const title = req.body.title;
+    const description = req.body.description;
+    const creatorId = req.body.creatorId;
+    const price = req.body.price;
+    console.log('creatorID in POST ASSETS', creatorId);
 
-    return controller
-      .createNewAsset(req, res)
-    res.sendStatus(200)
+    try {
+      const imageURL = await controller.uploadAssetMedia(recievedFile);
+      return controller
+        .createNewAsset(title, description, imageURL, creatorId, price)
+        .then((data: any) => {
+        res.json(data);
+      })
+    } catch (error) {
+      console.log(`Create error: ${error}`);
+    }
 
+    
+
+
+    // controller
+    //   .storeImageUpload(recievedFile)
+    //   .then((imageURL) => {
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   })
   });
 
   return router;

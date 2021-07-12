@@ -14,7 +14,7 @@ const ImageUpload = (props) => {
 
   useEffect(() => {
     if(props.uploadedImageState) {
-          const reader = new FileReader();
+          let reader = new FileReader();
           reader.onloadend = () => {
             setPreview(reader.result);
         };
@@ -26,6 +26,8 @@ const ImageUpload = (props) => {
 
  const OnImageChange = (e) => {
   const file = e.target.files[0];
+  console.log('initial file in image upload, then file.path', file, file.path);
+
   if (file) {
     props.updateImage(file);
   } else {

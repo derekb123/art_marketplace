@@ -19,7 +19,7 @@ import Constants from './reducers/Constants';
 function App(props) {
 
   // const [commonState, setCommonState] = useState ({loggedIn: false, loading: false, user: null})
-let initialCommonState = {loggedIn: false, loading: false, currentUser: null, isCreator: false, avatar: null};
+let initialCommonState = {loggedIn: false, loading: false, currentUserName: null, currentUserId: null, isCreator: false, avatar: null};
 const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
 
 const isAuth = async (props) => {
@@ -46,7 +46,7 @@ const isAuth = async (props) => {
       authObj.verifyAccess = verifyAccess;
       console.log('authObj after adding verifyAccess', authObj)
       dispatch({
-        type: Constants.AUTHORIZE, 
+        type: Constants.AUTHORIZE,
         payload: authObj})
     };
   } catch (error) {

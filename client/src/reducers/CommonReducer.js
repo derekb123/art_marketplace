@@ -15,14 +15,15 @@ const CommonReducer = (state, action) => {
     case Constants.LOG_IN: {
       // console.log('inside LOG_IN');
       const userInfo = action.payload;
-      console.log(userInfo);
+      console.log('userInfo.userId', userInfo.userId);
         return {
           ...state,
-          currentUser: userInfo.username,
+          currentUserName: userInfo.username,
           loggedIn: true,
           loading: false,
           isCreator: userInfo.isCreator,
-          avatar: userInfo.avatar
+          avatar: userInfo.avatar,
+          currentUserId: userInfo.userId
            }
     }
     case Constants.REFRESH: {
