@@ -2,25 +2,24 @@ import React, {  useEffect, useState } from 'react';
 import AssetItem from './AssetItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAllAssetsNewest } from '../hooks/AssetListHooks';
+import { GetAssetsByUserId } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
 
 
-const HomeAssetsList = (props) => {
+const AccountAssetsList = (props) => {
 
   const [marketAssets, setMarketAssets] = useState([]);
+  const userId = props.commonState.currentUserId;
+  console.log(userId);
 
   useEffect (() => {
-
-    if(marketAssets.length === 0) {
-      GetAllAssetsNewest(props, Constants, axios, setMarketAssets);
-    }
+      GetAssetsByUserId(props, Constants, axios, setMarketAssets, userId);
   }, [props, marketAssets]);
 
   // console.log('marketAssets after getallAssetsNewest', marketAssets);
 
   return (
-    <div className='home-assets'>
+    <div className='account-assets'>
       <div className='assets-container'>
         <h2>Assets</h2>
 
@@ -59,4 +58,4 @@ const HomeAssetsList = (props) => {
   )
 }
 
-export default HomeAssetsList;
+export default AccountAssetsList;

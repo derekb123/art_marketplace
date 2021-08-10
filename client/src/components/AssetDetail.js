@@ -18,15 +18,15 @@ const AssetDetail = (props) => {
     asset_image: '',
     creator_id: null,
     owner_id: null,
-    size: '',
+    list_price: 0.00,
     likes: null,
     views: null,
-    category: '',
     created_at: null,
-    list_price: 0.00,
     high_bid: 0.00,
     offers_made: 0
     });
+
+    const [currentMedia, setCurrentMedia] = useState('')
 
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
@@ -38,9 +38,24 @@ const AssetDetail = (props) => {
       // console.log('inside getAssetById')
       props.commonDispatch({ type: Constants.LOADING })
       // console.log(id);
-      const res = await axios.get(`/assets/${id}`);
-      const gottenAsset = res.data[0];
+      const assetInfoRes = await axios.get(`/assets/${id}`);
+      // console.log('res in GETASSETBYID in ASSETDETAILS: ', assetInfoRes);
+      const gottenAsset = assetInfoRes.data;
+      // console.log('gottenAsset', gottenAsset);
+      const assetMediaKey = gottenAsset.asset_media;
+      // console.log('assetMediaKey in assetDetail',assetMediaKey);
+      const assetImageRes = await axios.get(`/assets/${id}/image/${assetMediaKey}`);
+      console.log('assetImageRes in AssetDetail',assetImageRes);
+
+      // assetImageRes.blob()
+      //   .then(blob => URL.createObjectURL(blob))
+      //   .then(url => console.log('url from blob in ASSETDETAIL',url))
+      //   .catch((err) => {console.log('error from blob in ASSETDETAIL', err)})
+      // console.log(assetImageRes);
+      // const assetImageStream = assetImageRes.data;
+      
       setCurrentAsset(gottenAsset);
+      setCurrentMedia(assetImageRes.data)
       props.commonDispatch({ type: Constants.FINISHED_LOADING })
     } catch (error) {
       console.log(error)
@@ -51,7 +66,7 @@ const AssetDetail = (props) => {
       getAssetById(assetId);
   }, []);
 
-  console.log('currentAsset in AssetDetail', currentAsset);
+  // console.log('currentAsset in AssetDetail', currentAsset);
 
   return (
     <div className='asset-detail'>
@@ -60,7 +75,9 @@ const AssetDetail = (props) => {
         <>
           <section className='asset-detail-left'>
             <div className='asset-detail-image-container'>
-              <img className='asset-detail-image' src={currentAsset.asset_image} alt='badass art'/>
+              <img className='asset-detail-image'
+              src={currentMedia}
+              alt='badass art'/>
             </div>
           </section>
 

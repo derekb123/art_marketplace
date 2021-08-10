@@ -5,9 +5,22 @@ import express from 'express';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import fs from 'fs';
 import chalk from 'chalk';
 require('dotenv').config();
+
+const bucketName = process.env.S3_BUCKET
+const region = process.env.AWS_REGION
+const accessKeyId = process.env.AWS_DEV_ACCESS_KEY_ID
+const secretAccessKey = process.env.AWS_DEV_ACCESS_SECRET_KEY
+
+const s3 = new AWS.S3({
+  region,
+  accessKeyId,
+  secretAccessKey
+});
+
 
 
 
@@ -27,36 +40,88 @@ const assetsController = {
   },
 
   // GET single asset by Id
-  getAssetById : function(assetId:number[]): Promise<any> {
-    const queryParams:number[] = assetId;
-    console.log(queryParams);
+  getAssetById : async function(assetId) {
+    const queryParams = [assetId];
+    console.log('queryparams in getassetbyid',queryParams);
 
     return pool
       .query(assetsQueries.getAssetByIdQuery, queryParams)
-      .then((res: any) => {
-        return res.rows;
+      .then((res) => {
+        const resObj = res.rows[0];
+        console.log('resObj in assets-controller getassetbyID', resObj);
+        return resObj;
       })
       .catch((err: Error) => {
-        console.log(err);
-      });
+        console.log('Error in getAssetById in assets-controllers', err);
+      })
   },
+
+  // getFileStream : async function(fileKey) {
+
+  //     const downloadParams = {
+  //     Key: fileKey,
+  //     Bucket: bucketName
+  //     }
+
+  //     const s3Object = await s3.getObject(downloadParams)
+  //     console.log('s3Object', s3Object);
+  //     const readstream = s3Object.createReadStream();
+  //     return readstream;
+  //   },
+
+  getAssetMediaUrl: async function(fileKey) {
+    const credentials = {
+      accessKeyId,
+	    secretAccessKey
+    }
+
+    AWS.config.update({
+	  credentials,
+	  region
+    });
+
+    try {
+      let bucektParams = {
+        Bucket: bucketName, // your bucket name,
+        Key: fileKey // path to the object you're looking for
+      }
+      const s3 = new AWS.S3();
+      let presignedGETURL = await s3.getSignedUrl('getObject', bucektParams);
+      // console.log("presigned url obtained from s3: ", presignedGETURL);
+      return presignedGETURL;
+    } catch (err) {
+      console.log("error call during call s3 ".concat(err))
+      throw err;
+    }
+    },
+
+  downloadAssetMedia: async function (presignedGETURL) {
+	const url = presignedGETURL
+		try {
+			const response = await axios({
+					url,
+					method: 'GET',
+					responseType: 'arraybuffer',
+					headers: {
+						'Content-Type': 'application/json',
+						// 'Accept': 'application/pdf' // <-- declare the file format in s3
+					}
+				})
+
+				console.log("response.data from s3 object...>", response.data)
+				return response.data;
+		} catch (err) {
+			console.log("error in axios call", err)
+			throw err;
+		}
+
+},
 
   // Upload Media File to S3
   uploadAssetMedia: function(file) {
     return new Promise((resolve, reject)=> {
           // console.log('file inside createNewAsset controller', file);
-
-      const bucketName = process.env.S3_BUCKET
-      const region = process.env.AWS_REGION
-      const accessKeyId = process.env.AWS_DEV_ACCESS_KEY_ID
-      const secretAccessKey = process.env.AWS_DEV_ACCESS_SECRET_KEY
       const filePath = file.stream;
-
-      const s3 = new AWS.S3({
-        region,
-        accessKeyId,
-        secretAccessKey
-      });
 
       const path = require('path');
 
@@ -71,7 +136,8 @@ const assetsController = {
           console.log('Error', err);
           return reject(err);
         } if (data) {
-          return resolve(data.Location);
+          console.log('data response inside uploadAssetsMedia', data);
+          return resolve(data.key);
         }
       })
     })

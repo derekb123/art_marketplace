@@ -21,6 +21,7 @@ function App(props) {
   // const [commonState, setCommonState] = useState ({loggedIn: false, loading: false, user: null})
 let initialCommonState = {loggedIn: false, loading: false, currentUserName: null, currentUserId: null, isCreator: false, avatar: null};
 const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
+const [marketAssets, setMarketAssets] = useState([]);
 
 const isAuth = async (props) => {
   // console.log('isAuth initial props',props);
@@ -77,6 +78,8 @@ useEffect((props)=> {
                   {...props}
                   commonState={commonState}
                   commonDispatch={dispatch}
+                  marketAssets={marketAssets}
+                  setMarketAssets={setMarketAssets}
                   ></Account>
                 ) : (
                   <Redirect to='/login'/>
@@ -120,6 +123,8 @@ useEffect((props)=> {
                 <Home
                   commonState={commonState}
                   commonDispatch={dispatch}
+                  marketAssets={marketAssets}
+                  setMarketAssets={setMarketAssets}
                 />
               </Route>
               <Route path='*'
