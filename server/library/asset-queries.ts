@@ -13,6 +13,12 @@ getAssetByIdQuery:
   FROM assets
   WHERE id = $1`,
 
+getAssetsByOwnerIdQuery:
+
+  `SELECT *
+  FROM assets
+  WHERE owner_id = $1`,
+
 getAllAssetsQueryByTag:
 
   `SELECT *

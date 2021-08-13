@@ -21,9 +21,6 @@ const s3 = new AWS.S3({
   secretAccessKey
 });
 
-
-
-
 const assetsController = {
 // GET all  assets with limit, order by most recent
   getAllAssets : function(limit:number): Promise<any> {
@@ -56,6 +53,23 @@ const assetsController = {
       })
   },
 
+  // GET single asset by Id
+  getAssetByOwnerId : async function(userId) {
+    const queryParams = [userId];
+    console.log('queryparams in getassetbyid',queryParams);
+
+    return pool
+      .query(assetsQueries.getAssetsByOwnerIdQuery, queryParams)
+      .then((res) => {
+        console.log('reponse in gesAssetByOwnerId', res);
+        const resObj = res.rows;
+        console.log('resObj in assets-controller getassetbyID', resObj);
+        return resObj;
+      })
+      .catch((err: Error) => {
+        console.log('Error in getAssetById in assets-controllers', err);
+      })
+  },
   // getFileStream : async function(fileKey) {
 
   //     const downloadParams = {

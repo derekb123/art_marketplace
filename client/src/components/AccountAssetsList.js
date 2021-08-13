@@ -2,32 +2,31 @@ import React, {  useEffect, useState } from 'react';
 import AssetItem from './AssetItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAssetsByUserId } from '../hooks/AssetListHooks';
+import { GetAssetsByOwnerId } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
 
 
 const AccountAssetsList = (props) => {
 
-  const [marketAssets, setMarketAssets] = useState([]);
   const userId = props.commonState.currentUserId;
   console.log(userId);
 
   useEffect (() => {
-      GetAssetsByUserId(props, Constants, axios, setMarketAssets, userId);
-  }, [props, marketAssets]);
+      GetAssetsByOwnerId(props, Constants, axios, props.setMarketAssets, userId);
+  }, [props, props.marketAssets, userId]);
 
-  // console.log('marketAssets after getallAssetsNewest', marketAssets);
+  console.log('marketAssets after getallAssetsNewest accountAssetslist: ', props.marketAssets);
 
   return (
     <div className='account-assets'>
       <div className='assets-container'>
-        <h2>Assets</h2>
+        <h2>Gallery</h2>
 
           {
             !props.loading ? (
               <div className='assets-grid-container'>
                 {
-                  marketAssets.map((asset, i) => {
+                  props.marketAssets.map((asset, i) => {
                     return (
 
                         <AssetItem

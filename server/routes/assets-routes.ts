@@ -79,11 +79,12 @@ const assetsRoutes = function(router: any, controller: any) {
     }
   });
 
-  //GET ASSETS BY USER ID
+  //GET ASSETS BY OWNER ID
 
-  router.get('/users/:user_id', async (req: any, res: any) => {
+  router.get('/owners/:owner_id', async (req: any, res: any) => {
+    const ownerId = req.params.owner_id;
     try {
-      const assetArrayRes = await controller.getAllAssets(10);
+      const assetArrayRes = await controller.getAssetByOwnerId(ownerId);
       const assetImageLoop = async () => {
         let mutatedAssetMediaArr = [];
         for (let i = 0; i < assetArrayRes.length ; i++) {

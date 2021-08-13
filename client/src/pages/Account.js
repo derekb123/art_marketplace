@@ -3,12 +3,17 @@ import Button from '../components/Button'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
+import AccountAssetsList from '../components/AccountAssetsList';
 
 const Account = (props) => {
   return (
-    <Fragment>
-
-    </Fragment>
+    <AccountAssetsList
+    commonState={props.commonState}
+    commonDispatch={props.commonDispatch}
+    marketAssets={props.marketAssets}
+    setMarketAssets={props.setMarketAssets}
+    >
+    </AccountAssetsList>
   )
 
 }

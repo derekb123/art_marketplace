@@ -18,12 +18,12 @@
       }
     }
 
-export async function GetAssetsByUserId(props, Constants, axios, setMarketAssets, user_id) {
+export async function GetAssetsByOwnerId(props, Constants, axios, setMarketAssets, owner_id) {
       try {
         props.commonDispatch({ type: Constants.LOADING })
-        const res = await axios.get(`/assets/users/${user_id}`);
+        const res = await axios.get(`/assets/owners/${owner_id}`);
         let assetsArray = res.data
-        console.log(assetsArray);
+        console.log('res.data in AssetListHooks', assetsArray);
         if (assetsArray.length === 0) {
           assetsArray = [{}]
         }
