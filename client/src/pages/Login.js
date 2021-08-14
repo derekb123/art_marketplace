@@ -70,6 +70,7 @@ const Login = (props) => {
           className='button--login'
           type='submit'
           name='Login'
+          style={{width: '10vw'}}
           login
         >
         </Button>

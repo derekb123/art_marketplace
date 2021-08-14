@@ -17,7 +17,8 @@ getAssetsByOwnerIdQuery:
 
   `SELECT *
   FROM assets
-  WHERE owner_id = $1`,
+  WHERE owner_id = $1
+  LIMIT $2;`,
 
 getAllAssetsQueryByTag:
 
@@ -48,6 +49,7 @@ createNewAssetQuery:
     list_price
     )
     values ($1, $2, $3, $4, $5, $6)
+    RETURNING *;
  `
 }
 

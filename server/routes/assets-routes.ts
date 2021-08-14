@@ -44,7 +44,7 @@ const assetsRoutes = function(router: any, controller: any) {
 
   router.get('/:asset_id/image/:image_key', async (req: any, res: any) => {
     const assetImageKey = req.params.image_key;
-    console.log('imageKey in GET SINGLE ASSET IMAGE', assetImageKey);
+    // console.log('imageKey in GET SINGLE ASSET IMAGE', assetImageKey);
     const assetMediaUrl = await controller.getAssetMediaUrl(assetImageKey);
     const assetMediaRes = await controller.downloadAssetMedia(assetMediaUrl);
   
@@ -58,8 +58,9 @@ const assetsRoutes = function(router: any, controller: any) {
    //GET ALL ASSETS
 
   router.get('/', async (req: any, res: any) => {
+    const limit = 10;
     try {
-      const assetArrayRes = await controller.getAllAssets(10);
+      const assetArrayRes = await controller.getAllAssets(limit);
       const assetImageLoop = async () => {
         let mutatedAssetMediaArr = [];
         for (let i = 0; i < assetArrayRes.length ; i++) {
@@ -83,8 +84,9 @@ const assetsRoutes = function(router: any, controller: any) {
 
   router.get('/owners/:owner_id', async (req: any, res: any) => {
     const ownerId = req.params.owner_id;
+    const limit = 10;
     try {
-      const assetArrayRes = await controller.getAssetByOwnerId(ownerId);
+      const assetArrayRes = await controller.getAssetsByOwnerId(ownerId, limit);
       const assetImageLoop = async () => {
         let mutatedAssetMediaArr = [];
         for (let i = 0; i < assetArrayRes.length ; i++) {

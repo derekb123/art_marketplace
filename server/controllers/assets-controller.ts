@@ -54,8 +54,8 @@ const assetsController = {
   },
 
   // GET single asset by Id
-  getAssetByOwnerId : async function(userId) {
-    const queryParams = [userId];
+  getAssetsByOwnerId : async function(userId, limit) {
+    const queryParams = [userId, limit];
     console.log('queryparams in getassetbyid',queryParams);
 
     return pool
@@ -122,7 +122,7 @@ const assetsController = {
 					}
 				})
 
-				console.log("response.data from s3 object...>", response.data)
+				// console.log("response.data from s3 object...>", response.data)
 				return response.data;
 		} catch (err) {
 			console.log("error in axios call", err)

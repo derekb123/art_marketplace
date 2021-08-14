@@ -13,7 +13,9 @@ import bodyParser from "body-parser";
 import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
+import bidsRoutes from './routes/bids-routes'
 import assetsController from "./controllers/assets-controller";
+import bidsController from "./controllers/bids-controller";
 // import mediaRoutes from './routes/media-routes';
 import mediaController from "./controllers/media-controller";
 import cookieParser from 'cookie-parser';
@@ -68,6 +70,12 @@ app.use('/users', usersRouter);
 const assetsRouter = express.Router();
 assetsRoutes(assetsRouter, assetsController);
 app.use('/assets', assetsRouter);
+
+// bids endpoints
+const bidsRouter = express.Router();
+bidsRoutes(bidsRouter, bidsController);
+app.use('/bids', bidsRouter);
+
 
 // s3 endpoints
 // const mediaRouter = express.Router();
