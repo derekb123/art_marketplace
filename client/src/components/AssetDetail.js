@@ -4,12 +4,11 @@ import Button from './Button';
 import Constants from '../reducers/Constants';
 import axios from 'axios';
 import { getAssetById } from '../hooks/AssetListHooks';
-
-
+import { Link, useHistory } from 'react-router-dom';
 
 const AssetDetail = (props) => {
 
-  // console.log('props for asset detail',props);
+  console.log('props for asset detail',props);
   // console.log('props for asset Cdispatch',props.commonDispatch);
   // console.log('props for asset Cstate',props.commonState);
 
@@ -30,6 +29,8 @@ const AssetDetail = (props) => {
     high_bid: 0.00,
     offers_made: 0
     });
+
+    console.log('currentUserId & owner_id', props.commonState.currentUserId, currentAsset.owner_id);
 
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
@@ -52,7 +53,34 @@ const AssetDetail = (props) => {
       let postedBid = res.data
       console.log(postedBid);
     } catch (error) {
-      
+    }
+  }
+
+  const conditionalButtons = () => {
+
+  }
+
+  console.log(props);
+
+  const UseOfferClick = (props) => {
+    console.log('props in UseOfferClick',props)
+    if (props.commonState.loggedIn) {
+      setOfferStatus(true);
+    } else {
+      return(
+        <>
+        <p>Please 
+        <span>
+          <Link to={'/login'}>
+            <section className='logo'>
+              login
+            </section>
+          </Link>
+        </span>
+        to make an offer.
+      </p>
+      </>
+      )
     }
   }
 
@@ -83,7 +111,6 @@ const AssetDetail = (props) => {
               <p className='min-offer-disclaimer'></p>
               <form className='offer-form' onSubmit={(e)=>{
               console.log('OFFER SUBMITTED');
-              UseMakeOffer( amount );
               e.preventDefault();
               }}>
               <input
@@ -110,9 +137,7 @@ const AssetDetail = (props) => {
             </div>
           </div>
         </Fragment>
-        
       }
-  
 
       <div className='asset-detail'>
         {
@@ -140,8 +165,9 @@ const AssetDetail = (props) => {
                   <p className='detail-sub-words'>Highest Offer</p>
                 </div>
               </article>
-
-              <article>
+              
+              { props.commonState.currentUserId !== currentAsset.owner_id ? (
+                <article>
                 <div className='adet-buy-button-container'>
                   <Button className='adet-buy-button' name='Buy Now' buy></Button>
                 </div>
@@ -152,12 +178,29 @@ const AssetDetail = (props) => {
                     onClick={(e)=> {
                       console.log('OFFER BUTTON CLICKED');
                       e.preventDefault();
-                      setOfferStatus(true);
+                      props.commonState.loggedIn ? (setOfferStatus(true)) : (
+                          <p>Please 
+                          <span>
+                            <Link to={'/login'}>
+                              <section className='logo'>
+                                login
+                              </section>
+                            </Link>
+                          </span>
+                          to make an offer.
+                        </p>
+                      )
                     }}
                     buy
                   ></Button>
                 </div>
               </article>
+              ) : (
+              <article>
+
+              </article>
+              )
+                  }
 
               <article>
                 <div className='detail-creator-owner-container'>

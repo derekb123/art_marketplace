@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import HandleCreate from '../hooks/CustomHooks';
 import Constants  from '../reducers/Constants';
+import Checkbox from '../components/Checkbox';
 
 
 const Create = (props) => {
@@ -19,6 +20,7 @@ const Create = (props) => {
   const [uploadedImageState, setUploadedImageState] = useState(null);
   const creatorId = props.commonState.currentUserId;
   console.log('creatorID', creatorId);
+  const [checked, setChecked] = useState(true);
 
   const history = useHistory();
 
@@ -43,6 +45,10 @@ const Create = (props) => {
       console.log(`Create error: ${error}`);
     }
   }
+
+  const UseHandleCheck = () => {
+    setChecked(!checked);
+  };
 
   return (
     <div className='create'>
@@ -86,6 +92,16 @@ const Create = (props) => {
               </input>
             </div>
              <div>
+              <div>
+                <label>
+                  Set for Sale
+                  <input
+                    type="checkbox"
+                    value={checked}
+                    onChange={UseHandleCheck}
+                  />
+                </label>
+              </div>
               <label>Price</label>
               <input
                 type="text"
@@ -110,12 +126,3 @@ const Create = (props) => {
 }
 
 export default Create;
-
-
-// const res = await axios.post(
-      //   '/assets',
-      //   { title, description, creatorId, price },
-      //   {withCredentials: true, credentials: 'include'},
-      //   {'headers':{'Content-Type':
-      //   'application/json'}}
-      //   )
