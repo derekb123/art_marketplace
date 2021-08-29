@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Button from './Button';
+import Button from '../components/Button';
 import Constants from '../reducers/Constants';
 import axios from 'axios';
 import { getAssetById } from '../hooks/AssetListHooks';
 import { Link, useHistory } from 'react-router-dom';
+import InfoModal from '../components/InfoModal';
 
-const AssetDetail = (props) => {
+const MakeOffer = (props) => {
 
   console.log('props for asset detail',props);
   // console.log('props for asset Cdispatch',props.commonDispatch);
@@ -14,7 +15,9 @@ const AssetDetail = (props) => {
 
   const [amount, setAmount] = useState('');
   const [currentMedia, setCurrentMedia] = useState('');
-  const [offerStatus, setOfferStatus] = useState(false);
+  const [showOfferModal, setShowOfferModal] = useState(false);
+  const [showOfferConfirm, setShowOfferConfirm] = useState(false);
+  const [offerAmount, setOfferAmount] = useState('');
   const [currentAsset, setCurrentAsset] = useState({
     id : null,
     title: '',
@@ -38,7 +41,7 @@ const AssetDetail = (props) => {
   // console.log(assetId);
 
   useEffect (() => {
-      getAssetById(assetId, props, Constants, axios, setCurrentAsset, setCurrentMedia);
+    getAssetById(assetId, props, Constants, axios, setCurrentAsset, setCurrentMedia);
       //GOTO ASSETLISTHOOKS TO UPDATE THIS FUNCTION
       //GET ASSET INFO LIKE OWNER NAME & CREATOR NAME
       //PACKAGE WITH THIS OBJECT FOR DETAIL
@@ -65,7 +68,7 @@ const AssetDetail = (props) => {
   const UseOfferClick = (props) => {
     console.log('props in UseOfferClick',props)
     if (props.commonState.loggedIn) {
-      setOfferStatus(true);
+      setShowOfferModal(true);
     } else {
       return(
         <>
@@ -85,60 +88,25 @@ const AssetDetail = (props) => {
   }
 
 
-  console.log('currentAsset in AssetDetail', currentAsset);
+  console.log('currentAsset in MakeOffer', currentAsset);
 
   return (
     <Fragment>
-      { offerStatus && 
+      
+      { showOfferConfirm && 
         <Fragment>
-
-          <div className='overlay'></div>
-            
-          <div className='modal'>
-            <button 
-              id='x-button' 
-              className='button-close-modal'
-              onClick={(e)=> {
-                e.preventDefault();
-                setOfferStatus(false);
-              }}
-            >x
-            </button>
-            
-            <div className='modal-title'>Make an Offer</div>
-            <div className='modal-transaction-style'>
-              <div className='offer-payment-type'></div>
-              <p className='min-offer-disclaimer'></p>
-              <form className='offer-form' onSubmit={(e)=>{
-              console.log('OFFER SUBMITTED');
-              e.preventDefault();
-              }}>
-              <input
-                className='amount-input'
-                name='Amount'
-                type='number'
-                placeholder="Offer Amount"
-                onChange= {(e) => {setAmount( e.target.value)}}
-                >
-              </input>
-              <label  className='input-label'>Amount</label>
-              <Button
-                className='.button--confirm'
-                type='submit'
-                name='Submit'
-                style={{width:'100%'}}
-                login
-              >
-              </Button>
-              </form>
-              <p className='general-disclaimer'>
-                Your card will be authorized immediately, but the funds are transferred only after offer is accepted. Learn more
-              </p>
-            </div>
-          </div>
+          <InfoModal
+          modalTitle ={'Success'}
+          modalBody = {'Congratulations! Your offer has been submitted!'}
+          modalButtonName = {'CLOSE'}
+          showInfoModal = {showOfferConfirm}
+          setShowInfoModal = {setShowOfferConfirm()}
+          >
+          </InfoModal>
         </Fragment>
       }
 
+      {/* <h2>Make an Offer</h2> */}
       <div className='asset-detail'>
         {
         currentAsset ? (
@@ -152,55 +120,57 @@ const AssetDetail = (props) => {
             </section>
 
             <section className='asset-detail-right'>
-              <header className='asset-detail-title'>
-                <p>{currentAsset.title}</p>
+              <header className='make-offer-title'>
+                <p>Make an Offer</p>
               </header>
               <article>
-                <div className='detail-list-price-container'>
-                  <p className='detail-list-price'>{`$ ${currentAsset.list_price}`}</p>
-                  <p className='detail-sub-words'>List Price</p>
-                </div>
-                <div className='detail-high-offer-container'>
-                  <p className='detail-high-offer'>{`$ ${currentAsset.high_bid}`}</p>
-                  <p className='detail-sub-words'>Highest Offer</p>
-                </div>
+                <form className='offer-form' onSubmit={(e)=>{
+              console.log('OFFER SUBMITTED');
+              e.preventDefault();
+              }}>
+              <input
+                className='amount-input'
+                name='Amount'
+                type='number'
+                placeholder="Offer Amount"
+                onChange= {(e) => {props.setAmount( e.target.value)}}
+                >
+              </input>
+              <label  className='input-label'>Amount</label>
+              <select className='input-select'>
+                <option className='input-option' value='credit card'>credit card</option>
+                <option className='input-option' value='paypal'>paypal</option>
+                <option className='input-option' value='ethereum'>ethereum</option>
+              </select>
+              <label  className='input-label'>Payment Type</label>
+              <input
+                className='amount-input'
+                name='Card'
+                id="ccn" 
+                type="tel" 
+                inputmode="numeric" 
+                pattern="[0-9\s]{13,19}" 
+                autocomplete="cc-number" 
+                maxlength="19" 
+                placeholder="xxxx xxxx xxxx xxxx"
+                placeholder="Offer Amount"
+                onChange= {(e) => {props.setAmount( e.target.value)}}
+                >
+              </input>
+              <label  className='input-label'>Card Number</label>
+              <Button
+                className='.button--confirm'
+                type='submit'
+                name='Submit'
+                style={{width:'100%'}}
+                login
+              >
+              </Button>
+              </form>
+              <p className='general-disclaimer'>
+                Your card will be authorized immediately, but the funds are transferred only after offer is accepted. Learn more
+              </p>
               </article>
-              
-              { props.commonState.currentUserId !== currentAsset.owner_id ? (
-                <article>
-                <div className='adet-buy-button-container'>
-                  <Button className='adet-buy-button' name='Buy Now' buy></Button>
-                </div>
-                <div className='adet-buy-button-container'>
-                  <Button 
-                    className='adet-buy-button' 
-                    name='Make Offer'
-                    onClick={(e)=> {
-                      console.log('OFFER BUTTON CLICKED');
-                      e.preventDefault();
-                      props.commonState.loggedIn ? (setOfferStatus(true)) : (
-                          <p>Please 
-                          <span>
-                            <Link to={'/login'}>
-                              <section className='logo'>
-                                login
-                              </section>
-                            </Link>
-                          </span>
-                          to make an offer.
-                        </p>
-                      )
-                    }}
-                    buy
-                  ></Button>
-                </div>
-              </article>
-              ) : (
-              <article>
-
-              </article>
-              )
-                  }
 
               <article>
                 <div className='detail-creator-owner-container'>
@@ -220,4 +190,4 @@ const AssetDetail = (props) => {
   )
 }
 
-export default AssetDetail;
+export default MakeOffer;

@@ -10,10 +10,11 @@ import Account from './pages/Account';
 import Create from './pages/Create';
 import NotFound from './pages/NotFound'
 import NavBar from './components/NavBar';
-import AssetDetail from './components/AssetDetail';
+import AssetDetail from './pages/AssetDetail';
 import CommonReducer from './reducers/CommonReducer';
 import axios from 'axios';
 import Constants from './reducers/Constants';
+import MakeOffer from './pages/MakeOffer';
 
 
 function App(props) {
