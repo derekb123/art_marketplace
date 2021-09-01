@@ -10,7 +10,7 @@ import MakeOffer from './MakeOffer';
 
 const AssetDetail = (props) => {
 
-  console.log('props for asset detail',props);
+  // console.log('props for asset detail',props);
   // console.log('props for asset Cdispatch',props.commonDispatch);
   // console.log('props for asset Cstate',props.commonState);
 
@@ -34,7 +34,7 @@ const AssetDetail = (props) => {
     offers_made: 0
     });
 
-    console.log('currentUserId & owner_id', props.commonState.currentUserId, currentAsset.owner_id);
+    // console.log('currentUserId & owner_id', props.commonState.currentUserId, currentAsset.owner_id);
 
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
@@ -48,23 +48,11 @@ const AssetDetail = (props) => {
       //PACKAGE WITH THIS OBJECT FOR DETAIL
   }, []);
 
-  const UseMakeOffer = async () => {
-    const bidderId = props.commonState.currentUserId;
-    const bidInfo = {bidder_id: bidderId, asset_id: currentAsset.id, bid_price: amount}
-    try {
-      props.commonDispatch({ type: Constants.LOADING });
-      const res = await axios.post('/bids', bidInfo);
-      let postedBid = res.data
-      console.log(postedBid);
-    } catch (error) {
-    }
-  }
-
   const conditionalButtons = () => {
 
   }
 
-  console.log(props);
+  // console.log(props);
 
   const UseOfferClick = (props) => {
     console.log('props in UseOfferClick',props)
@@ -89,7 +77,7 @@ const AssetDetail = (props) => {
   }
 
 
-  console.log('currentAsset in AssetDetail', currentAsset);
+  // console.log('currentAsset in AssetDetail', currentAsset);
 
   return (
     <Fragment>
@@ -98,6 +86,10 @@ const AssetDetail = (props) => {
         <MakeOffer
           commonState={props.commonState}
           commonDispatch={props.commonDispatch}
+          currentAsset={currentAsset}
+          setCurrentAsset={setCurrentAsset}
+          currentMedia={currentMedia}
+          setCurrentMedia={setCurrentMedia}
         >
         </MakeOffer>
       ) : (

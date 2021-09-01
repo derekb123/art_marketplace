@@ -79,6 +79,7 @@ const Create = (props) => {
                 type="text"
                 value={title.value}
                 onChange= {(e) => {setTitle( e.target.value )}}
+                className='common-input'
               >
               </input>
             </div>
@@ -88,6 +89,7 @@ const Create = (props) => {
                 type="text"
                 value={description.value}
                 onChange= {(e) => {setDescription( e.target.value )}}
+                className='common-input'
               >
               </input>
             </div>
@@ -99,12 +101,14 @@ const Create = (props) => {
                     type="checkbox"
                     value={checked}
                     onChange={UseHandleCheck}
+                    className='common-input'
                   />
                 </label>
               </div>
               <label>Price</label>
               <input
                 type="text"
+                className='common-input'
                 value={price.value}
                 onChange= {(e) => {setPrice( e.target.value )}}
               >

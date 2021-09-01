@@ -42,7 +42,7 @@ const OfferModal = (props) => {
                 onChange= {(e) => {props.setAmount( e.target.value)}}
                 >
               </input>
-              <label  className='input-label'>Amount</label>
+              <label  className='common-input-label'>Amount</label>
               <Button
                 className='.button--confirm'
                 type='submit'

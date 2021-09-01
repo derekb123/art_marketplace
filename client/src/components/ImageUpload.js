@@ -71,6 +71,7 @@ const ImageUpload = (props) => {
         accept='image/*'
         style={{display: 'none'}}
         onChange={OnImageChange}
+        className='common-input'
         />
       </div>
     <button 

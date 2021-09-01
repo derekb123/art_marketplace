@@ -9,31 +9,20 @@ import InfoModal from '../components/InfoModal';
 
 const MakeOffer = (props) => {
 
-  console.log('props for asset detail',props);
+  // console.log('props for make offer',props);
   // console.log('props for asset Cdispatch',props.commonDispatch);
   // console.log('props for asset Cstate',props.commonState);
 
   const [amount, setAmount] = useState('');
-  const [currentMedia, setCurrentMedia] = useState('');
+  // const [currentMedia, props.setCurrentMedia] = useState('');
   const [showOfferModal, setShowOfferModal] = useState(false);
   const [showOfferConfirm, setShowOfferConfirm] = useState(false);
+  const [showOfferError, setShowOfferError] = useState(false);
   const [offerAmount, setOfferAmount] = useState('');
-  const [currentAsset, setCurrentAsset] = useState({
-    id : null,
-    title: '',
-    asset_description: '',
-    asset_image: '',
-    creator_id: null,
-    owner_id: null,
-    list_price: 0.00,
-    likes: null,
-    views: null,
-    created_at: null,
-    high_bid: 0.00,
-    offers_made: 0
-    });
+  const [cardNumber, setCardNumber] = useState('');
 
-    console.log('currentUserId & owner_id', props.commonState.currentUserId, currentAsset.owner_id);
+
+    // console.log('currentUserId & owner_id', props.commonState.currentUserId, props.currentAsset.owner_id);
 
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
@@ -41,7 +30,7 @@ const MakeOffer = (props) => {
   // console.log(assetId);
 
   useEffect (() => {
-    getAssetById(assetId, props, Constants, axios, setCurrentAsset, setCurrentMedia);
+    getAssetById(assetId, props, Constants, axios, props.setCurrentAsset, props.setCurrentMedia);
       //GOTO ASSETLISTHOOKS TO UPDATE THIS FUNCTION
       //GET ASSET INFO LIKE OWNER NAME & CREATOR NAME
       //PACKAGE WITH THIS OBJECT FOR DETAIL
@@ -49,46 +38,21 @@ const MakeOffer = (props) => {
 
   const UseMakeOffer = async () => {
     const bidderId = props.commonState.currentUserId;
-    const bidInfo = {bidder_id: bidderId, asset_id: currentAsset.id, bid_price: amount}
+    const bidInfo = {bidder_id: bidderId, asset_id: props.currentAsset.id, bid_price: amount}
     try {
       props.commonDispatch({ type: Constants.LOADING });
       const res = await axios.post('/bids', bidInfo);
+      console.log('res inside useMakeOffer', res);
       let postedBid = res.data
-      console.log(postedBid);
+      console.log('postedBid inside useMakeOffer', postedBid);
+      setShowOfferConfirm(true);
     } catch (error) {
+      console.log('error inside UseMakeOffer: ',error)
+      setShowOfferError(true);
     }
   }
 
-  const conditionalButtons = () => {
-
-  }
-
-  console.log(props);
-
-  const UseOfferClick = (props) => {
-    console.log('props in UseOfferClick',props)
-    if (props.commonState.loggedIn) {
-      setShowOfferModal(true);
-    } else {
-      return(
-        <>
-        <p>Please 
-        <span>
-          <Link to={'/login'}>
-            <section className='logo'>
-              login
-            </section>
-          </Link>
-        </span>
-        to make an offer.
-      </p>
-      </>
-      )
-    }
-  }
-
-
-  console.log('currentAsset in MakeOffer', currentAsset);
+  // console.log('currentAsset in MakeOffer', props.currentAsset);
 
   return (
     <Fragment>
@@ -100,7 +64,7 @@ const MakeOffer = (props) => {
           modalBody = {'Congratulations! Your offer has been submitted!'}
           modalButtonName = {'CLOSE'}
           showInfoModal = {showOfferConfirm}
-          setShowInfoModal = {setShowOfferConfirm()}
+          setShowInfoModal = {setShowOfferConfirm}
           >
           </InfoModal>
         </Fragment>
@@ -109,12 +73,12 @@ const MakeOffer = (props) => {
       {/* <h2>Make an Offer</h2> */}
       <div className='asset-detail'>
         {
-        currentAsset ? (
+        props.currentAsset ? (
           <>
             <section className='asset-detail-left'>
               <div className='asset-detail-image-container'>
                 <img className='asset-detail-image'
-                src={currentMedia}
+                src={props.currentMedia}
                 alt='badass art'/>
               </div>
             </section>
@@ -125,26 +89,26 @@ const MakeOffer = (props) => {
               </header>
               <article>
                 <form className='offer-form' onSubmit={(e)=>{
-              console.log('OFFER SUBMITTED');
               e.preventDefault();
+              UseMakeOffer();
               }}>
               <input
-                className='amount-input'
+                className='common-input'
                 name='Amount'
                 type='number'
                 placeholder="Offer Amount"
-                onChange= {(e) => {props.setAmount( e.target.value)}}
+                onChange= {(e) => {setOfferAmount( e.target.value)}}
                 >
               </input>
-              <label  className='input-label'>Amount</label>
+              <label  className='common-input-label'>Amount</label>
               <select className='input-select'>
                 <option className='input-option' value='credit card'>credit card</option>
                 <option className='input-option' value='paypal'>paypal</option>
                 <option className='input-option' value='ethereum'>ethereum</option>
               </select>
-              <label  className='input-label'>Payment Type</label>
+              <label  className='common-input-label'>Payment Type</label>
               <input
-                className='amount-input'
+                className='common-input'
                 name='Card'
                 id="ccn" 
                 type="tel" 
@@ -153,11 +117,10 @@ const MakeOffer = (props) => {
                 autocomplete="cc-number" 
                 maxlength="19" 
                 placeholder="xxxx xxxx xxxx xxxx"
-                placeholder="Offer Amount"
-                onChange= {(e) => {props.setAmount( e.target.value)}}
+                onChange= {(e) => {setCardNumber( e.target.value)}}
                 >
               </input>
-              <label  className='input-label'>Card Number</label>
+              <label  className='common-input-label'>Card Number</label>
               <Button
                 className='.button--confirm'
                 type='submit'
@@ -174,11 +137,11 @@ const MakeOffer = (props) => {
 
               <article>
                 <div className='detail-creator-owner-container'>
-                  <p className='detail-creator-owner'>{`${currentAsset.creator_name}`}</p>
+                  <p className='detail-creator-owner'>{`${props.currentAsset.creator_name}`}</p>
                   <p className='detail-sub-words'>Creator</p>
                 </div>
                 <div className='detail-creator-owner-container'>
-                  <p className='detail-creator-owner'>{`${currentAsset.creator_name}`}</p>
+                  <p className='detail-creator-owner'>{`${props.currentAsset.creator_name}`}</p>
                   <p className='detail-sub-words'>Owner</p>
                 </div>
               </article>
