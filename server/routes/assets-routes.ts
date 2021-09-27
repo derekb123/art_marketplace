@@ -106,6 +106,32 @@ const assetsRoutes = function(router: any, controller: any) {
     }
   });
 
+  //GET BIDS BY OWNER ID
+
+  router.get('/owners/:owner_id', async (req: any, res: any) => {
+    const ownerId = req.params.owner_id;
+    const limit = 10;
+    try {
+      const assetArrayRes = await controller.getAssetsByOwnerId(ownerId, limit);
+      const assetImageLoop = async () => {
+        let mutatedAssetMediaArr = [];
+        for (let i = 0; i < assetArrayRes.length ; i++) {
+        let asset = assetArrayRes[i];
+        asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
+        // console.log('altered asset media',asset.asset_media);
+        mutatedAssetMediaArr.push(asset);
+        }
+        return mutatedAssetMediaArr;
+      }
+
+      await assetImageLoop();
+
+      res.send(assetArrayRes);
+    } catch (err) {
+      res.json('error inside get assetid route',{ error: err.message });
+    }
+  });
+
   //POST NEW ASSET
   const upload = multer();
   router.post('/', upload.single('file'), async (req: any, res: any, next) => {
@@ -115,12 +141,12 @@ const assetsRoutes = function(router: any, controller: any) {
     const description = req.body.description;
     const creatorId = req.body.creatorId;
     const price = req.body.price;
-    console.log('creatorID in POST ASSETS', creatorId);
+    // console.log('creatorID in POST ASSETS', creatorId);
 
     try {
       // const imageURL = await controller.uploadAssetMedia(recievedFile).location;
       const imageKey = await controller.uploadAssetMedia(recievedFile);
-      console.log('imageKey: ', imageKey);
+      // console.log('imageKey: ', imageKey);
       return controller
         .createNewAsset(title, description, imageKey, creatorId, price)
         .then((data: any) => {

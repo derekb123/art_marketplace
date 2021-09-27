@@ -15,15 +15,15 @@ const usersRoutes = function (router: any, controller: any) {
         //VERIFY JWT REFRESH TOKEN
         router.post('/refresh', async (req, res) => {
           const refreshToken = req.cookies.rToken
-          console.log('rToken from req.cookies inside /refresh',refreshToken);
+          // console.log('rToken from req.cookies inside /refresh',refreshToken);
           if (!refreshToken) {
             return res.send({refresh: false, accessToken:''})
           }
           let payload = null;
           try {
-            console.log('inside refresh try/catch')
+            // console.log('inside refresh try/catch')
             payload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
-            console.log('payload inside refresh try/catch', payload)
+            // console.log('payload inside refresh try/catch', payload)
           } catch (error) {
             console.log(error)
             return res.send({refresh: false, accessToken:''})

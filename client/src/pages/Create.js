@@ -107,10 +107,10 @@ const Create = (props) => {
               </div>
               <label>Price</label>
               <input
-                type="text"
+                type="number"
                 className='common-input'
                 value={price.value}
-                onChange= {(e) => {setPrice( e.target.value )}}
+                onChange= {(e) => {setPrice( parseInt(e.target.value, 10))}}
               >
               </input>
             </div>

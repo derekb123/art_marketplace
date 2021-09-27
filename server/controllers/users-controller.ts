@@ -8,7 +8,7 @@ getAllUsers : function(): Promise<any> {
   return pool
     .query(usersQueries.getAllUsersQuery)
     .then((res: any) => {
-      console.log(res.rows);
+      // console.log(res.rows);
       return res.rows;
     });
 },
@@ -19,7 +19,7 @@ getUserById : function(userId: number): Promise<any> {
   return pool
     .query(usersQueries.getUserByIdQuery, queryParams)
     .then((res: any) => {
-      console.log(res.rows);
+      // console.log(res.rows);
       return res.rows;
     });
 },
@@ -31,7 +31,7 @@ getUserByEmailAndPassword : function(userEmail: any, userPassword: any): Promise
     .query(usersQueries.getUserByEmailAndPasswordQuery, queryParams)
     .then((res: any) => {
       if (res.password === userPassword)
-      console.log(res.rows);
+      // console.log(res.rows);
       return res.rows;
     });
 },
@@ -42,7 +42,7 @@ getUserByEmail : function(userEmail: any): Promise<any> {
   return pool
     .query(usersQueries.getUserByEmailQuery, queryParams)
     .then((res: any) => {
-      console.log(res.rows);
+      // console.log(res.rows);
       return res.rows;
     });
 },
@@ -53,7 +53,7 @@ getMinUserByEmail : function(userEmail: any): Promise<any> {
   return pool
     .query(usersQueries.getMinUserByEmailQuery, queryParams)
     .then((res: any) => {
-      console.log(res.rows);
+      // console.log(res.rows);
       return res.rows;
     });
 },

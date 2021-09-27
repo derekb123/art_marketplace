@@ -13,12 +13,12 @@ const MakeOffer = (props) => {
   // console.log('props for asset Cdispatch',props.commonDispatch);
   // console.log('props for asset Cstate',props.commonState);
 
-  const [amount, setAmount] = useState('');
+  // const [offermount, setAmount] = useState(null);
   // const [currentMedia, props.setCurrentMedia] = useState('');
   const [showOfferModal, setShowOfferModal] = useState(false);
   const [showOfferConfirm, setShowOfferConfirm] = useState(false);
   const [showOfferError, setShowOfferError] = useState(false);
-  const [offerAmount, setOfferAmount] = useState('');
+  const [offerAmount, setOfferAmount] = useState(null);
   const [cardNumber, setCardNumber] = useState('');
 
 
@@ -37,8 +37,10 @@ const MakeOffer = (props) => {
   }, []);
 
   const UseMakeOffer = async () => {
+    if (!offerAmount) return;
+    if (typeof offerAmount !== 'number') return;
     const bidderId = props.commonState.currentUserId;
-    const bidInfo = {bidder_id: bidderId, asset_id: props.currentAsset.id, bid_price: amount}
+    const bidInfo = {bidder_id: bidderId, asset_id: props.currentAsset.id, bid_price: offerAmount}
     try {
       props.commonDispatch({ type: Constants.LOADING });
       const res = await axios.post('/bids', bidInfo);
@@ -65,6 +67,7 @@ const MakeOffer = (props) => {
           modalButtonName = {'CLOSE'}
           showInfoModal = {showOfferConfirm}
           setShowInfoModal = {setShowOfferConfirm}
+          confirmPath={'/'}
           >
           </InfoModal>
         </Fragment>
@@ -97,7 +100,7 @@ const MakeOffer = (props) => {
                 name='Amount'
                 type='number'
                 placeholder="Offer Amount"
-                onChange= {(e) => {setOfferAmount( e.target.value)}}
+                onChange= {(e) =>{setOfferAmount( parseInt(e.target.value, 10))}}
                 >
               </input>
               <label  className='common-input-label'>Amount</label>

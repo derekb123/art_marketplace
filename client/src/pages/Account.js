@@ -4,16 +4,29 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
 import AccountAssetsList from '../components/AccountAssetsList';
+import Offers from '../components/Offers'
+import OffersRecievedList from '../components/OffersRecievedList';
 
 const Account = (props) => {
   return (
+    <Fragment>
     <AccountAssetsList
-    commonState={props.commonState}
-    commonDispatch={props.commonDispatch}
-    marketAssets={props.marketAssets}
-    setMarketAssets={props.setMarketAssets}
+        commonState={props.commonState}
+        commonDispatch={props.commonDispatch}
+        marketAssets={props.marketAssets}
+        setMarketAssets={props.setMarketAssets}
     >
     </AccountAssetsList>
+    <Offers>
+      <OffersRecievedList
+        commonState={props.commonState}
+        commonDispatch={props.commonDispatch}
+        marketAssets={props.marketAssets}
+        setMarketAssets={props.setMarketAssets}>
+      </OffersRecievedList>
+
+    </Offers>
+    </Fragment>
   )
 
 }

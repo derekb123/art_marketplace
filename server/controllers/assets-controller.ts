@@ -39,13 +39,13 @@ const assetsController = {
   // GET single asset by Id
   getAssetById : async function(assetId) {
     const queryParams = [assetId];
-    console.log('queryparams in getassetbyid',queryParams);
+    // console.log('queryparams in getassetbyid',queryParams);
 
     return pool
       .query(assetsQueries.getAssetByIdQuery, queryParams)
       .then((res) => {
         const resObj = res.rows[0];
-        console.log('resObj in assets-controller getassetbyID', resObj);
+        // console.log('resObj in assets-controller getassetbyID', resObj);
         return resObj;
       })
       .catch((err: Error) => {
@@ -56,14 +56,14 @@ const assetsController = {
   // GET single asset by Id
   getAssetsByOwnerId : async function(userId, limit) {
     const queryParams = [userId, limit];
-    console.log('queryparams in getassetbyid',queryParams);
+    // console.log('queryparams in getassetbyid',queryParams);
 
     return pool
       .query(assetsQueries.getAssetsByOwnerIdQuery, queryParams)
       .then((res) => {
-        console.log('reponse in gesAssetByOwnerId', res);
+        // console.log('reponse in gesAssetByOwnerId', res);
         const resObj = res.rows;
-        console.log('resObj in assets-controller getassetbyID', resObj);
+        // console.log('resObj in assets-controller getassetbyID', resObj);
         return resObj;
       })
       .catch((err: Error) => {
@@ -150,7 +150,7 @@ const assetsController = {
           console.log('Error', err);
           return reject(err);
         } if (data) {
-          console.log('data response inside uploadAssetsMedia', data);
+          // console.log('data response inside uploadAssetsMedia', data);
           return resolve(data.key);
         }
       })
@@ -159,7 +159,7 @@ const assetsController = {
 
 //Creates a new Asset in the Database
   createNewAsset: function(title, description,  media_file, creatorId, price): Promise<any> {
-    console.log('creatorID in createNewAsset',creatorId);
+    // console.log('creatorID in createNewAsset',creatorId);
     const queryParams = [
     title,
     description,
@@ -172,7 +172,7 @@ const assetsController = {
     return pool
       .query(assetsQueries.createNewAssetQuery, queryParams)
       .then((res: any) => {
-        console.log('res from createNewAsset', res);
+        // console.log('res from createNewAsset', res);
         return res.rows;
       })
       .catch((err: Error) => {

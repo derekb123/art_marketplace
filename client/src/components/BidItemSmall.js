@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 
-const AssetItemSmall = (props) => {
+const BidItemSmall = (props) => {
   return (
-    <Link to={`/assets/${props.id}`}>
+    // <Link to={`/assets/${props.id}`}>
       <section className='asset-item'>
         <div className='asset-image'>
           <div className='asset-image-inner'>
@@ -19,8 +19,8 @@ const AssetItemSmall = (props) => {
           </div>
         </div>
       </section>
-    </Link>
+    // </Link>
   )
 }
 
-export default AssetItemSmall;
+export default BidItemSmall;

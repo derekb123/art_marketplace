@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from 'react';
-import AssetItem from './AssetItemSmall';
+import AssetItemSmall from './AssetItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
 import { GetAllAssetsNewest } from '../hooks/AssetListHooks';
@@ -31,7 +31,7 @@ const HomeAssetsList = (props) => {
                   marketAssets.map((asset, i) => {
                     return (
 
-                        <AssetItem
+                        <AssetItemSmall
                           key={i}
                           title={asset.title}
                           description={asset.asset_description}

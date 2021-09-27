@@ -7,6 +7,15 @@ import { getAssetById } from '../hooks/AssetListHooks';
 import { Link, useHistory } from 'react-router-dom';
 
 const InfoModal = (props) => {
+
+  const history = useHistory();
+
+  const confirmRedirect = () =>{ 
+    console.log('confirmRedirect called');
+    let path = props.confirmPath; 
+    history.push(path);
+  }
+
   if(!props.showInfoModal) {
     return null;
   }
@@ -47,6 +56,7 @@ return (
               login
               onClick={(e)=> {
               e.preventDefault();
+              confirmRedirect();
               props.setShowInfoModal(false);
               }}
             >{props.modalButtonName}

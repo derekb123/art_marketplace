@@ -1,19 +1,31 @@
 import React, {  useEffect, useState } from 'react';
-import AssetItemSmall from './AssetItemSmall';
+import BidItemSmall from './BidItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAssetsByOwnerId } from '../hooks/AssetListHooks';
+import { GetAssetsByOwnerId, GetBidsByAssetIds } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
 
 
-const AccountAssetsList = (props) => {
+const OffersRecievedList = (props) => {
 
   const userId = props.commonState.currentUserId;
   console.log(userId);
 
+  const [bidsRecieved, setBidsRecieved] = useState([])
+
   useEffect (() => {
-      GetAssetsByOwnerId(props, Constants, axios, props.setMarketAssets, userId);
+    GetAssetsByOwnerId(props, Constants, axios, props.setMarketAssets, userId);
   }, [userId]);
+
+    console.log('marketAssets after GetAssetsByOwnerId: ', props.marketAssets);
+
+  useEffect (() => {
+    GetBidsByAssetIds(props, Constants, axios, setBidsRecieved, props.MarketAssets);
+}, [userId]);
+
+  const bidItemArray = () => {
+    
+  }
 
   console.log('marketAssets after getallAssetsNewest accountAssetslist: ', props.marketAssets);
 
@@ -26,10 +38,10 @@ const AccountAssetsList = (props) => {
             !props.loading ? (
               <div className='assets-grid-container'>
                 {
-                  props.marketAssets.map((asset, i) => {
+                  props.bidsRecieved.map((asset, i) => {
                     return (
 
-                        <AssetItemSmall
+                        <BidItemSmall
                           key={i}
                           title={asset.title}
                           description={asset.asset_description}
@@ -57,4 +69,4 @@ const AccountAssetsList = (props) => {
   )
 }
 
-export default AccountAssetsList;
+export default OffersRecievedList;

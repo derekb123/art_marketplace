@@ -21,6 +21,43 @@ const bidsRoutes = function(router: any, controller: any) {
     res.send(postedBid);
   })
 
+  //GET BIDS BY ASSET ID
+
+  router.get('/assets/:asset_id', async (req: any, res: any) => {
+    const assetId = req.params.asset_id;
+    const limit = 10;
+    try {
+      const bidsArrayRes = await controller.getBidsByAssetId(assetId, limit);
+      const bidsImageLoop = async () => {
+      let mutatedAssetMediaArr = [];
+      for (let i = 0; i < bidsArrayRes.length ; i++) {
+      let asset = bidsArrayRes[i];
+      asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
+      // console.log('altered asset media',asset.asset_media);
+      mutatedAssetMediaArr.push(asset);
+      }
+      return mutatedAssetMediaArr;
+    }
+
+    await bidsImageLoop();
+    } catch (err) {
+      res.json('error inside get get bids by asset Id route',{ error: err.message });
+    }
+  });
+
+  //GET BIDS BY BIDDER ID
+
+  // router.get('/bidders/:bidder_id', async (req: any, res: any) => {
+  //   const bidderId = req.params.bidder_id;
+  //   const limit = 10;
+  //   try {
+  //     const bidsArrayRes = await controller.getBidsRecievedByBidderId(bidderId, limit);
+  //     res.send(bidsArrayRes);
+  //   } catch (err) {
+  //     res.json('error inside get assetid route',{ error: err.message });
+  //   }
+  // });
+  
   return router
 }
 
