@@ -1,5 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, Fragment} from 'react';
 import Button from '../components/Button'
+import InfoModal from '../components/InfoModal';
 import ImageUpload from '../components/ImageUpload';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -14,18 +15,16 @@ const Create = (props) => {
   const imageUploadIcon = 'client/public/upload_image.png'
 
   const [title, setTitle] = useState('');
+  const [showCreateConfirm, setShowCreateConfirm] = useState(false)
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
   const [price, setPrice] = useState(0);
   const [uploadedImageState, setUploadedImageState] = useState(null);
   const creatorId = props.commonState.currentUserId;
-  console.log('creatorID', creatorId);
   const [checked, setChecked] = useState(true);
 
   const history = useHistory();
 
   const UseHandleCreate = async (title, description, creatorId, price, file) => {
-
     try {
       props.commonDispatch({ type: Constants.LOADING });
       // console.log('file in usehandlecreate', file);
@@ -35,11 +34,9 @@ const Create = (props) => {
       data.append('creatorId', creatorId)
       data.append('price', price)
       data.append('file', file)
-
-      axios.post('/assets',
-      data
-      )
-        .then(res => console.log(res))
+      axios.post('/assets',data)
+        .then(res => {
+          if (res) setShowCreateConfirm(true)})
         .catch(err => console.log(err));
     } catch (error) {
       console.log(`Create error: ${error}`);
@@ -53,6 +50,21 @@ const Create = (props) => {
   return (
     <div className='create'>
       <h2>Create</h2>
+
+      { showCreateConfirm &&
+        <Fragment>
+          <InfoModal
+          modalTitle ={'Success'}
+          modalBody = {'Congratulations! Your creation is a success!'}
+          modalButtonName = {'CLOSE'}
+          showInfoModal = {showCreateConfirm}
+          setShowInfoModal = {setShowCreateConfirm}
+          confirmPath={'/account'}
+          >
+          </InfoModal>
+        </Fragment>
+      }
+
       <article className='create-sections'>
         <section className='create-left'>
           <ImageUpload

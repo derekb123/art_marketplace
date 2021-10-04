@@ -6,7 +6,7 @@ const CommonReducer = (state, action) => {
       // console.log('Inside LOG_OUT')
       return {
         ...state,
-        currentUser: null,
+        currentUserName: null,
         avatar: null,
         isCreator: false,
         loggedIn: false,
@@ -15,7 +15,7 @@ const CommonReducer = (state, action) => {
     case Constants.LOG_IN: {
       // console.log('inside LOG_IN');
       const userInfo = action.payload;
-      console.log('userInfo.userId', userInfo.userId);
+      console.log('userInfo:', userInfo);
         return {
           ...state,
           currentUserName: userInfo.username,
@@ -33,11 +33,12 @@ const CommonReducer = (state, action) => {
       console.log('local storage token loaded?',localStorage.token);
         return {
           ...state,
-          currentUser: userInfo.username,
+          currentUserName: userInfo.username,
           loggedIn: true,
           loading: false,
           isCreator: userInfo.isCreator,
-          avatar: userInfo.avatar
+          avatar: userInfo.avatar,
+          currentUserId: userInfo.userId
            }
     }
     case Constants.UPLOAD_ASSETS: {
@@ -47,7 +48,7 @@ const CommonReducer = (state, action) => {
       console.log('local storage token loaded?',localStorage.token);
         return {
           ...state,
-          currentUser: userInfo.username,
+          currentUserName: userInfo.username,
           loggedIn: true,
           loading: false,
           isCreator: userInfo.isCreator,
@@ -67,7 +68,8 @@ const CommonReducer = (state, action) => {
           loading: false,
           isCreator: payload.isCreator,
           avatar: payload.avatar,
-          currentUser: payload.username,
+          currentUserName: payload.username,
+          currentUserId: payload.userId
         }
       }
       else {
@@ -79,7 +81,8 @@ const CommonReducer = (state, action) => {
           loading: false,
           isCreator: false,
           avatar: null,
-          currentUser: null, }
+          currentUserName: null,
+          currentUserId: null }
       }
     }
     case Constants.FINISHED_LOADING: {

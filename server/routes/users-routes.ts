@@ -47,12 +47,15 @@ const usersRoutes = function (router: any, controller: any) {
             return res.send({refresh: false, accessToken:''});
           };
 
+          console.log('user[0] in usersroutes', user[0])
+
           return res.send({
             refresh: true, 
             accessToken: jwtAccessTokenGenerator(user), 
             username: user[0].username, 
             avatar: user[0].avatar, 
-            isCreator: user[0].creator
+            isCreator: user[0].creator,
+            userId: user[0].id
           })
         });
 

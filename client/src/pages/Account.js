@@ -8,6 +8,9 @@ import Offers from '../components/Offers'
 import OffersRecievedList from '../components/OffersRecievedList';
 
 const Account = (props) => {
+
+  console.log('Account commonState: ',props.commonState);
+
   return (
     <Fragment>
     <AccountAssetsList
@@ -17,18 +20,16 @@ const Account = (props) => {
         setMarketAssets={props.setMarketAssets}
     >
     </AccountAssetsList>
-    <Offers>
+    {/* <Offers>
       <OffersRecievedList
         commonState={props.commonState}
         commonDispatch={props.commonDispatch}
         marketAssets={props.marketAssets}
         setMarketAssets={props.setMarketAssets}>
       </OffersRecievedList>
-
-    </Offers>
+    </Offers> */}
     </Fragment>
   )
-
 }
 
 export default Account;

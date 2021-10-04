@@ -55,7 +55,7 @@ export async function GetAssetsByOwnerId(props, Constants, axios, setMarketAsset
     }
   }
 
-export async function GetBidsByAssetIds(props, Constants, axios, setBidsRecieved, marketAssets) {
+export async function GetHighestBidsByAssetIds(props, Constants, axios, setBidsRecieved, marketAssets) {
     try {
       console.log('marketAssets GetBidsByAssetIds: ',marketAssets);
       props.commonDispatch({ type: Constants.LOADING })
@@ -63,7 +63,7 @@ export async function GetBidsByAssetIds(props, Constants, axios, setBidsRecieved
       for(let asset of marketAssets) {
         assetsIds = assetsIds.push(asset.id);
       }
-      const res = await axios.get(`/bids/assets/${assetsIds}`);
+      const res = await axios.get(`/bids/assets/highest/${assetsIds}`);
       let bidsArray = res.data
       // console.log('res.data in AssetListHooks', bidsArray);
       if (bidsArray.length === 0) {

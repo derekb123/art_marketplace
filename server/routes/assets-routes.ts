@@ -155,15 +155,41 @@ const assetsRoutes = function(router: any, controller: any) {
     } catch (error) {
       console.log(`Error in POST NEW ASSET in ASSETS-ROUTES: ${error}`);
     }
-
-    // controller
-    //   .storeImageUpload(recievedFile)
-    //   .then((imageURL) => {
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   })
   });
+
+  //TRANSFER ASSET
+  router.put('/:asset_id/transfer/:buyer_id', async (req: any, res: any, next) => {
+    // console.log('recievedFile', recievedFile)
+    const buyerId = req.params.buyer_id;
+    const assetId = req.params.asset_id;
+    console.log('ownerId, assetId PUT ASSETS', buyerId, assetId );
+
+    try {
+      return controller
+        .transferAsset(buyerId, assetId)
+        .then((data: any) => {
+        res.json(data);
+      })
+    } catch (error) {
+      console.log(`Error in TRANSFER ASSET in ASSETS-ROUTES: ${error}`);
+    }
+  });
+
+  //EDIT ASSET PRICE
+  router.put('/:asset_id/price', async (req: any, res: any, next) => {
+    const salePrice = req.body.salePrice;
+    // console.log(chalk.blue('SALEPRICE IN EDIT ASSET PRICE ROUTE'), salePrice);
+    const assetId = req.params.asset_id;
+    try {
+      return controller
+        .editAssetPrice(salePrice, assetId)
+        .then((data: any) => {
+        res.json(data);
+      })
+    } catch (error) {
+      console.log(`Error in EDIT ASSET PRICE in ASSETS-ROUTES: ${error}`);
+    }
+  })
 
   return router;
 }

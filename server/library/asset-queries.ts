@@ -50,7 +50,20 @@ createNewAssetQuery:
     )
     values ($1, $2, $3, $4, $5, $6)
     RETURNING *;
- `
+ `,
+
+transferAssetQuery:
+`UPDATE assets
+SET owner_id=$1, list_price=0
+WHERE id=$2
+`,
+
+editAssetPriceQuery:
+`UPDATE assets
+SET list_price=$1
+WHERE id=$2
+`,
+
 }
 
 export default assetsQueries;

@@ -13,7 +13,8 @@ import bodyParser from "body-parser";
 import usersController from './controllers/users-controller';
 import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
-import bidsRoutes from './routes/bids-routes'
+import bidsRoutes from './routes/bids-routes';
+import transactionsController from './controllers/transactions-controller';
 import assetsController from "./controllers/assets-controller";
 import bidsController from "./controllers/bids-controller";
 // import mediaRoutes from './routes/media-routes';
@@ -75,6 +76,11 @@ app.use('/assets', assetsRouter);
 const bidsRouter = express.Router();
 bidsRoutes(bidsRouter, bidsController);
 app.use('/bids', bidsRouter);
+
+// transactions endpoints
+const transactionsRouter = express.Router();
+bidsRoutes(transactionsRouter, transactionsController);
+app.use('/bids', transactionsRouter);
 
 
 // s3 endpoints

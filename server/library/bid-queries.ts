@@ -10,6 +10,14 @@ const bidsQueries = {
     )
     values ($1, $2, $3)
     RETURNING *;
+  `,
+
+  getHighestBidByAssetIdQuery: `
+  SELECT * 
+  FROM bids
+  WHERE asset_id = $1
+  AND bid_price = (SELECT MAX(weight) FROM bids)
+  LIMIT $2;
   `
 }
 

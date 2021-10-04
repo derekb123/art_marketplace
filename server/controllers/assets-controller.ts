@@ -176,7 +176,33 @@ const assetsController = {
         return res.rows;
       })
       .catch((err: Error) => {
-        console.log(chalk.blue('ERROR FROM CREATENEWASSET'), err);
+        console.log(chalk.blue('ERROR FROM CREATENEWASSET IN CONTROLLER'), err);
+      });
+  },
+
+  transferAsset: function(ownerId, id) {
+    const queryParams = [ownerId, id];
+
+    return pool
+      .query(assetsQueries.transferAssetQuery, queryParams)
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((err: Error) => {
+        console.log(chalk.blue('ERROR FROM TRANSFERASSET IN CONTROLLER'), err);
+      });
+  },
+
+  editAssetPrice: function(salePrice, assetId) {
+    const queryParams = [salePrice, assetId];
+
+    return pool
+      .query(assetsQueries.editAssetPriceQuery, queryParams)
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((err: Error) => {
+        console.log(chalk.blue('ERROR FROM EDITASSETPRICE IN CONTROLLER'), err);
       });
   }
 }

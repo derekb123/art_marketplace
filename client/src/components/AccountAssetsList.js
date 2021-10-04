@@ -9,7 +9,7 @@ import { GetAssetsByOwnerId } from '../hooks/AssetListHooks';
 const AccountAssetsList = (props) => {
 
   const userId = props.commonState.currentUserId;
-  console.log(userId);
+  console.log('accountassetslist userID: ',userId);
 
   useEffect (() => {
       GetAssetsByOwnerId(props, Constants, axios, props.setMarketAssets, userId);

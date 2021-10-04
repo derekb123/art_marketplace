@@ -26,17 +26,16 @@
 
 --transactions
 
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (1, 6, 1, 5, 'vel', 'maestro', '436.36', '8.80', '8.57', '4.05', '8.06', '9/13/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (2, 3, 7, 5, 'congue', 'diners-club-enroute', '844.64', '6.03', '3.57', '8.00', '6.78', '3/31/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (3, 2, 4, 4, 'augue', 'switch', '656.34', '5.49', '8.83', '1.51', '5.95', '4/27/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (4, 2, 2, 2, 'orci', 'visa-electron', '456.30', '1.11', '3.32', '1.22', '9.53', '8/15/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (5, 9, 9, 6, 'donec', 'mastercard', '236.11', '2.16', '8.68', '4.02', '6.32', '10/29/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (6, 7, 5, 5, 'vitae', 'mastercard', '354.54', '1.56', '4.86', '8.19', '6.99', '2/6/2021');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (7, 8, 10, 10, 'mauris', 'jcb', '64.35', '2.22', '5.87', '2.56', '7.18', '6/28/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (8, 6, 1, 10, 'dui', 'jcb', '948.93', '6.49', '5.08', '2.32', '1.71', '5/1/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (9, 2, 2, 1, 'vulputate', 'mastercard', '800.16', '6.21', '3.59', '3.32', '1.74', '7/13/2020');
-insert into transactions (id, asset_item_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (10, 4, 1, 9, 'luctus', 'visa-electron', '176.43', '6.60', '8.86', '5.57', '5.37', '8/11/2020');
-
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (1, 6, 1, 5, 'vel', 'maestro', '436.36', '8.80', '8.57', '4.05', '8.06', '9/13/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (2, 3, 7, 5, 'congue', 'diners-club-enroute', '844.64', '6.03', '3.57', '8.00', '6.78', '3/31/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (3, 2, 4, 4, 'augue', 'switch', '656.34', '5.49', '8.83', '1.51', '5.95', '4/27/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (4, 2, 2, 2, 'orci', 'visa-electron', '456.30', '1.11', '3.32', '1.22', '9.53', '8/15/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (5, 9, 9, 6, 'donec', 'mastercard', '236.11', '2.16', '8.68', '4.02', '6.32', '10/29/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (6, 7, 5, 5, 'vitae', 'mastercard', '354.54', '1.56', '4.86', '8.19', '6.99', '2/6/2021');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (7, 8, 10, 10, 'mauris', 'jcb', '64.35', '2.22', '5.87', '2.56', '7.18', '6/28/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (8, 6, 1, 10, 'dui', 'jcb', '948.93', '6.49', '5.08', '2.32', '1.71', '5/1/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (9, 2, 2, 1, 'vulputate', 'mastercard', '800.16', '6.21', '3.59', '3.32', '1.74', '7/13/2020');
+-- insert into transactions (id, asset_id, buyer_id, seller_id, trans_type, payment_method, sale_price, royalty_price, tax_price, site_fee, trans_fee, created_at) values (10, 4, 1, 9, 'luctus', 'visa-electron', '176.43', '6.60', '8.86', '5.57', '5.37', '8/11/2020');
 --tags
 
 insert into tags (id, tag) values (1, 'Action|Thriller|War');

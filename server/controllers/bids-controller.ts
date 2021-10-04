@@ -24,6 +24,20 @@ const bidsController = {
         console.log(err);
       });
   },
+  getHighestBidByAssetId: function(asset_id) {
+    const queryParams = [asset_id];
+
+    return pool
+      .query(bidsQueries.getHighestBidByAssetIdQuery, queryParams)
+      .then((res) => {
+        console.log('res in gehighestbidbyassetID', res);
+        return res.rows;
+      })
+      .catch((err: Error) => {
+        console.log(err);
+      });
+  },
+
 }
 
 export default bidsController;

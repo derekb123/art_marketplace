@@ -46,16 +46,12 @@ CASCADE;
 CREATE TABLE transactions
 (
   id SERIAL PRIMARY KEY NOT NULL,
-  asset_item_id VARCHAR(255) NOT NULL,
+  asset_id VARCHAR(255) NOT NULL,
   buyer_id VARCHAR(255) NOT NULL,
   seller_id VARCHAR(255) NOT NULL,
-  trans_type VARCHAR(255) NOT NULL,
+  creator_id VARCHAR(255) NOT NULL,
   payment_method VARCHAR(255) NOT NULL,
-  sale_price NUMERIC(16, 2) DEFAULT 0.00,
-  royalty_price NUMERIC(16, 2) DEFAULT 0.00,
-  tax_price NUMERIC(16, 2) DEFAULT 0.00,
-  site_fee NUMERIC(16, 2) DEFAULT 0.00,
-  trans_fee NUMERIC(16, 2) DEFAULT 0.00,
+  sale_price VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp
 );
 

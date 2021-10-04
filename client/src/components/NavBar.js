@@ -5,7 +5,7 @@ import Button from '../components/Button'
 import axios from 'axios';
 
 function NavBar(props) {
-  const username = props.commonState.currentUser;
+  const username = props.commonState.currentUserName;
   const history = useHistory();
 
   const UseHandleLogout = async () => {
@@ -47,14 +47,12 @@ function NavBar(props) {
         </Link>
         {props.commonState.loggedIn ? (
           <Fragment>
-            <Link to='/account'>
-              <div
-                className='nav-item nav-profile'
-              >
-              {props.commonState.avatar ?
-              (props.commonState.avatar)
-              : (username? (<div>{username.slice(0,2)}</div>): '')
-              }
+            <Link to={'/account'}>
+              <div className='nav-item nav-profile'>
+                {props.commonState.avatar ?
+                (props.commonState.avatar)
+                : (username? (<div>{username.slice(0,1)}</div>): '')
+                }
               </div>
             </Link>
             <Link onClick={()=> props.commonDispatch({type: Constants.LOG_OUT})} to='Login'>
