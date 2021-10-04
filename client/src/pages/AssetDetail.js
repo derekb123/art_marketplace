@@ -22,12 +22,9 @@ const AssetDetail = (props) => {
   const SELL_ASSET = 'SELL_ASSET'
 
   const history = useHistory();
-  const [amount, setAmount] = useState('');
   const [mode, setMode] = useState('ASSET_DETAIL');
   const [currentMedia, setCurrentMedia] = useState('');
-  const [showOfferModal, setShowOfferModal] = useState(false);
-  const [showMakeOffer, setShowMakeOffer] = useState(false);
-  const [showOfferConfirm, setShowOfferConfirm] = useState(false);
+  const [showCancelSale, setShowCancelSale] = useState(false);
   const [showBuyWarning, setShowBuyWarning] = useState(false);
   const [currentAsset, setCurrentAsset] = useState({
     id : null,
@@ -107,6 +104,18 @@ const AssetDetail = (props) => {
   //   }
   // }
 
+  const UseCancelSale = async (assetId) => {
+
+    try {
+      props.commonDispatch({ type: Constants.LOADING });
+      const editAssetPriceRes = await axios.put(`/assets/${assetId}/price`, {'salePrice': 0});
+      console.log(editAssetPriceRes);
+    } catch (error) {
+      console.log('error inside UseSellAsset: ',error)
+      history.push('/account');
+    }
+  }
+
 
   // console.log('currentAsset in AssetDetail', currentAsset);
 
@@ -151,7 +160,7 @@ const AssetDetail = (props) => {
       {mode === ASSET_DETAIL && (
       <div className='asset-detail'>
         {
-        currentAsset ? (
+        currentAsset.list_price ? (
           <>
             <section className='asset-detail-left'>
               <div className='asset-detail-image-container'>
@@ -242,8 +251,43 @@ const AssetDetail = (props) => {
               </article>
               ) : (
               //ASSET OWNED BY USER
+              <Fragment>
+              { showCancelSale && 
+                <Fragment>
+                  <InfoModal
+                  modalTitle ={'Success'}
+                  modalBody = {'Your sale is now cancelled.'}
+                  modalButtonName = {'CLOSE'}
+                  showInfoModal = {showCancelSale}
+                  setShowInfoModal = {setShowCancelSale}
+                  confirmPath={'/account'}
+                  >
+                  </InfoModal>
+                </Fragment>
+              }
+              
+
               <article>
+                {currentAsset.list_price > 0 ? (
                 <div className='adet-sell-button-container'>
+                  <Button
+                    className='adet-sell-button'
+                    name='Cancel Sale'
+                    onClick={(e)=> {
+                      console.log('CANCEL SALE CLICKED');
+                      e.preventDefault();
+                      if (props.commonState.loggedIn) {
+                        UseCancelSale(currentAsset.id);
+                        setShowCancelSale(true);
+                      }else {
+                        history.push('/login');
+                      }
+                    }}
+                    buy
+                  >
+                  </Button>
+                </div> ) : (
+                   <div className='adet-sell-button-container'>
                   <Button
                     className='adet-sell-button'
                     name='List For Sale'
@@ -260,9 +304,13 @@ const AssetDetail = (props) => {
                   >
                   </Button>
                 </div>
+                )
+                }
               </article>
+              </Fragment>
               )
             }
+            
 
               <article>
                 <div className='detail-creator-owner-container'>

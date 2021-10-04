@@ -67,7 +67,7 @@ const SellAsset = (props) => {
           modalButtonName = {'CLOSE'}
           showInfoModal = {showSellAssetConfirm}
           setShowInfoModal = {setShowSellAssetConfirm}
-          confirmPath={'/'}
+          confirmPath={'/account'}
           >
           </InfoModal>
         </Fragment>
