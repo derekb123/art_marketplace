@@ -9,8 +9,14 @@ import InfoModal from '../components/InfoModal';
 import MakeOffer from './MakeOffer';
 import BuyAsset from './BuyAsset';
 import SellAsset from './SellAsset';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
 
 const AssetDetail = (props) => {
+
+  const stripePromise = loadStripe('pk_test_51HRu3CBSF7t20i0FYMz3uvWce7k47FQo2duNUkdBwihxl7v3EWANu9kfASfll0ks0smNZ34ICMJZ6Puo2CXsjPGG00Y7VrpalY');
+
 
   // console.log('props for asset detail',props);
   // console.log('props for asset Cdispatch',props.commonDispatch);
@@ -120,6 +126,7 @@ const AssetDetail = (props) => {
   // console.log('currentAsset in AssetDetail', currentAsset);
 
   return (
+    <Elements stripe={stripePromise}>
     <Fragment>
 
       {mode === MAKE_OFFER && (
@@ -211,16 +218,9 @@ const AssetDetail = (props) => {
                   >
                   </Button>
                     { showBuyWarning &&
-                      <div className='buy-warning-login'>
-                        <p>Please
-                          <span>
-                            <Link to={'/login'}>
-                                login
-                            </Link>
-                          </span>
-                          to buy.
-                        </p>
-                      </div>
+                      <Link className='buy-warning-login' to={'/login'}>
+                          <p>Please <u>login</u> to buy.</p>
+                      </Link>
                     }
                 </div>
                 )}
@@ -328,6 +328,7 @@ const AssetDetail = (props) => {
       </div>
        )}
     </Fragment>
+    </Elements>
   )
 }
 

@@ -37,6 +37,8 @@ const SellAsset = (props) => {
       //PACKAGE WITH THIS OBJECT FOR DETAIL
   }, []);
 
+
+
   const UseSellAsset = async () => {
     const assetId = props.currentAsset.id;
 

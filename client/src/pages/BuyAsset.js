@@ -6,28 +6,21 @@ import axios from 'axios';
 import { getAssetById } from '../hooks/AssetListHooks';
 import { Link, useHistory } from 'react-router-dom';
 import InfoModal from '../components/InfoModal';
+import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
 const BuyAsset = (props) => {
 
-  // console.log('props for make offer',props);
-  // console.log('props for asset Cdispatch',props.commonDispatch);
-  // console.log('props for asset Cstate',props.commonState);
-
-  // const [offermount, setAmount] = useState(null);
-  // const [currentMedia, props.setCurrentMedia] = useState('');
   const [showBuyAssetModal, setShowBuyAssetModal] = useState(false);
   const [showBuyAssetConfirm, setShowBuyAssetConfirm] = useState(false);
   const [showBuyAssetError, setShowBuyAssetError] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
 
-
-  // console.log('currentUserId & owner_id', props.commonState.currentUserId, props.currentAsset.owner_id);
-  console.log('currentAsset', props.currentAsset);
-
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
   let assetId = useParams().asset_id;
-  // console.log(assetId);
+
+  const stripe = useStripe();
+  const elements = useElements();  
 
   useEffect (() => {
     getAssetById(assetId, props, Constants, axios, props.setCurrentAsset, props.setCurrentMedia);
@@ -37,8 +30,35 @@ const BuyAsset = (props) => {
   }, []);
 
   const UseBuyAsset = async () => {
+
+
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable
+      // form submission until Stripe.js has loaded.
+      return;
+    }
+
     const buyerId = props.commonState.currentUserId;
     const assetId = props.currentAsset.id;
+
+     // Get a reference to a mounted CardElement. Elements knows how
+    // to find your CardElement because there can only ever be one of
+    // each type of element.
+    const cardElement = elements.getElement(CardElement);
+
+    // Use your card Element with other Stripe.js APIs
+    const {error, paymentMethod} = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log('[error]', error);
+    } else {
+      console.log('[PaymentMethod]', paymentMethod);
+    }
+
+    
 
     const transactionInfo = {
       buyer_id: buyerId, 
@@ -72,7 +92,6 @@ const BuyAsset = (props) => {
 
   return (
     <Fragment>
-      
       { showBuyAssetConfirm && 
         <Fragment>
           <InfoModal
@@ -113,29 +132,29 @@ const BuyAsset = (props) => {
               <label  className='common-input-label'>Amount</label>
               <select className='input-select'>
                 <option className='input-option' value='credit card'>credit card</option>
-                <option className='input-option' value='paypal'>paypal</option>
-                <option className='input-option' value='ethereum'>ethereum</option>
               </select>
               <label  className='common-input-label'>Payment Type</label>
-              <input
-                className='common-input'
-                name='Card'
-                id="ccn" 
-                type="tel" 
-                inputmode="numeric" 
-                pattern="[0-9\s]{13,19}" 
-                autocomplete="cc-number" 
-                maxlength="19" 
-                placeholder="xxxx xxxx xxxx xxxx"
-                onChange= {(e) => {setCardNumber( e.target.value)}}
-                >
-              </input>
-              <label  className='common-input-label'>Card Number</label>
+              <div className='common-input'>
+              <CardElement
+                options={{
+                  style: {
+                    base: {
+                      fontSize: '16px',
+                    },
+                    invalid: {
+                      color: '#9e2146',
+                    },
+                  },
+                }}
+              />
+              </div>
+              <label  className='common-input-label'>Card</label>
               <Button
                 className='.button--confirm'
                 type='submit'
                 name='Submit'
                 style={{width:'100%'}}
+                disabled={!stripe}
                 login
               >
               </Button>

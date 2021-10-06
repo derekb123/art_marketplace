@@ -2,6 +2,7 @@ import React, { useReducer, useState, Redirect, useEffect } from 'react';
 import './App.css';
 import './styles/App.scss';
 import {  Route, BrowserRouter, Switch } from 'react-router-dom';
+import '@stripe/stripe-js';
 
 import Home from './pages/Home';
 import Login from './pages/Login';

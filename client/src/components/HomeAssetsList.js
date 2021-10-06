@@ -22,7 +22,6 @@ const HomeAssetsList = (props) => {
   return (
     <div className='home-assets'>
       <div className='assets-container'>
-        <h2>Market</h2>
 
           {
             !props.loading ? (
