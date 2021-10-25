@@ -14,8 +14,7 @@ import {loadStripe} from '@stripe/stripe-js';
 
 
 const AssetDetail = (props) => {
-
-  const stripePromise = loadStripe('pk_test_51HRu3CBSF7t20i0FYMz3uvWce7k47FQo2duNUkdBwihxl7v3EWANu9kfASfll0ks0smNZ34ICMJZ6Puo2CXsjPGG00Y7VrpalY');
+  const [stripePromise, setStripePromise] = useState(() => loadStripe('pk_test_51HRu3CBSF7t20i0FYMz3uvWce7k47FQo2duNUkdBwihxl7v3EWANu9kfASfll0ks0smNZ34ICMJZ6Puo2CXsjPGG00Y7VrpalY'));
 
 
   // console.log('props for asset detail',props);

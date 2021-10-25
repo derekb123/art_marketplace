@@ -15,6 +15,7 @@ import usersRoutes from './routes/users-routes';
 import assetsRoutes from './routes/assets-routes';
 import bidsRoutes from './routes/bids-routes';
 import transactionsController from './controllers/transactions-controller';
+import transactionsRoutes from './routes/transactions-routes'
 import assetsController from "./controllers/assets-controller";
 import bidsController from "./controllers/bids-controller";
 // import mediaRoutes from './routes/media-routes';
@@ -79,8 +80,8 @@ app.use('/bids', bidsRouter);
 
 // transactions endpoints
 const transactionsRouter = express.Router();
-bidsRoutes(transactionsRouter, transactionsController);
-app.use('/bids', transactionsRouter);
+transactionsRoutes(transactionsRouter, transactionsController);
+app.use('/transactions', transactionsRouter);
 
 
 // s3 endpoints

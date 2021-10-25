@@ -1,9 +1,11 @@
 import express from 'express';
+import chalk from 'chalk';
 const router = express.Router();
 import axios from 'axios';
 const fs = require('fs')
 import AWS from 'aws-sdk';
 const Stream = require('stream')
+const stripe = require("stripe")("sk_test_51HRu3CBSF7t20i0FcLuaCRGvc12dHaAu6BJBnikw7jyo6nc2ehI7cFxD7sO4T3M7anIevEGjEjxff80Z6SRnOVXr00pgUzVyDE");
 
 const bucketName = process.env.S3_BUCKET
 const region = process.env.AWS_REGION
@@ -105,6 +107,26 @@ const transactionsRoutes = function(router: any, controller: any) {
       console.log(`Error in POST NEW ASSET in ASSETS-ROUTES: ${error}`);
     }
   });
+
+   //CREATE PAYMENT INTENT
+  router.post("/create-payment-intent", async (req, res) => {
+  console.log('INSIDE CREATE PAYMENT INTENT');
+  const { price } = req.body;
+  console.log('payment intent price', price);
+  // Create a PaymentIntent with the order amount and currency
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+    amount: price,
+    currency: "usd"
+  });
+  console.log('paymentIntent.client_secret', paymentIntent.client_secret)
+  res.send({
+    clientSecret: paymentIntent.client_secret
+  })
+  } catch (error) {
+    console.log(`Error in CREATE PAYMENT INTENT in TRANSACTIONS-ROUTES: ${error}`);
+  }
+});
 
   return router;
 }

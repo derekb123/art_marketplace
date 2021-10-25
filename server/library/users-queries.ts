@@ -11,6 +11,12 @@ const usersQueries = {
     FROM users
     WHERE id = $1`,
 
+  getUserIdByUsernameQuery:
+
+  `SELECT username, id
+  FROM users
+  WHERE username LIKE $1`,
+
   getUserByEmailAndPasswordQuery:
 
     `SELECT *

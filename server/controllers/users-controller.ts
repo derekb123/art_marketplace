@@ -24,6 +24,17 @@ getUserById : function(userId: number): Promise<any> {
     });
 },
 
+getUserIdByUsername : function(username: string): Promise<any> {
+  const queryParams:string[] = [username];
+
+  return pool
+    .query(usersQueries.getUserIdByUsernameQuery, queryParams)
+    .then((res: any) => {
+      console.log(res.rows);
+      return res.rows;
+    });
+},
+
 getUserByEmailAndPassword : function(userEmail: any, userPassword: any): Promise<any> {
   const queryParams:any = [userEmail, userPassword];
 

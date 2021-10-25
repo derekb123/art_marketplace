@@ -2,9 +2,8 @@ import React, {  useEffect, useState } from 'react';
 import AssetItemSmall from './AssetItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAllAssetsNewest } from '../hooks/AssetListHooks';
+import { GetAllAssetsNewest, GetAssetsByUserId } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
-
 
 const HomeAssetsList = (props) => {
 
@@ -15,7 +14,13 @@ const HomeAssetsList = (props) => {
     if(marketAssets.length === 0) {
       GetAllAssetsNewest(props, Constants, axios, setMarketAssets);
     }
-  }, [props, marketAssets]);
+
+    if(props.selectedArtistId) {
+      GetAssetsByUserId(props, Constants, axios, setMarketAssets, props.selectedArtistId)
+    } else {
+      GetAllAssetsNewest(props, Constants, axios, setMarketAssets);
+    }
+  }, [props, marketAssets, props.selectedArtistId]);
 
   // console.log('marketAssets after getallAssetsNewest', marketAssets);
 

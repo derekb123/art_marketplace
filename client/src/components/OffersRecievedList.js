@@ -2,7 +2,7 @@ import React, {  useEffect, useState } from 'react';
 import BidItemSmall from './BidItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAssetsByOwnerId, GetHighestBidsByAssetIds } from '../hooks/AssetListHooks';
+import { GetHighestBidsByAssetIds, GetAssetsByUserId } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
 
 
@@ -14,10 +14,10 @@ const OffersRecievedList = (props) => {
   const [highestBidsRecieved, setHighestBidsRecieved] = useState([])
 
   useEffect (() => {
-    GetAssetsByOwnerId(props, Constants, axios, props.setMarketAssets, userId);
+    GetAssetsByUserId(props, Constants, axios, props.setMarketAssets, userId);
   }, [userId]);
 
-    console.log('marketAssets after GetAssetsByOwnerId: ', props.marketAssets);
+    console.log('marketAssets after GetAssetsByUserId: ', props.marketAssets);
 
   useEffect (() => {
     GetHighestBidsByAssetIds(props, Constants, axios, setHighestBidsRecieved, props.MarketAssets);

@@ -2,7 +2,7 @@ import React, {  useEffect, useState } from 'react';
 import AssetItemSmall from './AssetItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAssetsByOwnerId } from '../hooks/AssetListHooks';
+import { GetAssetsByOwnerId, GetAssetsByUserId } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
 
 
@@ -12,7 +12,7 @@ const AccountAssetsList = (props) => {
   console.log('accountassetslist userID: ',userId);
 
   useEffect (() => {
-      GetAssetsByOwnerId(props, Constants, axios, props.setMarketAssets, userId);
+      GetAssetsByUserId(props, Constants, axios, props.setMarketAssets, userId);
   }, [userId]);
 
   console.log('marketAssets after getallAssetsNewest accountAssetslist: ', props.marketAssets);
@@ -25,7 +25,7 @@ const AccountAssetsList = (props) => {
           {
             !props.loading ? (
               <div className='assets-grid-container'>
-                {
+                { !props.marketAssets.length > 0 ? <div></div> : (
                   props.marketAssets.map((asset, i) => {
                     return (
 
@@ -44,6 +44,7 @@ const AccountAssetsList = (props) => {
                           />
                     )
                   })
+                  )
                 }
               </div>
             ) : (

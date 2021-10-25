@@ -6,46 +6,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 
-.search-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
-  margin: 0 auto;
-  justify-self: center;
-}
-
-.search-input {
-  margin-top: 40px;
-  height: 40px;
-  // border-radius: 20px;
-  border: none;
-  border-bottom: 1px solid rgb(196, 196, 196);
-  font-size: 18px;
-  ::placeholder {
-  color: rgb(255, 255, 255);
-  font-size: 1em;
-  }
-}
-
-.search-input:focus {
-  border: 0px;
-  border-bottom: 1px solid rgb(196, 196, 196);
-}
-
-.suggestions-container {
-  height: 70px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.search-suggestion {
-  width: 100%;
-  text-align: left;
-  padding-left: 20px;
-  &:hover {
-    background: rgb(219, 219, 219);
-    cursor: pointer;
-  }
-
+.home-container {
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
 }

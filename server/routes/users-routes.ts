@@ -220,6 +220,21 @@ const usersRoutes = function (router: any, controller: any) {
     }
   });
 
+    // GET_USER_BY_SEARCH
+  router.get('/search', (req: any, res: any) => {
+    console.log('GET USER BY SEARCH params', req.query.artist)
+    console.log('typeof params', typeof req.query.artist)
+    return controller
+      .getUserIdByUsername(`${req.query.artist}%`)
+      .then((data: any) => {
+        console.log(typeof data)
+        res.json(data);
+      })
+      .catch((error) => {
+        console.log('GET USER BY SEARCH ERROR',error)
+      })
+  });
+
 
 
   // GET_USER_BY_ID
@@ -235,6 +250,8 @@ const usersRoutes = function (router: any, controller: any) {
         console.log('GET USER BY ID ERROR',error)
       })
   });
+
+
 
   // GET_ALL_USERS
   router.get('/', (req: any, res: any) => {

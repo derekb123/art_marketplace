@@ -36,6 +36,26 @@ const assetsController = {
       });
   },
 
+    getAllAssetsByQuery : function(limit:number): Promise<any> {
+    const queryParams:number[] = [limit];
+    const getUserByUsername =   `SELECT id
+    FROM users
+    WHERE username=$1;`
+
+    
+
+
+
+    return pool
+      .query(assetsQueries.getAllAssetsQueryBySearch, queryParams)
+      .then((res: any) => {
+        return res.rows;
+      })
+      .catch((err: Error) => {
+        console.log(err);
+      });
+  },
+
   // GET single asset by Id
   getAssetById : async function(assetId) {
     const queryParams = [assetId];
@@ -67,7 +87,7 @@ const assetsController = {
         return resObj;
       })
       .catch((err: Error) => {
-        console.log('Error in getAssetById in assets-controllers', err);
+        console.log('Error in getAssetsByOwnerId in assets-controllers', err);
       })
   },
   // getFileStream : async function(fileKey) {

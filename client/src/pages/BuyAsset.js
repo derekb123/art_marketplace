@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getAssetById } from '../hooks/AssetListHooks';
 import { Link, useHistory } from 'react-router-dom';
 import InfoModal from '../components/InfoModal';
-import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
 const BuyAsset = (props) => {
 
@@ -14,6 +14,12 @@ const BuyAsset = (props) => {
   const [showBuyAssetConfirm, setShowBuyAssetConfirm] = useState(false);
   const [showBuyAssetError, setShowBuyAssetError] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
+
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentError, setPaymentError] = useState(null);
+  const [paymentProcessing, setPaymentProcessing] = useState('');
+  const [disabled, setDisabled] = useState(true);
+  const [clientSecret, setClientSecret] = useState('');
 
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
@@ -29,9 +35,29 @@ const BuyAsset = (props) => {
       //PACKAGE WITH THIS OBJECT FOR DETAIL
   }, []);
 
+    useEffect(() => {
+      console.log('inside second useeffect');
+    // Create PaymentIntent as soon as the page loads
+    axios({
+      method:'POST',
+      url: "/transactions/create-payment-intent",
+      data : {
+        price: JSON.stringify(props.currentAsset.list_price * 100)
+      },
+    })
+    .then(res=> {
+      console.log('clientSecret res', res)
+      setClientSecret(res.data.clientSecret);
+      // return res.json();
+    })
+    // .then(data => {
+    //   console.log('clientSecret data', data.data.clientSecret)
+    //     setClientSecret(data.data.clientSecret);
+    //   });
+    }, []);
+
   const UseBuyAsset = async () => {
-
-
+   
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
@@ -41,7 +67,7 @@ const BuyAsset = (props) => {
     const buyerId = props.commonState.currentUserId;
     const assetId = props.currentAsset.id;
 
-     // Get a reference to a mounted CardElement. Elements knows how
+    // Get a reference to a mounted CardElement. Elements knows how
     // to find your CardElement because there can only ever be one of
     // each type of element.
     const cardElement = elements.getElement(CardElement);
@@ -57,8 +83,6 @@ const BuyAsset = (props) => {
     } else {
       console.log('[PaymentMethod]', paymentMethod);
     }
-
-    
 
     const transactionInfo = {
       buyer_id: buyerId, 
@@ -76,11 +100,27 @@ const BuyAsset = (props) => {
 
     try {
       props.commonDispatch({ type: Constants.LOADING });
+        setPaymentProcessing(true);
+        console.log('clientSecret', clientSecret)
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: elements.getElement(CardElement)
+          }
+        });
+        console.log('payload',payload)
+        if (payload.error) {
+        // Show error to your customer
+        console.log('payment error', payload.error.message);
+      } else {
+        // The payment succeeded!
+        console.log('payment success!', payload.paymentIntent.id);
+      }
       // const newTransRes = await axios.post('/transactions', transactionInfo);
       // console.log('res inside useBuyAsset', newTransRes);
       // let postedTransaction = newTransRes.data
       // console.log('postedTransaction inside useBuyAsset', postedTransaction);
       const transferAssetRes = await axios.put(`/assets/${assetId}/transfer/${buyerId}`);
+      console.log(transferAssetRes);
       setShowBuyAssetConfirm(true);
     } catch (error) {
       console.log('error inside UseBuyAsset: ',error)
@@ -88,7 +128,12 @@ const BuyAsset = (props) => {
     }
   }
 
-  // console.log('currentAsset in BuyAsset', props.currentAsset);
+  const handleCardChange = async (event) => {
+    // Listen for changes in the CardElement
+    // and display any errors as the customer types their card details
+    setDisabled(event.empty);
+    setPaymentError(event.error ? event.error.message : "");
+    };
 
   return (
     <Fragment>
@@ -136,6 +181,8 @@ const BuyAsset = (props) => {
               <label  className='common-input-label'>Payment Type</label>
               <div className='common-input'>
               <CardElement
+                id="card-element"
+                onChange={handleCardChange}
                 options={{
                   style: {
                     base: {
@@ -158,6 +205,22 @@ const BuyAsset = (props) => {
                 login
               >
               </Button>
+              {/* Show any error that happens when processing the payment */}
+              {paymentError && (
+                <div className="card-error" role="alert">
+                  {paymentError}
+                </div>
+              )}
+               {/* Show a success message upon completion */}
+              <p className={paymentSuccess ? "result-message" : "result-message hidden"}>
+                Payment succeeded, see the result in your
+                <a
+                  href={`https://dashboard.stripe.com/test/payments`}
+                >
+                  {" "}
+                  Stripe dashboard.
+                </a> Refresh the page to pay again.
+              </p>
               </form>
               <p className='general-disclaimer'>
                 Your card will be authorized immediately, but the funds are transferred only after offer is accepted. Learn more
