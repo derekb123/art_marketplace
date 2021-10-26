@@ -85,6 +85,12 @@ const CommonReducer = (state, action) => {
           currentUserId: null }
       }
     }
+    case Constants.UPDATE_CREATOR: {
+      return {
+        ...state,
+        isCreator: true
+      }
+    }
     case Constants.FINISHED_LOADING: {
       // console.log('inside FINISHED_LOADING')
       return { ...state, loading: false };

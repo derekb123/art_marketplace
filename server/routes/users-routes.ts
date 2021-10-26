@@ -235,6 +235,21 @@ const usersRoutes = function (router: any, controller: any) {
       })
   });
 
+  // GET ALL CREATORS
+  router.get('/creators', (req: any, res: any) => {
+    console.log('INSIDE GETALLCREATORS ROUTE')
+    return controller
+      .getAllCreators()
+      .then((data: any) => {
+        console.log('GET ALL CREATORS ROUTE RES',data)
+        res.json(data);
+      })
+      .catch((error) => {
+        console.log('GET USER BY SEARCH ERROR',error)
+      })
+  });
+
+
 
 
   // GET_USER_BY_ID
@@ -266,6 +281,20 @@ const usersRoutes = function (router: any, controller: any) {
         console.log(error)
       })
   });
+
+  //SET CREATOR TO TRUE
+  router.put('/:user_id/set-creator', (req: any, res: any, next) => {
+    const userId = req.params.user_id;
+    return controller
+      .setUserToCreator(userId)
+      .then((data: any) => {
+        console.log(data)
+        res.json(data);
+      })
+      .catch((error) => {
+        console.log('GET USER BY ID ERROR',error)
+      })
+  })
 
   return router;
 }

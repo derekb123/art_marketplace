@@ -12,17 +12,17 @@ const HomeAssetsList = (props) => {
   useEffect (() => {
 
     if(marketAssets.length === 0) {
-      GetAllAssetsNewest(props, Constants, axios, setMarketAssets);
+      GetAllAssetsNewest(props, Constants, setMarketAssets);
     }
+  }, [props, marketAssets]);
 
-    if(props.selectedArtistId) {
-      GetAssetsByUserId(props, Constants, axios, setMarketAssets, props.selectedArtistId)
+  useEffect(() => {
+    if(props.selectedArtistId){
+      GetAssetsByUserId(props, Constants, setMarketAssets, props.selectedArtistId, 'creator');
     } else {
-      GetAllAssetsNewest(props, Constants, axios, setMarketAssets);
+      GetAllAssetsNewest(props, Constants, setMarketAssets);
     }
-  }, [props, marketAssets, props.selectedArtistId]);
-
-  // console.log('marketAssets after getallAssetsNewest', marketAssets);
+  }, [props.selectedArtistId])
 
   return (
     <div className='home-assets'>

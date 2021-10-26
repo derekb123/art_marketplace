@@ -20,6 +20,13 @@ getAssetsByOwnerIdQuery:
   WHERE owner_id = $1
   LIMIT $2;`,
 
+getAssetsByCreatorIdQuery:
+
+  `SELECT *
+  FROM assets
+  WHERE creator_id = $1
+  LIMIT $2;`,
+
 getAllAssetsQueryByTag:
 
   `SELECT *

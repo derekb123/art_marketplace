@@ -1,4 +1,8 @@
-export async function GetAllAssetsNewest(props, Constants, axios, setMarketAssets) {
+import React, {  useEffect, useState } from 'react';
+import axios from 'axios';
+import Constants from '../reducers/Constants';
+
+export async function GetAllAssetsNewest(props, Constants, setMarketAssets) {
   try {
     props.commonDispatch({ type: Constants.LOADING })
     const res = await axios.get('/assets');
@@ -15,7 +19,7 @@ export async function GetAllAssetsNewest(props, Constants, axios, setMarketAsset
   }
 }
 
-export async function GetUsernamesBySearch(props, Constants, axios, setArtistSuggestions, query) {
+export async function GetUsernamesBySearch(props, Constants, setArtistSuggestions, query) {
   try {
     props.commonDispatch({ type: Constants.LOADING })
     const res = await axios.get(`/users/search${query}`);
@@ -33,16 +37,57 @@ export async function GetUsernamesBySearch(props, Constants, axios, setArtistSug
   }
 }
 
-export async function GetAssetsByUserId(props, Constants, axios, setMarketAssets, user_id) {
+export async function GetUserById(props, Constants, user_id) {
+  try {
+    props.commonDispatch({ type: Constants.LOADING })
+    const res = await axios.get(`/users/${user_id}`);
+    let userObj = res.data
+    console.log(userObj);
+    if (userObj.length === 0) {
+      userObj = {}
+    }
+    console.log('userObj in getAllusersNewest', userObj);
+    props.commonDispatch({ type: Constants.FINISHED_LOADING })
+    return userObj;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function GetAllCreators(props, Constants, setFullArtistList) {
+  try {
+    props.commonDispatch({ type: Constants.LOADING })
+    const res = await axios.get(`/users/creators`);
+    let usersArray = res.data
+    console.log(usersArray);
+    if (usersArray.length === 0) {
+      usersArray = [{}]
+    }
+    console.log('usersArray in getAllusersNewest', usersArray);
+    await setFullArtistList(usersArray);
+    props.commonDispatch({ type: Constants.FINISHED_LOADING })
+    return usersArray;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function GetAssetsByUserId(props, Constants, setMarketAssets, user_id, userType) {
       try {
+        //REFACTOR SO THAT RES DOESNT RUN 1ST TIME WITHOUT DATA
+        let res;
         props.commonDispatch({ type: Constants.LOADING })
-        const res = await axios.get(`/assets/users/${user_id}`);
+        if (userType === 'owner') {
+          res = await axios.get(`/assets/owners/${user_id}`);
+        } else if (userType === 'creator'){
+          res = await axios.get(`/assets/creators/${user_id}`);
+        }
+        console.log('res in getAssetsByUserId', res);
         let assetsArray = res.data
-        // console.log('res.data in AssetListHooks', assetsArray);
         if (assetsArray.length === 0) {
           assetsArray = [{}]
         }
-        // console.log('assetsArray in getAllAssetsNewest', assetsArray);
+        console.log('assetsArray in getAssetsByUserId', assetsArray);
         setMarketAssets(assetsArray);
         props.commonDispatch({ type: Constants.FINISHED_LOADING })
       } catch (error) {

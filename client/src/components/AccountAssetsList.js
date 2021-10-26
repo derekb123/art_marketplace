@@ -12,7 +12,7 @@ const AccountAssetsList = (props) => {
   console.log('accountassetslist userID: ',userId);
 
   useEffect (() => {
-      GetAssetsByUserId(props, Constants, axios, props.setMarketAssets, userId);
+      GetAssetsByUserId(props, Constants, props.setMarketAssets, userId, 'owner');
   }, [userId]);
 
   console.log('marketAssets after getallAssetsNewest accountAssetslist: ', props.marketAssets);

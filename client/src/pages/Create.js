@@ -24,6 +24,21 @@ const Create = (props) => {
 
   const history = useHistory();
 
+  const UseSetCreator = async (userId) => {
+
+    try {
+      props.commonDispatch({ type: Constants.LOADING });
+      const setCreatorRes = await axios.put(`/users/${userId}/set-creator`);
+      //REFACTOR TO BE MORE SECURE
+      if (setCreatorRes) {
+        props.commonDispatch({type: Constants.UPDATE_CREATOR })
+      }
+      console.log('setCreatorRes', setCreatorRes);
+    } catch (error) {
+      console.log('error inside UseSetCreator: ',error)
+    }
+  }
+
   const UseHandleCreate = async (title, description, creatorId, price, file) => {
     try {
       props.commonDispatch({ type: Constants.LOADING });
@@ -36,7 +51,15 @@ const Create = (props) => {
       data.append('file', file)
       axios.post('/assets',data)
         .then(res => {
-          if (res) setShowCreateConfirm(true)})
+          if (res) {
+            if(!props.commonState.isCreator) {
+              UseSetCreator(props.commonState.currentUserId)
+            }
+          }
+        })
+        .then(data => {
+          setShowCreateConfirm(true)
+        })
         .catch(err => console.log(err));
     } catch (error) {
       console.log(`Create error: ${error}`);
@@ -86,7 +109,6 @@ const Create = (props) => {
         e.preventDefault();
         }}>
             <div>
-              <label>Title</label>
               <input
                 type="text"
                 value={title.value}
@@ -94,9 +116,9 @@ const Create = (props) => {
                 className='common-input'
               >
               </input>
+              <label>Title</label>
             </div>
             <div>
-              <label>Description</label>
               <input
                 type="text"
                 value={description.value}
@@ -104,20 +126,20 @@ const Create = (props) => {
                 className='common-input'
               >
               </input>
+              <label>Description</label>
             </div>
              <div>
               <div>
                 <label>
-                  Set for Sale
                   <input
                     type="checkbox"
                     value={checked}
                     onChange={UseHandleCheck}
                     className='common-input'
                   />
+                  Set for Sale
                 </label>
               </div>
-              <label>Price</label>
               <input
                 type="number"
                 className='common-input'
@@ -125,6 +147,7 @@ const Create = (props) => {
                 onChange= {(e) => {setPrice( parseInt(e.target.value, 10))}}
               >
               </input>
+              <label>Price</label>
             </div>
             <div>
               <Button

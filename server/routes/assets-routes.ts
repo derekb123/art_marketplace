@@ -109,11 +109,12 @@ const assetsRoutes = function(router: any, controller: any) {
 
   //GET ASSETS BY OWNER ID
 
-  router.get('/users/:user_id', async (req: any, res: any) => {
-    const ownerId = req.params.owner_id;
+  router.get('/owners/:user_id', async (req: any, res: any) => {
+    const userId = req.params.user_id;
+    console.log('userId', userId);
     const limit = 10;
     try {
-      const assetArrayRes = await controller.getAssetsByOwnerId(ownerId, limit);
+      const assetArrayRes = await controller.getAssetsByOwnerId(userId, limit);
       const assetImageLoop = async () => {
         let mutatedAssetMediaArr = [];
         for (let i = 0; i < assetArrayRes.length ; i++) {
@@ -127,19 +128,23 @@ const assetsRoutes = function(router: any, controller: any) {
 
       await assetImageLoop();
 
+      console.log('assetArrayRes',assetArrayRes);
+
       res.send(assetArrayRes);
     } catch (err) {
-      res.json('error inside get assetid route',{ error: err.message });
+      // res.status(err.status).json({ error: err.message });
+      res.json({ error: err.message });
     }
   });
 
-  //GET BIDS BY OWNER ID
+    //GET ASSETS BY CREATOR ID
 
-  router.get('/owners/:owner_id', async (req: any, res: any) => {
-    const ownerId = req.params.owner_id;
+  router.get('/creators/:user_id', async (req: any, res: any) => {
+    const userId = req.params.user_id;
+    console.log('userId', userId);
     const limit = 10;
     try {
-      const assetArrayRes = await controller.getAssetsByOwnerId(ownerId, limit);
+      const assetArrayRes = await controller.getAssetsByCreatorId(userId, limit);
       const assetImageLoop = async () => {
         let mutatedAssetMediaArr = [];
         for (let i = 0; i < assetArrayRes.length ; i++) {
@@ -153,9 +158,12 @@ const assetsRoutes = function(router: any, controller: any) {
 
       await assetImageLoop();
 
+      // console.log('assetArrayRes',assetArrayRes);
+
       res.send(assetArrayRes);
     } catch (err) {
-      res.json('error inside get assetid route',{ error: err.message });
+      // res.status(err.status).json({ error: err.message });
+      res.json({ error: err.message });
     }
   });
 
@@ -189,7 +197,7 @@ const assetsRoutes = function(router: any, controller: any) {
     // console.log('recievedFile', recievedFile)
     const buyerId = req.params.buyer_id;
     const assetId = req.params.asset_id;
-    console.log('ownerId, assetId PUT ASSETS', buyerId, assetId );
+    console.log('userId, assetId PUT ASSETS', buyerId, assetId );
 
     try {
       return controller

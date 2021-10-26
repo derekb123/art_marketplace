@@ -8,8 +8,8 @@ const Constants =
       LOG_IN: 'LOG_IN',
       LOG_OUT: 'LOG_OUT',
       AUTHORIZE: 'AUTHORIZE',
-      REFRESH: 'REFRESH'
-      
+      REFRESH: 'REFRESH',
+      UPDATE_CREATOR: 'UPDATE_CREATOR'
     }
 
 export default Constants;

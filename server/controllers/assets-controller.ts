@@ -73,7 +73,7 @@ const assetsController = {
       })
   },
 
-  // GET single asset by Id
+  // GET all assets by Owner Id
   getAssetsByOwnerId : async function(userId, limit) {
     const queryParams = [userId, limit];
     // console.log('queryparams in getassetbyid',queryParams);
@@ -88,6 +88,24 @@ const assetsController = {
       })
       .catch((err: Error) => {
         console.log('Error in getAssetsByOwnerId in assets-controllers', err);
+      })
+  },
+
+    // GET all assets by Creator Id
+  getAssetsByCreatorId : async function(userId, limit) {
+    const queryParams = [userId, limit];
+    // console.log('queryparams in getassetbyid',queryParams);
+
+    return pool
+      .query(assetsQueries.getAssetsByCreatorIdQuery, queryParams)
+      .then((res) => {
+        // console.log('reponse in gesAssetByCreatorId', res);
+        const resObj = res.rows;
+        // console.log('resObj in assets-controller getassetbyID', resObj);
+        return resObj;
+      })
+      .catch((err: Error) => {
+        console.log('Error in getAssetsByCreatorId in assets-controllers', err);
       })
   },
   // getFileStream : async function(fileKey) {

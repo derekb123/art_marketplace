@@ -5,6 +5,12 @@ const usersQueries = {
     `SELECT *
     FROM users`,
 
+  getAllCreatorsQuery:
+
+  `SELECT *
+  FROM users
+  WHERE creator = true`,
+
   getUserByIdQuery:
 
     `SELECT *
@@ -35,6 +41,14 @@ const usersQueries = {
     `SELECT username, creator, avatar
     FROM users
     WHERE email = $1`,
+
+  setUserToCreatorQuery:
+
+  `UPDATE users
+  SET creator=true
+  WHERE id=$1
+  RETURNING creator
+  `,
 
   createNewUserQuery:
 

@@ -14,7 +14,7 @@ const OffersRecievedList = (props) => {
   const [highestBidsRecieved, setHighestBidsRecieved] = useState([])
 
   useEffect (() => {
-    GetAssetsByUserId(props, Constants, axios, props.setMarketAssets, userId);
+    GetAssetsByUserId(props, Constants, props.setMarketAssets, userId, 'owner');
   }, [userId]);
 
     console.log('marketAssets after GetAssetsByUserId: ', props.marketAssets);
