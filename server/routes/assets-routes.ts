@@ -85,7 +85,7 @@ const assetsRoutes = function(router: any, controller: any) {
    //GET ALL ASSETS
 
   router.get('/', async (req: any, res: any) => {
-    const limit = 10;
+    const limit = 1000;
     try {
       const assetArrayRes = await controller.getAllAssets(limit);
       const assetImageLoop = async () => {
@@ -112,7 +112,7 @@ const assetsRoutes = function(router: any, controller: any) {
   router.get('/owners/:user_id', async (req: any, res: any) => {
     const userId = req.params.user_id;
     console.log('userId', userId);
-    const limit = 10;
+    const limit = 100;
     try {
       const assetArrayRes = await controller.getAssetsByOwnerId(userId, limit);
       const assetImageLoop = async () => {
@@ -142,7 +142,7 @@ const assetsRoutes = function(router: any, controller: any) {
   router.get('/creators/:user_id', async (req: any, res: any) => {
     const userId = req.params.user_id;
     console.log('userId', userId);
-    const limit = 10;
+    const limit = 100;
     try {
       const assetArrayRes = await controller.getAssetsByCreatorId(userId, limit);
       const assetImageLoop = async () => {

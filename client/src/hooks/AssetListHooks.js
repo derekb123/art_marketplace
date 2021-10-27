@@ -103,6 +103,7 @@ export async function GetAssetsByUserId(props, Constants, setMarketAssets, user_
       const assetInfoRes = await axios.get(`/assets/${id}`);
       // console.log('res in GETASSETBYID in ASSETDETAILS: ', assetInfoRes);
       const gottenAsset = assetInfoRes.data;
+      console.log('gottenAsset', gottenAsset)
       // console.log('gottenAsset', gottenAsset);
       const assetMediaKey = gottenAsset.asset_media;
       // console.log('assetMediaKey in assetDetail',assetMediaKey);

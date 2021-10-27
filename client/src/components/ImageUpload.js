@@ -57,8 +57,8 @@ const ImageUpload = (props) => {
             alt='upload image'
           >
           </img>
-          <p>
-            CLICK BROWSE OR DROP YOUR IMAGE HERE
+          <p style={{fontSize: '1rem'}}>
+            Click the Browse Image button below to upload your image.
           </p>
         </div>
        

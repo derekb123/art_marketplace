@@ -102,61 +102,57 @@ const Create = (props) => {
           <header className='asset-detail-title'>
               <p>Create Your NFT</p>
           </header>
-          <form onSubmit={(e) => {
-        console.log('LOGIN SUBMITTED');
+        <form className='common-form' onSubmit={(e) => {
+        console.log('CREATE SUBMITTED');
         // console.log('uploadedimagestate in onSubmit', uploadedImageState);
         UseHandleCreate( title, description, creatorId, price, uploadedImageState );
         e.preventDefault();
         }}>
-            <div>
-              <input
-                type="text"
-                value={title.value}
-                onChange= {(e) => {setTitle( e.target.value )}}
-                className='common-input'
-              >
-              </input>
-              <label>Title</label>
-            </div>
-            <div>
-              <input
-                type="text"
-                value={description.value}
-                onChange= {(e) => {setDescription( e.target.value )}}
-                className='common-input'
-              >
-              </input>
-              <label>Description</label>
-            </div>
-             <div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={checked}
-                    onChange={UseHandleCheck}
-                    className='common-input'
-                  />
-                  Set for Sale
-                </label>
-              </div>
-              <input
-                type="number"
-                className='common-input'
-                value={price.value}
-                onChange= {(e) => {setPrice( parseInt(e.target.value, 10))}}
-              >
-              </input>
-              <label>Price</label>
-            </div>
-            <div>
-              <Button
-                className='button--login'
-                type='submit'
-                name='Submit'
-              >
-              </Button>
-            </div>
+          
+          <input
+            type="text"
+            value={title.value}
+            onChange= {(e) => {setTitle( e.target.value )}}
+            className='common-input'
+          >
+          </input>
+          <label className='common-input-label'>Title</label>
+
+          <input
+            type="text"
+            value={description.value}
+            onChange= {(e) => {setDescription( e.target.value )}}
+            className='common-input'
+          >
+          </input>
+          <label className='common-input-label'>Description</label>
+
+          <div className='check-box-container'>
+          <label className='common-checkbox-label'>Set for Sale</label>
+          <input
+              type="checkbox"
+              value={checked}
+              onChange={UseHandleCheck}
+              className='common-checkbox'
+          />
+          </div>
+
+          <input
+            type="number"
+            className='common-input'
+            value={price.value}
+            onChange= {(e) => {setPrice( parseInt(e.target.value, 10))}}
+          >
+          </input>
+          <label className='common-input-label'>Price</label>
+
+          <Button
+            className='button--login'
+            type='submit'
+            name='Submit'
+          >
+          </Button>
+      
           </form>
           </section>
         </article>

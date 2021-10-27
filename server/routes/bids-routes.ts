@@ -25,7 +25,7 @@ const bidsRoutes = function(router: any, controller: any) {
 
   router.get('/assets/:asset_id', async (req: any, res: any) => {
     const assetId = req.params.asset_id;
-    const limit = 10;
+    const limit = 100;
     try {
       const bidsArrayRes = await controller.getBidsByAssetId(assetId, limit);
       const bidsImageLoop = async () => {
@@ -49,7 +49,7 @@ const bidsRoutes = function(router: any, controller: any) {
 
   // router.get('/bidders/:bidder_id', async (req: any, res: any) => {
   //   const bidderId = req.params.bidder_id;
-  //   const limit = 10;
+  //   const limit = 100;
   //   try {
   //     const bidsArrayRes = await controller.getBidsRecievedByBidderId(bidderId, limit);
   //     res.send(bidsArrayRes);

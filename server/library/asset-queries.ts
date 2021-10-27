@@ -9,9 +9,10 @@ getAllAssetsQuery:
 
 getAssetByIdQuery:
 
-  `SELECT *
+  `SELECT assets.*, users.username AS creator_name, users.avatar
   FROM assets
-  WHERE id = $1`,
+  JOIN users ON assets.creator_id = users.id 
+  WHERE assets.id = $1`,
 
 getAssetsByOwnerIdQuery:
 

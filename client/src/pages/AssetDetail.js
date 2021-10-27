@@ -313,6 +313,10 @@ const AssetDetail = (props) => {
 
               <article>
                 <div className='detail-creator-owner-container'>
+                  <p className='description-text'>{`${currentAsset.asset_description}`}</p>
+                  <p className='description-label'>From the artist</p>
+                </div>
+                <div className='detail-creator-owner-container'>
                   <p className='detail-creator-owner'>{`${currentAsset.creator_name}`}</p>
                   <p className='detail-sub-words'>Creator</p>
                 </div>

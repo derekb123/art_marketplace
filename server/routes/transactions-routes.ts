@@ -39,7 +39,7 @@ const transactionsRoutes = function(router: any, controller: any) {
 
   router.get('/owners/:owner_id', async (req: any, res: any) => {
     const ownerId = req.params.owner_id;
-    const limit = 10;
+    const limit = 100;
     try {
       const assetArrayRes = await controller.getAssetsByOwnerId(ownerId, limit);
       const assetImageLoop = async () => {
@@ -65,7 +65,7 @@ const transactionsRoutes = function(router: any, controller: any) {
 
   router.get('/owners/:owner_id', async (req: any, res: any) => {
     const ownerId = req.params.owner_id;
-    const limit = 10;
+    const limit = 100;
     try {
       const assetArrayRes = await controller.getAssetsByOwnerId(ownerId, limit);
       const assetImageLoop = async () => {
