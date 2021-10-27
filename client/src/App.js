@@ -5,6 +5,7 @@ import {  Route, BrowserRouter, Switch } from 'react-router-dom';
 import '@stripe/stripe-js';
 
 import Home from './pages/Home';
+import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Account from './pages/Account';
@@ -134,6 +135,10 @@ useEffect((props)=> {
                 commonState={commonState}
               />
             </Switch>
+            <Footer
+              commonState={commonState}
+              commonDispatch={dispatch}
+            />
           </BrowserRouter>
         </div>
       </div>

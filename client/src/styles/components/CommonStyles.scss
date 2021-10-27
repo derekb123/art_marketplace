@@ -22,3 +22,31 @@
   color: #353535;
   font-weight: 500;
 }
+
+.common-hr {
+  // color: gray;
+  // height: .5;
+  border-color : rgb(202, 202, 202);
+  border-top: .5px;
+}
+
+.footer {
+  margin-top: 80px;
+}
+
+.footer-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.footer-logo{
+  margin-top: 40px;
+  margin-bottom:  15px;
+  display: relative;
+  font-family: 'Castoro', serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
