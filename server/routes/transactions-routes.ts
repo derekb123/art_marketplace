@@ -23,12 +23,10 @@ const transactionsRoutes = function(router: any, controller: any) {
   //GET SINGLE TRANSACTION BY ID
 
   router.get('/:asset_id', async (req: any, res: any) => {
-    // console.log(req);
     const assetId = req.params.asset_id
 
     try {
       const recievedAsset = await controller.getAssetById(assetId);
-      // console.log('recievedAsset: ', recievedAsset);
       res.send(recievedAsset);
     } catch (error) {
         res.json({ error: error.message });
@@ -47,7 +45,6 @@ const transactionsRoutes = function(router: any, controller: any) {
         for (let i = 0; i < assetArrayRes.length ; i++) {
         let asset = assetArrayRes[i];
         asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
-        // console.log('altered asset media',asset.asset_media);
         mutatedAssetMediaArr.push(asset);
         }
         return mutatedAssetMediaArr;
@@ -73,7 +70,6 @@ const transactionsRoutes = function(router: any, controller: any) {
         for (let i = 0; i < assetArrayRes.length ; i++) {
         let asset = assetArrayRes[i];
         asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
-        // console.log('altered asset media',asset.asset_media);
         mutatedAssetMediaArr.push(asset);
         }
         return mutatedAssetMediaArr;

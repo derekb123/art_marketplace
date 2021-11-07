@@ -1,11 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import axios from 'axios';
 const fs = require('fs')
 import multer from 'multer';
 import AWS from 'aws-sdk';
-const Stream = require('stream')
-import chalk from 'chalk';
 
 const bucketName = process.env.S3_BUCKET
 const region = process.env.AWS_REGION
@@ -28,12 +25,10 @@ const assetsRoutes = function(router: any, controller: any) {
   //GET SINGLE ASSET INFO BY ID
 
   router.get('/:asset_id', async (req: any, res: any) => {
-    // console.log(req);
     const assetId = req.params.asset_id
 
     try {
       const recievedAsset = await controller.getAssetById(assetId);
-      // console.log('recievedAsset: ', recievedAsset);
       res.send(recievedAsset);
     } catch (error) {
         res.json({ error: error.message });
@@ -43,7 +38,6 @@ const assetsRoutes = function(router: any, controller: any) {
   //GET SINGLE ASSET INFO BY ID
 
   router.get('/search', async (req: any, res: any) => {
-    // console.log(req);
     const query = req.query
 
     try {
@@ -53,7 +47,6 @@ const assetsRoutes = function(router: any, controller: any) {
         for (let i = 0; i < assetArrayRes.length ; i++) {
         let asset = assetArrayRes[i];
         asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
-        // console.log('altered asset media',asset.asset_media);
         mutatedAssetMediaArr.push(asset);
         }
         return mutatedAssetMediaArr;
@@ -75,10 +68,6 @@ const assetsRoutes = function(router: any, controller: any) {
     const assetMediaUrl = await controller.getAssetMediaUrl(assetImageKey);
     const assetMediaRes = await controller.downloadAssetMedia(assetMediaUrl);
   
-    // const readStream = await controller.getFileStream(assetImageKey);
-    // const convertedStream = readStream.on('readable', () => { return readStream.read() })
-    // console.log(chalk.blue('CONVERTEDSTREAM'),convertedStream);
-    // assetMediaRes.pipe(res);
     res.send(assetMediaUrl);
   });
 
@@ -120,7 +109,6 @@ const assetsRoutes = function(router: any, controller: any) {
         for (let i = 0; i < assetArrayRes.length ; i++) {
         let asset = assetArrayRes[i];
         asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
-        // console.log('altered asset media',asset.asset_media);
         mutatedAssetMediaArr.push(asset);
         }
         return mutatedAssetMediaArr;
@@ -150,7 +138,6 @@ const assetsRoutes = function(router: any, controller: any) {
         for (let i = 0; i < assetArrayRes.length ; i++) {
         let asset = assetArrayRes[i];
         asset.asset_media = await controller.getAssetMediaUrl(asset.asset_media);
-        // console.log('altered asset media',asset.asset_media);
         mutatedAssetMediaArr.push(asset);
         }
         return mutatedAssetMediaArr;
@@ -158,7 +145,6 @@ const assetsRoutes = function(router: any, controller: any) {
 
       await assetImageLoop();
 
-      // console.log('assetArrayRes',assetArrayRes);
 
       res.send(assetArrayRes);
     } catch (err) {
@@ -171,17 +157,14 @@ const assetsRoutes = function(router: any, controller: any) {
   const upload = multer();
   router.post('/', upload.single('file'), async (req: any, res: any, next) => {
     const recievedFile = req.file;
-    // console.log('recievedFile', recievedFile)
     const title = req.body.title;
     const description = req.body.description;
     const creatorId = req.body.creatorId;
     const price = req.body.price;
-    // console.log('creatorID in POST ASSETS', creatorId);
 
     try {
       // const imageURL = await controller.uploadAssetMedia(recievedFile).location;
       const imageKey = await controller.uploadAssetMedia(recievedFile);
-      // console.log('imageKey: ', imageKey);
       return controller
         .createNewAsset(title, description, imageKey, creatorId, price)
         .then((data: any) => {
@@ -194,7 +177,6 @@ const assetsRoutes = function(router: any, controller: any) {
 
   //TRANSFER ASSET
   router.put('/:asset_id/transfer/:buyer_id', async (req: any, res: any, next) => {
-    // console.log('recievedFile', recievedFile)
     const buyerId = req.params.buyer_id;
     const assetId = req.params.asset_id;
     console.log('userId, assetId PUT ASSETS', buyerId, assetId );
@@ -213,7 +195,6 @@ const assetsRoutes = function(router: any, controller: any) {
   //EDIT ASSET PRICE
   router.put('/:asset_id/price', async (req: any, res: any, next) => {
     const salePrice = req.body.salePrice;
-    // console.log(chalk.blue('SALEPRICE IN EDIT ASSET PRICE ROUTE'), salePrice);
     const assetId = req.params.asset_id;
     try {
       return controller

@@ -60,11 +60,6 @@ const AssetDetail = (props) => {
       //PACKAGE WITH THIS OBJECT FOR DETAIL
   }, []);
 
-  // const conditionalButtons = () => {
-  // }
-
-  // console.log(props);
-
   // const UseOfferClick = (props) => {
   //   console.log('props in UseOfferClick',props)
   //   if (props.commonState.loggedIn) {
@@ -120,9 +115,6 @@ const AssetDetail = (props) => {
       history.push('/account');
     }
   }
-
-
-  // console.log('currentAsset in AssetDetail', currentAsset);
 
   return (
     <Elements stripe={stripePromise}>

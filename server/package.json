@@ -39,6 +39,10 @@
     "stripe": "^8.178.0",
     "uuid": "^8.3.2"
   },
+  "engines": {
+    "node": "10.16.1",
+    "npm": "6.9.0"
+  },
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/express-session": "^1.17.0",

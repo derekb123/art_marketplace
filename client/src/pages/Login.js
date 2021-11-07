@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Button from '../components/Button'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import HandleLogin from '../hooks/CustomHooks';
 import Constants  from '../reducers/Constants';
 
 const Login = (props) => {
@@ -21,11 +20,8 @@ const Login = (props) => {
         {withCredentials: true, credentials: 'include'},
         {'headers':{'Content-Type': 'application/json', email, password}}
         )
-      // console.log('res recieved from login: ',res)
       const loginAccessToken = res.data.accessToken;
-      // console.log(loginAccessToken);
       const refreshToken = res.data.refreshToken;
-      // console.log(refreshToken);
       const loginSuccess = res.data.loginSuccess;
       props.commonDispatch({type: Constants.LOG_IN, payload: res.data});
       if (loginSuccess) {

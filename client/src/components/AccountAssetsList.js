@@ -1,8 +1,7 @@
-import React, {  useEffect, useState } from 'react';
+import React, {  useEffect } from 'react';
 import AssetItemSmall from './AssetItemSmall';
-import axios from 'axios';
 import Constants from '../reducers/Constants';
-import { GetAssetsByOwnerId, GetAssetsByUserId } from '../hooks/AssetListHooks';
+import { GetAssetsByUserId } from '../hooks/AssetListHooks';
 // import CustomHooks from '../hooks/CustomHooks';
 
 

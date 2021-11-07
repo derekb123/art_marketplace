@@ -2,16 +2,13 @@ import React, {useState, useEffect, useRef, Fragment} from 'react';
 import Button from '../components/Button'
 import InfoModal from '../components/InfoModal';
 import ImageUpload from '../components/ImageUpload';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import HandleCreate from '../hooks/CustomHooks';
 import Constants  from '../reducers/Constants';
-import Checkbox from '../components/Checkbox';
 
 
 const Create = (props) => {
 
-  // console.log('props at Create top', props);
   const imageUploadIcon = 'client/public/upload_image.png'
 
   const [title, setTitle] = useState('');
@@ -104,7 +101,6 @@ const Create = (props) => {
           </header>
         <form className='common-form' onSubmit={(e) => {
         console.log('CREATE SUBMITTED');
-        // console.log('uploadedimagestate in onSubmit', uploadedImageState);
         UseHandleCreate( title, description, creatorId, price, uploadedImageState );
         e.preventDefault();
         }}>

@@ -15,15 +15,13 @@ const usersRoutes = function (router: any, controller: any) {
         //VERIFY JWT REFRESH TOKEN
         router.post('/refresh', async (req, res) => {
           const refreshToken = req.cookies.rToken
-          // console.log('rToken from req.cookies inside /refresh',refreshToken);
           if (!refreshToken) {
             return res.send({refresh: false, accessToken:''})
           }
           let payload = null;
           try {
-            // console.log('inside refresh try/catch')
             payload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
-            // console.log('payload inside refresh try/catch', payload)
+
           } catch (error) {
             console.log(error)
             return res.send({refresh: false, accessToken:''})
@@ -41,13 +39,10 @@ const usersRoutes = function (router: any, controller: any) {
           }
 
           const tokenVersion = payload.tokenVersion;
-          console.log('tokenVersion, user.tokenVersion', tokenVersion, user[0].token_version)
           if(user[0].token_version !== tokenVersion){
             console.log('user.tokenVersion !== tokenVersion');
             return res.send({refresh: false, accessToken:''});
           };
-
-          console.log('user[0] in usersroutes', user[0])
 
           return res.send({
             refresh: true, 
@@ -85,7 +80,6 @@ const usersRoutes = function (router: any, controller: any) {
       //Check if user doesn't exist (if not throw error)
 
       const userFull= await controller.getUserByEmail(email);
-      // console.log('User from getUserbyemail in login', userFull)
       if (userFull.length === 0){
         return res.status(401).json('Password or Email is incorrect.');
       }
@@ -93,20 +87,17 @@ const usersRoutes = function (router: any, controller: any) {
       //Check if incoming password is the same as the database password
 
       const validPassword = await bcrypt.compare(password, userFull[0].user_password)
-      // console.log('bcrypt compare validPassword', validPassword);
       if(!validPassword){
         return res.status(401).json('Password or Email is incorrect.');
       }
 
       //Provide jwt token
-      // console.log('userFull', userFull);
       const userId = userFull[0].id;
       const accessToken = jwtAccessTokenGenerator(userId);
       const refreshToken = jwtRefreshTokenGenerator(userFull[0]);
       const username = userFull[0].username;
       const avatar = userFull[0].avatar;
       const isCreator = userFull[0].creator;
-      // console.log('username', username);
       const loginSuccess = userId ? true : false;
 
       if(loginSuccess) {
@@ -154,7 +145,6 @@ const usersRoutes = function (router: any, controller: any) {
         //Check if user exists (ifuser exists, throw error)
 
         const existingUser = await controller.getUserByEmail(email);
-        // console.log('existingUser', existingUser);
         if (existingUser.length !==0 ) {
           res.status(401).send('A user with that email already exists.')
         }
@@ -165,7 +155,6 @@ const usersRoutes = function (router: any, controller: any) {
         const salt = await bcrypt.genSalt(saltRound);
 
         const bcryptPassword = await bcrypt.hash(password, salt);
-        // console.log(bcryptPassword)
 
         //Create Default Avatar
         // try {
@@ -210,7 +199,6 @@ const usersRoutes = function (router: any, controller: any) {
       const verifiedUser = jwt.verify(jwtToken, process.env.JWT_SECRET);
       console.log('verified User after authorization', verifiedUser);
       const verifiedUserId = verifiedUser.user[0].id
-      // console.log('verifiedUserId',verifiedUserId);
       if (verifiedUserId) {
         res.json(true);
       }

@@ -1,13 +1,5 @@
 import {pool} from "../library/db-pool";
 import bidsQueries from "../library/bid-queries";
-import AWS from 'aws-sdk';
-import express from 'express';
-import multer from 'multer';
-import multerS3 from 'multer-s3';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
-import fs from 'fs';
-import chalk from 'chalk';
 require('dotenv').config();
 
 const bidsController = {

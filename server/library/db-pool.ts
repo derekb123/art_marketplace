@@ -1,19 +1,14 @@
 import { Pool } from 'pg';
 require('dotenv').config();
 
-// interface IDbConnectObject {
-//   connectionString?: string;
-//   host?: string,
-//   port?: string,
-//   user?: string,
-//   password?: string,
-//   database?: string
-// }
-
 let dbParams: any = {};
 if (process.env.DATABASE_URL) {
   dbParams.connectionString = process.env.DATABASE_URL;
-} else {
+} 
+// else if (process.env.PG_AWS_URI) {
+//   dbParams.connectionString = process.env.PG_AWS_URI
+// } 
+else {
   dbParams = {
     host: process.env.PGHOST,
     port: process.env.PGPORT,
@@ -23,6 +18,10 @@ if (process.env.DATABASE_URL) {
   };
 }
 
-const pool = new Pool(dbParams);
+const pool = new Pool({connectionString: process.env.PG_AWS_URI,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 // console.log(pool);
 export { pool };

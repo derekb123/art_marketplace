@@ -59,13 +59,11 @@ const assetsController = {
   // GET single asset by Id
   getAssetById : async function(assetId) {
     const queryParams = [assetId];
-    // console.log('queryparams in getassetbyid',queryParams);
 
     return pool
       .query(assetsQueries.getAssetByIdQuery, queryParams)
       .then((res) => {
         const resObj = res.rows[0];
-        // console.log('resObj in assets-controller getassetbyID', resObj);
         return resObj;
       })
       .catch((err: Error) => {
@@ -76,14 +74,11 @@ const assetsController = {
   // GET all assets by Owner Id
   getAssetsByOwnerId : async function(userId, limit) {
     const queryParams = [userId, limit];
-    // console.log('queryparams in getassetbyid',queryParams);
 
     return pool
       .query(assetsQueries.getAssetsByOwnerIdQuery, queryParams)
       .then((res) => {
-        // console.log('reponse in gesAssetByOwnerId', res);
         const resObj = res.rows;
-        // console.log('resObj in assets-controller getassetbyID', resObj);
         return resObj;
       })
       .catch((err: Error) => {
@@ -94,32 +89,17 @@ const assetsController = {
     // GET all assets by Creator Id
   getAssetsByCreatorId : async function(userId, limit) {
     const queryParams = [userId, limit];
-    // console.log('queryparams in getassetbyid',queryParams);
 
     return pool
       .query(assetsQueries.getAssetsByCreatorIdQuery, queryParams)
       .then((res) => {
-        // console.log('reponse in gesAssetByCreatorId', res);
         const resObj = res.rows;
-        // console.log('resObj in assets-controller getassetbyID', resObj);
         return resObj;
       })
       .catch((err: Error) => {
         console.log('Error in getAssetsByCreatorId in assets-controllers', err);
       })
   },
-  // getFileStream : async function(fileKey) {
-
-  //     const downloadParams = {
-  //     Key: fileKey,
-  //     Bucket: bucketName
-  //     }
-
-  //     const s3Object = await s3.getObject(downloadParams)
-  //     console.log('s3Object', s3Object);
-  //     const readstream = s3Object.createReadStream();
-  //     return readstream;
-  //   },
 
   getAssetMediaUrl: async function(fileKey) {
     const credentials = {
@@ -139,7 +119,6 @@ const assetsController = {
       }
       const s3 = new AWS.S3();
       let presignedGETURL = await s3.getSignedUrl('getObject', bucektParams);
-      // console.log("presigned url obtained from s3: ", presignedGETURL);
       return presignedGETURL;
     } catch (err) {
       console.log("error call during call s3 ".concat(err))
@@ -160,7 +139,6 @@ const assetsController = {
 					}
 				})
 
-				// console.log("response.data from s3 object...>", response.data)
 				return response.data;
 		} catch (err) {
 			console.log("error in axios call", err)
@@ -172,7 +150,6 @@ const assetsController = {
   // Upload Media File to S3
   uploadAssetMedia: function(file) {
     return new Promise((resolve, reject)=> {
-          // console.log('file inside createNewAsset controller', file);
       const filePath = file.stream;
 
       const path = require('path');
@@ -188,7 +165,6 @@ const assetsController = {
           console.log('Error', err);
           return reject(err);
         } if (data) {
-          // console.log('data response inside uploadAssetsMedia', data);
           return resolve(data.key);
         }
       })

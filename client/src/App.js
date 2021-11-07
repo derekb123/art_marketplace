@@ -21,29 +21,17 @@ import MakeOffer from './pages/MakeOffer';
 
 function App(props) {
 
-  // const [commonState, setCommonState] = useState ({loggedIn: false, loading: false, user: null})
 let initialCommonState = {loggedIn: false, loading: false, currentUserName: null, currentUserId: null, isCreator: false, avatar: null};
 const [commonState, dispatch] = useReducer(CommonReducer, initialCommonState);
 const [marketAssets, setMarketAssets] = useState([]);
 
 const isAuth = async (props) => {
-  // console.log('isAuth initial props',props);
-  // console.log('isAuth initial commonState',commonState);
+
   try {
     dispatch({type: Constants.LOADING})
     const refreshRes = await axios.post('users/refresh');
-    // console.log('isAuth refreshRes',refreshRes);
     const authObj = refreshRes.data;
-    // console.log('isAuth authObj',authObj);
-    // const {username, avatar, isCreator, accessToken} = refreshRes.data;
-    // console.log('username, avatar, isCreator, accessToken',username, avatar, isCreator, accessToken )
-    // const accessToken = refreshRes.accessToken;
-    // const avatar = refreshRes.data.avatar;
-    // const isCreator = refreshRes.data.isCretor;
-    // dispatch({type: Constants.REFRESH, payload: {username, avatar, isCreator}});
-    // console.log('isAuth accessToken', accessToken);
-    // const refreshSuccess = refreshRes.refresh;
-    // console.log('isAuth refreshSuccess',refreshSuccess);
+
     if (authObj.refresh) {
       const verifyAccessObj = await axios.get('users/verify', { headers : {token: authObj.accessToken}});
       const verifyAccess = verifyAccessObj.data;
@@ -59,7 +47,7 @@ const isAuth = async (props) => {
 }
 
 useEffect((props)=> {
-  // console.log('app use effect isAuth');
+
   isAuth(props);
 }, [])
 

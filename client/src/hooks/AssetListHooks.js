@@ -97,18 +97,12 @@ export async function GetAssetsByUserId(props, Constants, setMarketAssets, user_
 
   export async function getAssetById(id, props, Constants, axios, setCurrentAsset, setCurrentMedia) {
     try {
-      // console.log('inside getAssetById')
       props.commonDispatch({ type: Constants.LOADING })
-      // console.log(id);
       const assetInfoRes = await axios.get(`/assets/${id}`);
-      // console.log('res in GETASSETBYID in ASSETDETAILS: ', assetInfoRes);
       const gottenAsset = assetInfoRes.data;
       console.log('gottenAsset', gottenAsset)
-      // console.log('gottenAsset', gottenAsset);
       const assetMediaKey = gottenAsset.asset_media;
-      // console.log('assetMediaKey in assetDetail',assetMediaKey);
       const assetImageRes = await axios.get(`/assets/${id}/image/${assetMediaKey}`);
-      // console.log('assetImageRes in AssetDetail',assetImageRes);
       //GET ASSET INFO LIKE OWNER NAME & CREATOR NAME
       //PACKAGE WITH THIS OBJECT FOR DETAIL
       setCurrentAsset(gottenAsset);
@@ -129,7 +123,6 @@ export async function GetHighestBidsByAssetIds(props, Constants, axios, setBidsR
       }
       const res = await axios.get(`/bids/assets/highest/${assetsIds}`);
       let bidsArray = res.data
-      // console.log('res.data in AssetListHooks', bidsArray);
       if (bidsArray.length === 0) {
         bidsArray = [{}]
         return;

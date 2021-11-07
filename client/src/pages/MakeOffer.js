@@ -9,10 +9,6 @@ import InfoModal from '../components/InfoModal';
 
 const MakeOffer = (props) => {
 
-  // console.log('props for make offer',props);
-  // console.log('props for asset Cdispatch',props.commonDispatch);
-  // console.log('props for asset Cstate',props.commonState);
-
   // const [offermount, setAmount] = useState(null);
   // const [currentMedia, props.setCurrentMedia] = useState('');
   const [showOfferModal, setShowOfferModal] = useState(false);
@@ -21,13 +17,9 @@ const MakeOffer = (props) => {
   const [offerAmount, setOfferAmount] = useState(null);
   const [cardNumber, setCardNumber] = useState('');
 
-
-    // console.log('currentUserId & owner_id', props.commonState.currentUserId, props.currentAsset.owner_id);
-
   // const marketContext = useContext(MarketContext);
   // const { getAssetById, loading, currentAsset } = marketContext;
   let assetId = useParams().asset_id;
-  // console.log(assetId);
 
   useEffect (() => {
     getAssetById(assetId, props, Constants, axios, props.setCurrentAsset, props.setCurrentMedia);
@@ -53,8 +45,6 @@ const MakeOffer = (props) => {
       setShowOfferError(true);
     }
   }
-
-  // console.log('currentAsset in MakeOffer', props.currentAsset);
 
   return (
     <Fragment>

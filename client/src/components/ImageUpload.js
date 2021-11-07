@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, Fragment} from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 import imageUploadIcon from './upload_ image.png';
 
 

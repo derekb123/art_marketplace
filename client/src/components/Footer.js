@@ -1,12 +1,7 @@
-import React, { Fragment } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import Constants from '../reducers/Constants';
-import Button from '../components/Button'
-import axios from 'axios';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer(props) {
-  const username = props.commonState.currentUserName;
-  const history = useHistory();
 
   return (
     

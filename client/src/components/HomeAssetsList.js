@@ -3,7 +3,6 @@ import AssetItemSmall from './AssetItemSmall';
 import axios from 'axios';
 import Constants from '../reducers/Constants';
 import { GetAllAssetsNewest, GetAssetsByUserId } from '../hooks/AssetListHooks';
-// import CustomHooks from '../hooks/CustomHooks';
 
 const HomeAssetsList = (props) => {
 
