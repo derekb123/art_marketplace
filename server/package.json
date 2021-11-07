@@ -5,9 +5,10 @@
   "scripts": {
     "test": "jest --watchAll",
     "jestrunner.jestCommand": "npm run test --",
-    "start": "node server.ts",
+    "start": "ts-node server.ts",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "db:reset": "node bin/resetdb.ts"
+    "db:reset": "node bin/resetdb.ts",
+    "dev": "nodemon -x ts-node server.ts"
   },
   "author": "",
   "license": "GNU GPL version 3 or any later version",

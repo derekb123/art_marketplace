@@ -27,3 +27,5 @@
 
 **/.log
 **/.sqlite3
+
+**/dist/
